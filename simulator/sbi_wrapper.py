@@ -18,6 +18,10 @@ dt = 0.025
 seed = 0
 
 
+def get_time():
+    return np.arange(0, tmax, dt)
+
+
 def wrapper(params):
 
     full_data = simulate(params)
@@ -26,7 +30,7 @@ def wrapper(params):
     return ss
 
 
-def simulate(params):
+def simulate(params, seed=None):
     # note: make sure to generate all randomness through self.rng (!)
     if seed is not None:
         rng = np.random.RandomState(seed=seed)

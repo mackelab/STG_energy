@@ -10,7 +10,7 @@ import seaborn as sns
 import six
 import time
 import sys
-sys.path.append('fig5_cc/model/')
+sys.path.append('../../fig5_cc/model')
 from conditional_density import eval_conditional_density
 
 from scipy.stats import gaussian_kde
@@ -1137,27 +1137,24 @@ from copy import deepcopy
 #         self.pdfX = conditional_correlation.normalize_pdf_1D(self.pdfX, self.lx, self.ux, self.resolution_x)
 #         self.pdfY = conditional_correlation.normalize_pdf_1D(self.pdfY, self.ly, self.uy, self.resolution_y)
 
-def get_labels_8pt(params, mathmode=False, include_q10=True):
-    if params.comp_neurons is None:
-        membrane_conds = np.asarray(params.use_membrane)
-        membrane_names = [['AB-Na', 'AB-CaT', 'AB-CaS', 'AB-A', 'AB-KCa', 'AB-Kd', 'AB-H', 'AB-leak'],
-                          ['LP-Na', 'LP-CaT', 'LP-CaS', 'LP-A', 'LP-KCa', 'LP-Kd', 'LP-H', 'LP-leak'],
-                          ['PY-Na', 'PY-CaT', 'PY-CaS', 'PY-A', 'PY-KCa', 'PY-Kd', 'PY-H', 'PY-leak']]
-        if mathmode:
-            membrane_names = [
-                [r'$\mathrm{AB}_\mathrm{Na}$', r'$\mathrm{AB}_\mathrm{CaT}$', r'$\mathrm{AB}_\mathrm{CaS}$', r'$\mathrm{AB}_\mathrm{A}$', r'$\mathrm{AB}_\mathrm{KCa}$', r'$\mathrm{AB}_\mathrm{Kd}$', r'$\mathrm{AB}_\mathrm{H}$', r'$\mathrm{AB}_\mathrm{leak}$'],
-                [r'$\mathrm{LP}_\mathrm{Na}$', r'$\mathrm{LP}_\mathrm{CaT}$', r'$\mathrm{LP}_\mathrm{CaS}$', r'$\mathrm{LP}_\mathrm{A}$', r'$\mathrm{LP}_\mathrm{KCa}$', r'$\mathrm{LP}_\mathrm{Kd}$', r'$\mathrm{LP}_\mathrm{H}$', r'$\mathrm{LP}_\mathrm{leak}$'],
-                [r'$\mathrm{PY}_\mathrm{Na}$', r'$\mathrm{PY}_\mathrm{CaT}$', r'$\mathrm{PY}_\mathrm{CaS}$', r'$\mathrm{PY}_\mathrm{A}$', r'$\mathrm{PY}_\mathrm{KCa}$', r'$\mathrm{PY}_\mathrm{Kd}$', r'$\mathrm{PY}_\mathrm{H}$', r'$\mathrm{PY}_\mathrm{leak}$']]
-        membrane_names = np.asarray(membrane_names)
-        relevant_membrane_names = membrane_names[membrane_conds]
-        synapse_names = np.asarray([pick_synapse(num, True) for num in range(7)])
-        relevant_labels = np.concatenate((relevant_membrane_names, synapse_names))
-        #q10_names = [u'Q_{10} g\u0305_{glut}', u'Q_{10} g\u0305_{chol}', r'Q_{10} \tau_{glut}', r'Q_{10} \tau_{chol}']
-        if include_q10:
-            q10_names = ['Q_{10} Na', 'Q_{10} CaT', 'Q_{10} CaS', 'Q_{10} CaA', 'Q_{10} KCa', 'Q_{10} Kd', 'Q_{10} H', 'Q_{10} leak', u'Q_{10} g\u0305_{glut}', u'Q_{10} g\u0305_{chol}']
-            relevant_labels = np.concatenate((relevant_labels, q10_names))
-    else:
-        assert 'This case is not implemented yet.'
+def get_labels_8pt(mathmode=False, include_q10=True):
+    # membrane_conds = np.asarray(params.use_membrane)
+    membrane_names = [['AB-Na', 'AB-CaT', 'AB-CaS', 'AB-A', 'AB-KCa', 'AB-Kd', 'AB-H', 'AB-leak'],
+                      ['LP-Na', 'LP-CaT', 'LP-CaS', 'LP-A', 'LP-KCa', 'LP-Kd', 'LP-H', 'LP-leak'],
+                      ['PY-Na', 'PY-CaT', 'PY-CaS', 'PY-A', 'PY-KCa', 'PY-Kd', 'PY-H', 'PY-leak']]
+    if mathmode:
+        membrane_names = [
+            [r'$\mathrm{AB}_\mathrm{Na}$', r'$\mathrm{AB}_\mathrm{CaT}$', r'$\mathrm{AB}_\mathrm{CaS}$', r'$\mathrm{AB}_\mathrm{A}$', r'$\mathrm{AB}_\mathrm{KCa}$', r'$\mathrm{AB}_\mathrm{Kd}$', r'$\mathrm{AB}_\mathrm{H}$', r'$\mathrm{AB}_\mathrm{leak}$'],
+            [r'$\mathrm{LP}_\mathrm{Na}$', r'$\mathrm{LP}_\mathrm{CaT}$', r'$\mathrm{LP}_\mathrm{CaS}$', r'$\mathrm{LP}_\mathrm{A}$', r'$\mathrm{LP}_\mathrm{KCa}$', r'$\mathrm{LP}_\mathrm{Kd}$', r'$\mathrm{LP}_\mathrm{H}$', r'$\mathrm{LP}_\mathrm{leak}$'],
+            [r'$\mathrm{PY}_\mathrm{Na}$', r'$\mathrm{PY}_\mathrm{CaT}$', r'$\mathrm{PY}_\mathrm{CaS}$', r'$\mathrm{PY}_\mathrm{A}$', r'$\mathrm{PY}_\mathrm{KCa}$', r'$\mathrm{PY}_\mathrm{Kd}$', r'$\mathrm{PY}_\mathrm{H}$', r'$\mathrm{PY}_\mathrm{leak}$']]
+    membrane_names = np.asarray(membrane_names)
+    relevant_membrane_names = membrane_names
+    synapse_names = np.asarray([pick_synapse(num, True) for num in range(7)])
+    relevant_labels = np.concatenate((relevant_membrane_names.flatten(), synapse_names))
+    #q10_names = [u'Q_{10} g\u0305_{glut}', u'Q_{10} g\u0305_{chol}', r'Q_{10} \tau_{glut}', r'Q_{10} \tau_{chol}']
+    if include_q10:
+        q10_names = ['Q_{10} Na', 'Q_{10} CaT', 'Q_{10} CaS', 'Q_{10} CaA', 'Q_{10} KCa', 'Q_{10} Kd', 'Q_{10} H', 'Q_{10} leak', u'Q_{10} g\u0305_{glut}', u'Q_{10} g\u0305_{chol}']
+        relevant_labels = np.concatenate((relevant_labels, q10_names))
 
     return relevant_labels
 
