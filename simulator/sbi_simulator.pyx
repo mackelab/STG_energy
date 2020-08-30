@@ -196,16 +196,6 @@ def sim_time(dtype dt,
     cdef np.ndarray[dtype] synaptic_energy = np.asarray([0.0, 0.0, 0.0])
     cdef np.ndarray[dtype, ndim=2] total_energy = np.empty_like(Ix)
 
-    # if save_all_energy_currents:
-    cdef np.ndarray[dtype, ndim = 2] energyNa = np.empty_like(Ix)
-    cdef np.ndarray[dtype, ndim = 2] energyCaT = np.empty_like(Ix)
-    cdef np.ndarray[dtype, ndim = 2] energyCaS = np.empty_like(Ix)
-    cdef np.ndarray[dtype, ndim = 2] energyA = np.empty_like(Ix)
-    cdef np.ndarray[dtype, ndim = 2] energyKCa = np.empty_like(Ix)
-    cdef np.ndarray[dtype, ndim = 2] energyKd = np.empty_like(Ix)
-    cdef np.ndarray[dtype, ndim = 2] energyH = np.empty_like(Ix)
-    cdef np.ndarray[dtype, ndim = 2] energyLeak = np.empty_like(Ix)
-
     ### Always the case if SNPE calls this, init data is passed via constructor (not supported yet)
     if init is None:        # default: simulation from initial point
         for j in range(n):

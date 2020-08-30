@@ -7,11 +7,12 @@ import pyximport
 pyximport.install(setup_args={"include_dirs": numpy.get_include()}, reload_support=True)
 
 from sbi_simulator import sim_time
+from sbi_simulator_energyScape import sim_time_energyscape
 import numpy as np
 
 
 t_burnin = 1000
-t_window = 14000
+t_window = 10000
 noise_fact = 0.001
 tmax = t_burnin + t_window
 dt = 0.025
@@ -65,6 +66,48 @@ def simulate(params, seed=None):
         'dt': dt,
         'I': I,
         'energy': data['energy'],
+    }
+
+    return full_data
+
+
+
+def simulate_energyscape(params, seed=None):
+    # note: make sure to generate all randomness through self.rng (!)
+    if seed is not None:
+        rng = np.random.RandomState(seed=seed)
+    else:
+        rng = np.random.RandomState()
+
+    t = np.arange(0, tmax, dt)
+
+    membrane_params = params[0:-7]
+    membrane_params = np.float64(np.reshape(membrane_params, (3, 8)))
+    synaptic_params = np.exp(params[-7:])
+    conns = build_conns(-synaptic_params)
+
+    I = rng.normal(scale=noise_fact, size=(3, len(t)))
+
+    # calling the solver --> HH.HH()
+    data = sim_time_energyscape(
+        dt,
+        t,
+        I,
+        membrane_params,  # membrane conductances
+        conns,  # synaptic conductances (always variable)
+        temp=284,
+        init=None,
+        start_val_input=0.0,
+        verbose=False,
+    )
+
+    full_data = {
+        'data': data['Vs'],
+        'tmax': tmax,
+        'dt': dt,
+        'I': I,
+        'energy': data['energy'],
+        'all_energies': data['all_energies']
     }
 
     return full_data
