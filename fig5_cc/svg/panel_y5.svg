@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Created with matplotlib (https://matplotlib.org/) -->
+<svg height="127.05225pt" version="1.1" viewBox="0 0 43.14495 127.05225" width="43.14495pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+*{stroke-linecap:butt;stroke-linejoin:round;}
+  </style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 127.05225 
+L 43.14495 127.05225 
+L 43.14495 0 
+L 0 0 
+z
+" style="fill:none;"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path clip-path="url(#p1ed0d46c01)" d="M 7.2 115.399125 
+L 7.2 114.987656 
+L 7.2 10.474594 
+L 7.2 10.063125 
+L 10.7112 10.063125 
+L 10.7112 10.474594 
+L 10.7112 114.987656 
+L 10.7112 115.399125 
+z
+" style="fill:#ffffff;stroke:#ffffff;stroke-linejoin:miter;stroke-width:0.01;"/>
+   </g>
+   <image height="105.12" id="image783969dafd" transform="scale(1 -1)translate(0 -105.12)" width="3.6" x="7.2" xlink:href="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAA8AAAG2CAYAAACgZNxDAAAABHNCSVQICAgIfAhkiAAAAadJREFUeJztm0GOwzAMA72F///dPRRI+gaKgAiC9F2grJFppWn+/r/ve4brzkPPue+ZR3/muudcQphUJoRZ5aLClBlUVLXZtFWoZHs2TdsUldDDlGZQVJCyJyqpGciUZXs+RQUqd4jDlIsKVPZEFTnEFRWqbInK1MOKClyJqEw9rKjAlYjK1MOKClyJqO5DlDuxw4S+/VimHWkGRbUYTKIyLZhl2qGo5otNW2aATLAu7aICg4WoLOdtdqxgXrMRyqG9PQ/WcXY9VVRvC+dty2lIylmn7HiqpL3t+Pwc+fDtaYDCI9mCgcrKi06mTM3bgVcsc2NIJwOVsu2jUaANeZpBUYHBkb+TcO9u8jqsqFBlIri+vaw8Dy6qVWXODCxfp2aiqhlgwYkd5rln07RbsGXleXBRLStTwY5pFxW4ElG1YMvKRPBDTOuJqEzTDkUV+ImUZ8ESlbnPtgMLRvW255FMVDY9kpEFK6rFYFdU9e0I5ZrBZjBbMJ3y/P94uj2bpq1D1YItK7e3QWWqtx3TzkQl+31biaq9DSo77tk07V50y8qOe9al/QP6yBwoyWmEowAAAABJRU5ErkJggg==" y="-10.08"/>
+   <g id="matplotlib.axis_1"/>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_1">
+      <defs>
+       <path d="M 0 0 
+L 3.5 0 
+" id="me5790cd95a" style="stroke:#000000;stroke-width:1.5;"/>
+      </defs>
+      <g>
+       <use style="stroke:#000000;stroke-width:1.5;" x="10.7112" xlink:href="#me5790cd95a" y="115.399125"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-family:Arial;font-size:8px;font-style:normal;font-weight:normal;text-anchor:start;" transform="rotate(-0, 17.7112, 118.26225)" x="17.7112" y="118.26225">0 %</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_2">
+      <g>
+       <use style="stroke:#000000;stroke-width:1.5;" x="10.7112" xlink:href="#me5790cd95a" y="10.063125"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-family:Arial;font-size:8px;font-style:normal;font-weight:normal;text-anchor:start;" transform="rotate(-0, 17.7112, 12.92625)" x="17.7112" y="12.92625">70 %</text>
+     </g>
+    </g>
+    <g id="text_3">
+     <text style="font-family:Arial;font-size:8px;font-style:normal;font-weight:normal;text-anchor:middle;" transform="rotate(-90, 31.6712, 62.731125)" x="31.6712" y="62.731125">pot. E per spike savings</text>
+    </g>
+   </g>
+   <g id="patch_3">
+    <path d="M 7.2 115.399125 
+L 7.2 114.987656 
+L 7.2 10.474594 
+L 7.2 10.063125 
+L 10.7112 10.063125 
+L 10.7112 10.474594 
+L 10.7112 114.987656 
+L 10.7112 115.399125 
+z
+" style="fill:none;stroke:#000000;stroke-linejoin:miter;stroke-width:0.2;"/>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p1ed0d46c01">
+   <rect height="105.336" width="3.5112" x="7.2" y="10.063125"/>
+  </clipPath>
+ </defs>
+</svg>

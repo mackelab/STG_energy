@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Created with matplotlib (https://matplotlib.org/) -->
+<svg height="159.8085pt" version="1.1" viewBox="0 0 144.08225 159.8085" width="144.08225pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+*{stroke-linecap:butt;stroke-linejoin:round;}
+  </style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 159.8085 
+L 144.08225 159.8085 
+L 144.08225 0 
+L 0 0 
+z
+" style="fill:none;"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 31.54625 128.26225 
+L 136.88225 128.26225 
+L 136.88225 22.92625 
+L 31.54625 22.92625 
+z
+" style="fill:none;"/>
+   </g>
+   <g clip-path="url(#pb56f142bb7)">
+    <image height="105.36" id="image12449530f2" transform="scale(1 -1)translate(0 -105.36)" width="105.36" x="31.54625" xlink:href="data:image/png;base64,
+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" y="-22.90225"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path d="M 0 0 
+L 0 3.5 
+" id="m1c2083154f" style="stroke:#000000;stroke-width:1.5;"/>
+      </defs>
+      <g>
+       <use style="stroke:#000000;stroke-width:1.5;" x="38.12975" xlink:href="#m1c2083154f" y="128.26225"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-family:Arial;font-size:8px;font-style:normal;font-weight:normal;" transform="translate(40.197875 145.4885)rotate(-90)">Na</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use style="stroke:#000000;stroke-width:1.5;" x="51.29675" xlink:href="#m1c2083154f" y="128.26225"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-family:Arial;font-size:8px;font-style:normal;font-weight:normal;" transform="translate(53.364875 150.37475)rotate(-90)">CaT</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_3">
+      <g>
+       <use style="stroke:#000000;stroke-width:1.5;" x="64.46375" xlink:href="#m1c2083154f" y="128.26225"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-family:Arial;font-size:8px;font-style:normal;font-weight:normal;" transform="translate(66.531875 150.82475)rotate(-90)">CaS</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_4">
+      <g>
+       <use style="stroke:#000000;stroke-width:1.5;" x="77.63075" xlink:href="#m1c2083154f" y="128.26225"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-family:Arial;font-size:8px;font-style:normal;font-weight:normal;" transform="translate(79.698875 140.5985)rotate(-90)">A</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_5">
+      <g>
+       <use style="stroke:#000000;stroke-width:1.5;" x="90.79775" xlink:href="#m1c2083154f" y="128.26225"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-family:Arial;font-size:8px;font-style:normal;font-weight:normal;" transform="translate(92.865875 150.82475)rotate(-90)">KCa</text>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_6">
+      <g>
+       <use style="stroke:#000000;stroke-width:1.5;" x="103.96475" xlink:href="#m1c2083154f" y="128.26225"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <text style="font-family:Arial;font-size:8px;font-style:normal;font-weight:normal;" transform="translate(106.032875 145.04725)rotate(-90)">Kd</text>
+     </g>
+    </g>
+    <g id="xtick_7">
+     <g id="line2d_7">
+      <g>
+       <use style="stroke:#000000;stroke-width:1.5;" x="117.13175" xlink:href="#m1c2083154f" y="128.26225"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <text style="font-family:Arial;font-size:8px;font-style:normal;font-weight:normal;" transform="translate(119.199875 141.03975)rotate(-90)">H</text>
+     </g>
+    </g>
+    <g id="xtick_8">
+     <g id="line2d_8">
+      <g>
+       <use style="stroke:#000000;stroke-width:1.5;" x="130.29875" xlink:href="#m1c2083154f" y="128.26225"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <text style="font-family:Arial;font-size:8px;font-style:normal;font-weight:normal;" transform="translate(132.366875 152.6085)rotate(-90)">Leak</text>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_9">
+      <defs>
+       <path d="M 0 0 
+L -3.5 0 
+" id="m43abfa7d15" style="stroke:#000000;stroke-width:1.5;"/>
+      </defs>
+      <g>
+       <use style="stroke:#000000;stroke-width:1.5;" x="31.54625" xlink:href="#m43abfa7d15" y="29.50975"/>
+      </g>
+     </g>
+     <g id="text_9">
+      <text style="font-family:Arial;font-size:8px;font-style:normal;font-weight:normal;text-anchor:end;" transform="rotate(-0, 24.54625, 32.372875)" x="24.54625" y="32.372875">Na</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_10">
+      <g>
+       <use style="stroke:#000000;stroke-width:1.5;" x="31.54625" xlink:href="#m43abfa7d15" y="42.67675"/>
+      </g>
+     </g>
+     <g id="text_10">
+      <text style="font-family:Arial;font-size:8px;font-style:normal;font-weight:normal;text-anchor:end;" transform="rotate(-0, 24.54625, 45.539875)" x="24.54625" y="45.539875">CaT</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_11">
+      <g>
+       <use style="stroke:#000000;stroke-width:1.5;" x="31.54625" xlink:href="#m43abfa7d15" y="55.84375"/>
+      </g>
+     </g>
+     <g id="text_11">
+      <text style="font-family:Arial;font-size:8px;font-style:normal;font-weight:normal;text-anchor:end;" transform="rotate(-0, 24.54625, 58.706875)" x="24.54625" y="58.706875">CaS</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_12">
+      <g>
+       <use style="stroke:#000000;stroke-width:1.5;" x="31.54625" xlink:href="#m43abfa7d15" y="69.01075"/>
+      </g>
+     </g>
+     <g id="text_12">
+      <text style="font-family:Arial;font-size:8px;font-style:normal;font-weight:normal;text-anchor:end;" transform="rotate(-0, 24.54625, 71.873875)" x="24.54625" y="71.873875">A</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_13">
+      <g>
+       <use style="stroke:#000000;stroke-width:1.5;" x="31.54625" xlink:href="#m43abfa7d15" y="82.17775"/>
+      </g>
+     </g>
+     <g id="text_13">
+      <text style="font-family:Arial;font-size:8px;font-style:normal;font-weight:normal;text-anchor:end;" transform="rotate(-0, 24.54625, 85.040875)" x="24.54625" y="85.040875">KCa</text>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_14">
+      <g>
+       <use style="stroke:#000000;stroke-width:1.5;" x="31.54625" xlink:href="#m43abfa7d15" y="95.34475"/>
+      </g>
+     </g>
+     <g id="text_14">
+      <text style="font-family:Arial;font-size:8px;font-style:normal;font-weight:normal;text-anchor:end;" transform="rotate(-0, 24.54625, 98.207875)" x="24.54625" y="98.207875">Kd</text>
+     </g>
+    </g>
+    <g id="ytick_7">
+     <g id="line2d_15">
+      <g>
+       <use style="stroke:#000000;stroke-width:1.5;" x="31.54625" xlink:href="#m43abfa7d15" y="108.51175"/>
+      </g>
+     </g>
+     <g id="text_15">
+      <text style="font-family:Arial;font-size:8px;font-style:normal;font-weight:normal;text-anchor:end;" transform="rotate(-0, 24.54625, 111.374875)" x="24.54625" y="111.374875">H</text>
+     </g>
+    </g>
+    <g id="ytick_8">
+     <g id="line2d_16">
+      <g>
+       <use style="stroke:#000000;stroke-width:1.5;" x="31.54625" xlink:href="#m43abfa7d15" y="121.67875"/>
+      </g>
+     </g>
+     <g id="text_16">
+      <text style="font-family:Arial;font-size:8px;font-style:normal;font-weight:normal;text-anchor:end;" transform="rotate(-0, 24.54625, 124.541875)" x="24.54625" y="124.541875">Leak</text>
+     </g>
+    </g>
+   </g>
+   <g id="patch_3">
+    <path d="M 31.54625 128.26225 
+L 31.54625 22.92625 
+" style="fill:none;stroke:#000000;stroke-linecap:square;stroke-linejoin:miter;stroke-width:1.5;"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 31.54625 128.26225 
+L 136.88225 128.26225 
+" style="fill:none;stroke:#000000;stroke-linecap:square;stroke-linejoin:miter;stroke-width:1.5;"/>
+   </g>
+   <g id="text_17">
+    <text style="font-family:Arial;font-size:8px;font-style:normal;font-weight:normal;text-anchor:middle;" transform="rotate(-0, 84.21425, 12.92625)" x="84.21425" y="12.92625">PY</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pb56f142bb7">
+   <rect height="105.336" width="105.336" x="31.54625" y="22.92625"/>
+  </clipPath>
+ </defs>
+</svg>
