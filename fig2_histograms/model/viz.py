@@ -82,7 +82,7 @@ def energy_scape(
     fig, ax = plt.subplots(2, 2, figsize=figsize)
     iii = 0
     time_len = int(400 * (t_experimental[1] - t_experimental[0]) / 0.025 / 1e-3)
-    offset = [170700, 190000]
+    offset = [170000, 189010]
 
     cols_hex = ['#1b9e77', '#d95f02', '#7570b3', '#e7298a', '#66a61e', '#e6ab02',
                 '#a6761d', '#666666']
