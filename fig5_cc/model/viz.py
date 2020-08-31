@@ -1015,7 +1015,6 @@ def vis_sample_plain(
     data = voltage_trace
 
     Vx = data['data']
-    params = data['params']
 
     current_col = 0
     for j in range(len(neutypes)):
@@ -1068,23 +1067,20 @@ def vis_sample_plain(
 
 
 def plot_energy_scape(
-        pyloric_sim,
-        parameter_set,
+        out_target,
+        time,
         neuron_to_plot,
         t_min,
         t_max,
         figsize,
 ):
-    out_target = pyloric_sim[0].gen_single(deepcopy(parameter_set), seed_sim=True,
-                                           to_seed=8607175)
-
     cols_hex = ['#1b9e77', '#d95f02', '#7570b3', '#e7298a', '#66a61e', '#e6ab02',
                 '#a6761d', '#666666']
 
     # build energyscape
     all_energies = out_target['all_energies']
     all_currents_PD = all_energies[:, neuron_to_plot, :]
-    t = pyloric_sim[0].t[0:t_max - t_min]
+    t = time[0:t_max - t_min]
 
     fig, ax = plt.subplots(2, 1, figsize=figsize, gridspec_kw={'height_ratios': [3, 1]})
     for i in range(8):
