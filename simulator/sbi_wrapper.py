@@ -54,7 +54,7 @@ def simulate(params, seed=None):
         I,
         membrane_params,  # membrane conductances
         conns,  # synaptic conductances (always variable)
-        temp=284,
+        temp=283,
         init=None,
         start_val_input=0.0,
         verbose=False,
@@ -95,7 +95,7 @@ def simulate_energyscape(params, seed=None):
         I,
         membrane_params,  # membrane conductances
         conns,  # synaptic conductances (always variable)
-        temp=284,
+        temp=283,
         init=None,
         start_val_input=0.0,
         verbose=False,
