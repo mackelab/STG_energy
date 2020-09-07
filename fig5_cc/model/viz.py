@@ -295,6 +295,7 @@ def oneDmarginal(samples, points=[], **kwargs):
                                                             opts['hist_diag']['bins'],
                                                             log=False)
                         p_vector = p_vector / np.max(p_vector)  # just to scale it to 1
+                        print('p_vector', p_vector)
                         h = plt.plot(
                             np.linspace(opts['limits'][col, 0], opts['limits'][col, 1],
                                         opts['hist_diag']['bins']), p_vector,

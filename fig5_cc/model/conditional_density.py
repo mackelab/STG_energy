@@ -71,6 +71,10 @@ def extractSpecificCondCorr(posterior, corrs, lims, samples=None, num_samples=10
 def eval_conditional_density(pdf, theta, lims, dim1, dim2, resolution=20, log=True):
     """Evaluate the conditional plane."""
 
+    print("yesa")
+    print("lims", lims)
+    print("theta", theta)
+
     if dim1 == dim2:
         gbar_dim1 = np.linspace(lims[dim1,0], lims[dim1,1], resolution)
 
