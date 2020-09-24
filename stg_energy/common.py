@@ -10,8 +10,7 @@ import seaborn as sns
 import six
 import time
 import sys
-sys.path.append('../../fig5_cc/model')
-from conditional_density import eval_conditional_density
+from stg_energy.fig5_cc.conditional_density import eval_conditional_density
 
 from scipy.stats import gaussian_kde
 from seaborn.utils import despine
@@ -24,57 +23,58 @@ except:
     collectionsAbc = collections
 
 
-def unit(val, to='px'):
+def unit(val, to="px"):
     assert type(val) == str
     return Unit(val).to(to).value
 
 
 def unit2px(val):
-    return unit(val, to='px')
+    return unit(val, to="px")
 
 
 def unit2inches(val):
-    return unit(val, to='pt')
+    return unit(val, to="pt")
 
 
 def hex2rgb(hex):
     # Pass 16 to the integer function for change of base
-    return [int(hex[i:i+2], 16) for i in range(1,6,2)]
+    return [int(hex[i : i + 2], 16) for i in range(1, 6, 2)]
 
 
 def rgb2hex(RGB):
     # Components need to be integers for hex to make sense
     RGB = [int(x) for x in RGB]
-    return "#"+"".join(["0{0:x}".format(v) if v < 16 else
-                        "{0:x}".format(v) for v in RGB])
+    return "#" + "".join(
+        ["0{0:x}".format(v) if v < 16 else "{0:x}".format(v) for v in RGB]
+    )
 
 
 def get_colors(normalize=True):
-    hex2rgb = lambda h: tuple(int(h[i:i+2], 16) for i in (0, 2, 4))
+    hex2rgb = lambda h: tuple(int(h[i : i + 2], 16) for i in (0, 2, 4))
 
     # RGB colors in [0, 255]
     col = {}
 
-    #parameters and corresponding data
-    col['POSTERIOR1']   = hex2rgb('2E7FB6')
-    col['POSTERIOR2']   = hex2rgb('5DB784')
-    col['POSTERIOR3']   = hex2rgb('EDE249')
-    col['CONSISTENT1']  = hex2rgb('8D62BC')
-    col['CONSISTENT2']  = hex2rgb('AF99EF')
-    col['INCONSISTENT'] = hex2rgb('D73789')
-    col['GT']           = hex2rgb('30C05D')
+    # parameters and corresponding data
+    col["POSTERIOR1"] = hex2rgb("2E7FB6")
+    col["POSTERIOR2"] = hex2rgb("5DB784")
+    col["POSTERIOR3"] = hex2rgb("EDE249")
+    col["CONSISTENT1"] = hex2rgb("8D62BC")
+    col["CONSISTENT2"] = hex2rgb("AF99EF")
+    col["INCONSISTENT"] = hex2rgb("D73789")
+    col["GT"] = hex2rgb("30C05D")
 
     # methods
-    col['SNPE']         = hex2rgb('2E7FE8')
-    col['MCMC']         = hex2rgb('FFDF50')
+    col["SNPE"] = hex2rgb("2E7FE8")
+    col["MCMC"] = hex2rgb("FFDF50")
 
     # rarely used
-    col['PRIOR']        = hex2rgb('2EDEE8')
+    col["PRIOR"] = hex2rgb("2EDEE8")
 
     # Convert to RGB colors in [0, 1]
     if normalize:
         for k, v in col.items():
-            col[k] = tuple([i/255 for i in v])
+            col[k] = tuple([i / 255 for i in v])
 
     return col
 
@@ -126,13 +126,37 @@ def probs2contours(probs, levels):
     return contours
 
 
-def plot_pdf(pdf1, lims=None, pdf2=None, gt=None, contours=False, levels=(0.68, 0.95),
-             resolution=500, labels_params=None, ticks=False, diag_only=False,
-             diag_only_cols=4, diag_only_rows=4, figsize=(5, 5), fontscale=1,
-             partial=False, partial_dots=False, samples=None,
-             sam1=None, sam2=None, sam3=None, samms=5,
-             col1='k', col2='b', col3='g', col4='r', col5='k', col6='k', col7='k',
-             axis_off=False):
+def plot_pdf(
+    pdf1,
+    lims=None,
+    pdf2=None,
+    gt=None,
+    contours=False,
+    levels=(0.68, 0.95),
+    resolution=500,
+    labels_params=None,
+    ticks=False,
+    diag_only=False,
+    diag_only_cols=4,
+    diag_only_rows=4,
+    figsize=(5, 5),
+    fontscale=1,
+    partial=False,
+    partial_dots=False,
+    samples=None,
+    sam1=None,
+    sam2=None,
+    sam3=None,
+    samms=5,
+    col1="k",
+    col2="b",
+    col3="g",
+    col4="r",
+    col5="k",
+    col6="k",
+    col7="k",
+    axis_off=False,
+):
     """Plots marginals of a pdf, for each variable and pair of variables.
 
     Parameters
@@ -198,19 +222,18 @@ def plot_pdf(pdf1, lims=None, pdf2=None, gt=None, contours=False, levels=(0.68, 
         lims_max = np.max(samples, axis=1)
         lims = np.asarray(lims)
         lims = np.concatenate(
-            (lims_min.reshape(-1, 1), lims_max.reshape(-1, 1)), axis=1)
+            (lims_min.reshape(-1, 1), lims_max.reshape(-1, 1)), axis=1
+        )
     else:
         lims = np.asarray(lims)
         lims = np.tile(lims, [pdf1.ndim, 1]) if lims.ndim == 1 else lims
 
     if pdf1.ndim == 1:
 
-        fig, ax = plt.subplots(1, 1, facecolor='white', figsize=figsize)
+        fig, ax = plt.subplots(1, 1, facecolor="white", figsize=figsize)
 
         if samples is not None:
-            ax.hist(samples[i, :], bins=100, normed=True,
-                    color=col1,
-                    edgecolor=col1)
+            ax.hist(samples[i, :], bins=100, normed=True, color=col1, edgecolor=col1)
 
         xx = np.linspace(lims[0, 0], lims[0, 1], resolution)
 
@@ -221,15 +244,15 @@ def plot_pdf(pdf1, lims=None, pdf2=None, gt=None, contours=False, levels=(0.68, 
         ax.set_xlim(lims[0])
         ax.set_ylim([0, ax.get_ylim()[1]])
         if gt is not None:
-            ax.vlines(gt, 0, ax.get_ylim()[1], color='r')
+            ax.vlines(gt, 0, ax.get_ylim()[1], color="r")
 
         if ticks:
-            ax.get_yaxis().set_tick_params(which='both', direction='out')
-            ax.get_xaxis().set_tick_params(which='both', direction='out')
+            ax.get_yaxis().set_tick_params(which="both", direction="out")
+            ax.get_xaxis().set_tick_params(which="both", direction="out")
             ax.set_xticks(np.linspace(lims[0, 0], lims[0, 1], 2))
             ax.set_yticks(np.linspace(min(pp), max(pp), 2))
-            ax.xaxis.set_major_formatter(mpl.ticker.FormatStrFormatter('%.1f'))
-            ax.yaxis.set_major_formatter(mpl.ticker.FormatStrFormatter('%.1f'))
+            ax.xaxis.set_major_formatter(mpl.ticker.FormatStrFormatter("%.1f"))
+            ax.yaxis.set_major_formatter(mpl.ticker.FormatStrFormatter("%.1f"))
         else:
             ax.get_xaxis().set_ticks([])
             ax.get_yaxis().set_ticks([])
@@ -249,7 +272,7 @@ def plot_pdf(pdf1, lims=None, pdf2=None, gt=None, contours=False, levels=(0.68, 
             r = 0
             c = -1
 
-        fig, ax = plt.subplots(rows, cols, facecolor='white', figsize=figsize)
+        fig, ax = plt.subplots(rows, cols, facecolor="white", figsize=figsize)
         ax = ax.reshape(rows, cols)
 
         for i in range(rows):
@@ -257,9 +280,13 @@ def plot_pdf(pdf1, lims=None, pdf2=None, gt=None, contours=False, levels=(0.68, 
 
                 if i == j:
                     if samples is not None:
-                        ax[i, j].hist(samples[i, :], bins=100, normed=True,
-                                      color=col1,
-                                      edgecolor=col1)
+                        ax[i, j].hist(
+                            samples[i, :],
+                            bins=100,
+                            normed=True,
+                            color=col1,
+                            edgecolor=col1,
+                        )
                     xx = np.linspace(lims[i, 0], lims[i, 1], resolution)
 
                     for pdf, col in zip(pdfs, colrs):
@@ -281,40 +308,50 @@ def plot_pdf(pdf1, lims=None, pdf2=None, gt=None, contours=False, levels=(0.68, 
                     ax[r, c].set_ylim([0, ax[r, c].get_ylim()[1]])
 
                     if gt is not None:
-                        ax[r, c].vlines(
-                            gt[i], 0, ax[r, c].get_ylim()[1], color=col4)
+                        ax[r, c].vlines(gt[i], 0, ax[r, c].get_ylim()[1], color=col4)
 
                     if sam1 is not None:
-                        ax[r, c].vlines(
-                            sam1[i], 0, ax[r, c].get_ylim()[1], color=col5)
+                        ax[r, c].vlines(sam1[i], 0, ax[r, c].get_ylim()[1], color=col5)
 
                     if sam2 is not None:
-                        ax[r, c].vlines(
-                            sam2[i], 0, ax[r, c].get_ylim()[1], color=col6)
+                        ax[r, c].vlines(sam2[i], 0, ax[r, c].get_ylim()[1], color=col6)
 
                     if sam3 is not None:
-                        ax[r, c].vlines(
-                            sam3[i], 0, ax[r, c].get_ylim()[1], color=col7)
+                        ax[r, c].vlines(sam3[i], 0, ax[r, c].get_ylim()[1], color=col7)
 
                     if ticks:
                         ax[r, c].get_yaxis().set_tick_params(
-                            which='both', direction='out')
+                            which="both", direction="out"
+                        )
                         ax[r, c].get_xaxis().set_tick_params(
-                            which='both', direction='out')
-                        ax[r, c].set_xticks(np.linspace(
-                            lims[i, 0]+0.15*np.abs(lims[i, 0]-lims[j, 1]), lims[j, 1]-0.15*np.abs(lims[i, 0]-lims[j, 1]), 2))
-                        ax[r, c].set_yticks(np.linspace(0+0.15*np.abs(0-max(pp)), max(pp)-0.15*np.abs(0-max(pp)), 2))
+                            which="both", direction="out"
+                        )
+                        ax[r, c].set_xticks(
+                            np.linspace(
+                                lims[i, 0] + 0.15 * np.abs(lims[i, 0] - lims[j, 1]),
+                                lims[j, 1] - 0.15 * np.abs(lims[i, 0] - lims[j, 1]),
+                                2,
+                            )
+                        )
+                        ax[r, c].set_yticks(
+                            np.linspace(
+                                0 + 0.15 * np.abs(0 - max(pp)),
+                                max(pp) - 0.15 * np.abs(0 - max(pp)),
+                                2,
+                            )
+                        )
                         ax[r, c].xaxis.set_major_formatter(
-                            mpl.ticker.FormatStrFormatter('%.1f'))
+                            mpl.ticker.FormatStrFormatter("%.1f")
+                        )
                         ax[r, c].yaxis.set_major_formatter(
-                            mpl.ticker.FormatStrFormatter('%.1f'))
+                            mpl.ticker.FormatStrFormatter("%.1f")
+                        )
                     else:
                         ax[r, c].get_xaxis().set_ticks([])
                         ax[r, c].get_yaxis().set_ticks([])
 
                     if labels_params is not None:
-                        ax[r, c].set_xlabel(
-                            labels_params[i])
+                        ax[r, c].set_xlabel(labels_params[i])
                     else:
                         ax[r, c].set_xlabel([])
 
@@ -323,10 +360,13 @@ def plot_pdf(pdf1, lims=None, pdf2=None, gt=None, contours=False, levels=(0.68, 
                     ax[r, c].set_aspect((x1 - x0) / (y1 - y0))
 
                     if partial_dots and i == rows - 1:
-                        ax[i, j].text(x1 + (x1 - x0) / 6., (y0 + y1) /
-                                      2., '...')
-                        plt.text(x1 + (x1 - x0) / 8.4, y0 - (y1 - y0) /
-                                 6., '...', rotation=-45)
+                        ax[i, j].text(x1 + (x1 - x0) / 6.0, (y0 + y1) / 2.0, "...")
+                        plt.text(
+                            x1 + (x1 - x0) / 8.4,
+                            y0 - (y1 - y0) / 6.0,
+                            "...",
+                            rotation=-45,
+                        )
 
                 else:
                     if diag_only:
@@ -345,46 +385,87 @@ def plot_pdf(pdf1, lims=None, pdf2=None, gt=None, contours=False, levels=(0.68, 
 
                     if samples is not None:
                         H, xedges, yedges = np.histogram2d(
-                            samples[i, :], samples[j, :], bins=30, range=[
-                            [lims[i, 0], lims[i, 1]], [lims[j, 0], lims[j, 1]]], normed=True)
-                        ax[i, j].imshow(H, origin='lower', extent=[
-                                        yedges[0], yedges[-1], xedges[0], xedges[-1]])
+                            samples[i, :],
+                            samples[j, :],
+                            bins=30,
+                            range=[[lims[i, 0], lims[i, 1]], [lims[j, 0], lims[j, 1]]],
+                            normed=True,
+                        )
+                        ax[i, j].imshow(
+                            H,
+                            origin="lower",
+                            extent=[yedges[0], yedges[-1], xedges[0], xedges[-1]],
+                        )
 
                     xx = np.linspace(lims[i, 0], lims[i, 1], resolution)
                     yy = np.linspace(lims[j, 0], lims[j, 1], resolution)
                     X, Y = np.meshgrid(xx, yy)
                     xy = np.concatenate(
-                        [X.reshape([-1, 1]), Y.reshape([-1, 1])], axis=1)
+                        [X.reshape([-1, 1]), Y.reshape([-1, 1])], axis=1
+                    )
                     pp = pdf.eval(xy, ii=[i, j], log=False)
                     pp = pp.reshape(list(X.shape))
                     if contours:
                         contour_cols = (col2, col2)
                         if i > j:
                             contour_cols = (col3, col3)
-                        ax[i, j].contour(Y, X, probs2contours(
-                            pp, levels), levels, colors=contour_cols)
+                        ax[i, j].contour(
+                            Y,
+                            X,
+                            probs2contours(pp, levels),
+                            levels,
+                            colors=contour_cols,
+                        )
                     else:
-                        ax[i, j].imshow(pp.T, origin='lower',
-                                        extent=[lims[j, 0], lims[j, 1], lims[i, 0], lims[i, 1]],
-                                        aspect='auto', interpolation='none')
+                        ax[i, j].imshow(
+                            pp.T,
+                            origin="lower",
+                            extent=[lims[j, 0], lims[j, 1], lims[i, 0], lims[i, 1]],
+                            aspect="auto",
+                            interpolation="none",
+                        )
                     ax[i, j].set_xlim(lims[j])
                     ax[i, j].set_ylim(lims[i])
 
                     if gt is not None:
-                        ax[i, j].plot(gt[j], gt[i], '.', color=col4, markersize=samms,
-                                      markeredgewidth=0.0)
+                        ax[i, j].plot(
+                            gt[j],
+                            gt[i],
+                            ".",
+                            color=col4,
+                            markersize=samms,
+                            markeredgewidth=0.0,
+                        )
 
                     if sam1 is not None:
-                        ax[i, j].plot(sam1[j], sam1[i], marker='.', color=col5, markersize=samms,
-                                      markeredgewidth=0.0)
+                        ax[i, j].plot(
+                            sam1[j],
+                            sam1[i],
+                            marker=".",
+                            color=col5,
+                            markersize=samms,
+                            markeredgewidth=0.0,
+                        )
 
                     if sam2 is not None:
-                        ax[i, j].plot(sam2[j], sam2[i], marker='.', color=col6, markersize=samms,
-                                      markeredgewidth=0.0)
+                        ax[i, j].plot(
+                            sam2[j],
+                            sam2[i],
+                            marker=".",
+                            color=col6,
+                            markersize=samms,
+                            markeredgewidth=0.0,
+                        )
 
                     if sam3 is not None:
-                        ax[i, j].plot(sam3[j], sam3[i], marker='.', color=col7, markersize=samms,
-                                      markeredgewidth=0.0)
+                        ax[i, j].plot(
+                            sam3[j],
+                            sam3[i],
+                            marker=".",
+                            color=col7,
+                            markersize=samms,
+                            markeredgewidth=0.0,
+                        )
 
                     ax[i, j].get_xaxis().set_ticks([])
                     ax[i, j].get_yaxis().set_ticks([])
@@ -395,8 +476,7 @@ def plot_pdf(pdf1, lims=None, pdf2=None, gt=None, contours=False, levels=(0.68, 
                     ax[i, j].set_aspect((x1 - x0) / (y1 - y0))
 
                     if partial_dots and j == cols - 1:
-                        ax[i, j].text(x1 + (x1 - x0) / 6., (y0 + y1) /
-                                      2., '...')
+                        ax[i, j].text(x1 + (x1 - x0) / 6.0, (y0 + y1) / 2.0, "...")
 
                 if diag_only and c == cols - 1:
                     c = -1
@@ -415,7 +495,6 @@ def img(img):
 svg = img
 
 
-
 def _update(d, u):
     # https://stackoverflow.com/a/3233356
     for k, v in six.iteritems(u):
@@ -429,32 +508,31 @@ def _update(d, u):
     return d
 
 
-def _format_axis(ax, xhide=True, yhide=True, xlabel='', ylabel='',
-        tickformatter=None):
-    for loc in ['right', 'top', 'left', 'bottom']:
+def _format_axis(ax, xhide=True, yhide=True, xlabel="", ylabel="", tickformatter=None):
+    for loc in ["right", "top", "left", "bottom"]:
         ax.spines[loc].set_visible(False)
     if xhide:
-        ax.set_xlabel('')
-        ax.xaxis.set_ticks_position('none')
+        ax.set_xlabel("")
+        ax.xaxis.set_ticks_position("none")
         ax.xaxis.set_tick_params(labelbottom=False)
     if yhide:
-        ax.set_ylabel('')
-        ax.yaxis.set_ticks_position('none')
+        ax.set_ylabel("")
+        ax.yaxis.set_ticks_position("none")
         ax.yaxis.set_tick_params(labelleft=False)
     if not xhide:
         ax.set_xlabel(xlabel)
-        ax.xaxis.set_ticks_position('bottom')
+        ax.xaxis.set_ticks_position("bottom")
         ax.xaxis.set_tick_params(labelbottom=True)
         if tickformatter is not None:
             ax.xaxis.set_major_formatter(tickformatter)
-        ax.spines['bottom'].set_visible(True)
+        ax.spines["bottom"].set_visible(True)
     if not yhide:
         ax.set_ylabel(ylabel)
-        ax.yaxis.set_ticks_position('left')
+        ax.yaxis.set_ticks_position("left")
         ax.yaxis.set_tick_params(labelleft=True)
         if tickformatter is not None:
             ax.yaxis.set_major_formatter(tickformatter)
-        ax.spines['left'].set_visible(True)
+        ax.spines["left"].set_visible(True)
     return ax
 
 
@@ -465,107 +543,60 @@ def samples_nd(samples, points=[], **kwargs):
     """
     opts = {
         # what to plot on triagonal and diagonal subplots
-        'upper': 'hist',   # hist/scatter/None/cond
-        'diag': 'hist',    # hist/None/cond
+        "upper": "hist",  # hist/scatter/None/cond
+        "diag": "hist",  # hist/None/cond
         #'lower': None,     # hist/scatter/None  # TODO: implement
-
         # title and legend
-        'title': None,
-        'legend': False,
-
+        "title": None,
+        "legend": False,
         # labels
-        'labels': [],         # for dimensions
-        'labels_points': [],  # for points
-        'labels_samples': [], # for samples
-        'labelpad': None,     # (int or None). If not None, the labels will be shifted downwards by labelpad
-
+        "labels": [],  # for dimensions
+        "labels_points": [],  # for points
+        "labels_samples": [],  # for samples
+        "labelpad": None,  # (int or None). If not None, the labels will be shifted downwards by labelpad
         # colors
-        'samples_colors': plt.rcParams['axes.prop_cycle'].by_key()['color'],
-        'points_colors': plt.rcParams['axes.prop_cycle'].by_key()['color'],
-
+        "samples_colors": plt.rcParams["axes.prop_cycle"].by_key()["color"],
+        "points_colors": plt.rcParams["axes.prop_cycle"].by_key()["color"],
         # subset
-        'subset': None,
-
+        "subset": None,
         # conditional posterior requires condition and pdf1
-        'pdfs': None,
-        'condition': None,
-
+        "pdfs": None,
+        "condition": None,
         # axes limits
-        'limits': [],
-
+        "limits": [],
         # ticks
-        'ticks': [],
-        'tickformatter': mpl.ticker.FormatStrFormatter('%g'),
-        'tick_labels': None,
-        'tick_labelpad': None, # (None or int). If not None, the ticklabels will be shifted downwards by tick_labelpad
-
+        "ticks": [],
+        "tickformatter": mpl.ticker.FormatStrFormatter("%g"),
+        "tick_labels": None,
+        "tick_labelpad": None,  # (None or int). If not None, the ticklabels will be shifted downwards by tick_labelpad
         # options for hist
-        'hist_diag': {
-            'alpha': 1.,
-            'bins': 25,
-            'density': False,
-            'histtype': 'step'
-        },
-        'hist_offdiag': {
+        "hist_diag": {"alpha": 1.0, "bins": 25, "density": False, "histtype": "step"},
+        "hist_offdiag": {
             #'edgecolor': 'none',
             #'linewidth': 0.0,
-            'bins': 25,
+            "bins": 25,
         },
-
         # options for kde
-        'kde_diag': {
-            'bw_method': 'scott',
-            'bins': 100,
-            'color': 'black'
-        },
-        'kde_offdiag': {
-            'bw_method': 'scott',
-            'bins': 25
-        },
-
+        "kde_diag": {"bw_method": "scott", "bins": 100, "color": "black"},
+        "kde_offdiag": {"bw_method": "scott", "bins": 25},
         # options for contour
-        'contour_offdiag': {
-            'levels': [0.68]
-        },
-
+        "contour_offdiag": {"levels": [0.68]},
         # options for scatter
-        'scatter_offdiag': {
-            'alpha': 0.5,
-            'edgecolor': 'none',
-            'rasterized': False,
-        },
-
+        "scatter_offdiag": {"alpha": 0.5, "edgecolor": "none", "rasterized": False,},
         # options for plot
-        'plot_offdiag': {},
-
+        "plot_offdiag": {},
         # formatting points (scale, markers)
-        'points_diag': {
-        },
-        'points_offdiag': {
-            'marker': '.',
-            'markersize': 20,
-        },
-
+        "points_diag": {},
+        "points_offdiag": {"marker": ".", "markersize": 20,},
         # matplotlib style
-        'style': os.path.join(os.path.dirname(__file__), '.matplotlibrc'),
-
+        "style": os.path.join(os.path.dirname(__file__), ".matplotlibrc"),
         # other options
-        'fig_size': (10, 10),
-        'fig_bg_colors':
-            {'upper': None,
-             'diag': None,
-             'lower': None},
-        'fig_subplots_adjust': {
-            'top': 0.9,
-        },
-        'subplots': {
-        },
-        'despine': {
-            'offset': 5,
-        },
-        'title_format': {
-            'fontsize': 16
-        },
+        "fig_size": (10, 10),
+        "fig_bg_colors": {"upper": None, "diag": None, "lower": None},
+        "fig_subplots_adjust": {"top": 0.9,},
+        "subplots": {},
+        "despine": {"offset": 5,},
+        "title_format": {"fontsize": 16},
     }
     # TODO: add color map support
     # TODO: automatically determine good bin sizes for histograms
@@ -591,13 +622,13 @@ def samples_nd(samples, points=[], **kwargs):
     # TODO: add asserts checking compatiblity of dimensions
 
     # Prepare labels
-    if opts['labels'] == [] or opts['labels'] is None:
-        labels_dim = ['dim {}'.format(i+1) for i in range(dim)]
+    if opts["labels"] == [] or opts["labels"] is None:
+        labels_dim = ["dim {}".format(i + 1) for i in range(dim)]
     else:
-        labels_dim = opts['labels']
+        labels_dim = opts["labels"]
 
     # Prepare limits
-    if opts['limits'] == [] or opts['limits'] is None:
+    if opts["limits"] == [] or opts["limits"] is None:
         limits = []
         for d in range(dim):
             min = +np.inf
@@ -609,42 +640,42 @@ def samples_nd(samples, points=[], **kwargs):
                 max = max_ if max_ > max else max
             limits.append([min, max])
     else:
-        if len(opts['limits']) == 1:
-            limits = [opts['limits'][0] for _ in range(dim)]
+        if len(opts["limits"]) == 1:
+            limits = [opts["limits"][0] for _ in range(dim)]
         else:
-            limits = opts['limits']
+            limits = opts["limits"]
 
     # Prepare ticks
-    if opts['ticks'] == [] or opts['ticks'] is None:
+    if opts["ticks"] == [] or opts["ticks"] is None:
         ticks = None
     else:
-        if len(opts['ticks']) == 1:
-            ticks = [opts['ticks'][0] for _ in range(dim)]
+        if len(opts["ticks"]) == 1:
+            ticks = [opts["ticks"][0] for _ in range(dim)]
         else:
-            ticks = opts['ticks']
+            ticks = opts["ticks"]
 
     # Prepare diag/upper/lower
-    if type(opts['diag']) is not list:
-        opts['diag'] = [opts['diag'] for _ in range(len(samples))]
-    if type(opts['upper']) is not list:
-        opts['upper'] = [opts['upper'] for _ in range(len(samples))]
-    #if type(opts['lower']) is not list:
+    if type(opts["diag"]) is not list:
+        opts["diag"] = [opts["diag"] for _ in range(len(samples))]
+    if type(opts["upper"]) is not list:
+        opts["upper"] = [opts["upper"] for _ in range(len(samples))]
+    # if type(opts['lower']) is not list:
     #    opts['lower'] = [opts['lower'] for _ in range(len(samples))]
-    opts['lower'] = None
+    opts["lower"] = None
 
     # Style
-    if opts['style'] in ['dark', 'light']:
+    if opts["style"] in ["dark", "light"]:
         style = os.path.join(
-            os.path.dirname(__file__),
-            'matplotlib_{}.style'.format(opts['style']))
+            os.path.dirname(__file__), "matplotlib_{}.style".format(opts["style"])
+        )
     else:
-        style = opts['style'];
+        style = opts["style"]
 
     # Apply custom style as context
     with mpl.rc_context(fname=style):
 
         # Figure out if we subset the plot
-        subset = opts['subset']
+        subset = opts["subset"]
         if subset is None:
             rows = cols = dim
             subset = [i for i in range(dim)]
@@ -657,12 +688,14 @@ def samples_nd(samples, points=[], **kwargs):
                 raise NotImplementedError
             rows = cols = len(subset)
 
-        fig, axes = plt.subplots(rows, cols, figsize=opts['fig_size'], **opts['subplots'])
+        fig, axes = plt.subplots(
+            rows, cols, figsize=opts["fig_size"], **opts["subplots"]
+        )
         axes = axes.reshape(rows, cols)
 
         # Style figure
-        fig.subplots_adjust(**opts['fig_subplots_adjust'])
-        fig.suptitle(opts['title'], **opts['title_format'])
+        fig.subplots_adjust(**opts["fig_subplots_adjust"])
+        fig.suptitle(opts["title"], **opts["title_format"])
 
         # Style axes
         row_idx = -1
@@ -680,91 +713,119 @@ def samples_nd(samples, points=[], **kwargs):
                     col_idx += 1
 
                 if row == col:
-                    current = 'diag'
+                    current = "diag"
                 elif row < col:
-                    current = 'upper'
+                    current = "upper"
                 else:
-                    current = 'lower'
+                    current = "lower"
 
                 ax = axes[row_idx, col_idx]
                 plt.sca(ax)
 
                 # Background color
-                if current in opts['fig_bg_colors'] and \
-                    opts['fig_bg_colors'][current] is not None:
-                    ax.set_facecolor(
-                        opts['fig_bg_colors'][current])
+                if (
+                    current in opts["fig_bg_colors"]
+                    and opts["fig_bg_colors"][current] is not None
+                ):
+                    ax.set_facecolor(opts["fig_bg_colors"][current])
 
                 # Axes
                 if opts[current] is None:
-                    ax.axis('off')
+                    ax.axis("off")
                     continue
 
                 # Limits
                 if limits is not None:
-                    ax.set_xlim(
-                        (limits[col][0], limits[col][1]))
-                    if current != 'diag':
-                        ax.set_ylim(
-                            (limits[row][0], limits[row][1]))
+                    ax.set_xlim((limits[col][0], limits[col][1]))
+                    if current != "diag":
+                        ax.set_ylim((limits[row][0], limits[row][1]))
                 xmin, xmax = ax.get_xlim()
                 ymin, ymax = ax.get_ylim()
 
                 # Ticks
                 if ticks is not None:
-                    ax.set_xticks(
-                        (ticks[col][0], ticks[col][1]))
-                    if current != 'diag':
-                        ax.set_yticks(
-                            (ticks[row][0], ticks[row][1]))
+                    ax.set_xticks((ticks[col][0], ticks[col][1]))
+                    if current != "diag":
+                        ax.set_yticks((ticks[row][0], ticks[row][1]))
 
                 # Despine
-                sns.despine(ax=ax, **opts['despine'])
+                sns.despine(ax=ax, **opts["despine"])
 
                 # Formatting axes
-                if current == 'diag':  # off-diagnoals
-                    if opts['lower'] is None or col == dim-1:
-                        _format_axis(ax, xhide=False, xlabel=labels_dim[col],
-                            yhide=True, tickformatter=opts['tickformatter'])
-                        if opts['labelpad'] is not None: ax.xaxis.labelpad = opts['labelpad']
+                if current == "diag":  # off-diagnoals
+                    if opts["lower"] is None or col == dim - 1:
+                        _format_axis(
+                            ax,
+                            xhide=False,
+                            xlabel=labels_dim[col],
+                            yhide=True,
+                            tickformatter=opts["tickformatter"],
+                        )
+                        if opts["labelpad"] is not None:
+                            ax.xaxis.labelpad = opts["labelpad"]
                     else:
                         _format_axis(ax, xhide=True, yhide=True)
                 else:  # off-diagnoals
-                    if row == dim-1:
-                        _format_axis(ax, xhide=False, xlabel=labels_dim[col],
-                            yhide=True, tickformatter=opts['tickformatter'])
+                    if row == dim - 1:
+                        _format_axis(
+                            ax,
+                            xhide=False,
+                            xlabel=labels_dim[col],
+                            yhide=True,
+                            tickformatter=opts["tickformatter"],
+                        )
                     else:
                         _format_axis(ax, xhide=True, yhide=True)
-                if opts['tick_labels'] is not None:
+                if opts["tick_labels"] is not None:
                     ax.set_xticklabels(
-                        (str(opts['tick_labels'][col][0]), str(opts['tick_labels'][col][1])))
-                    if opts['tick_labelpad'] is not None:
-                        ax.tick_params(axis='x', which='major', pad=opts['tick_labelpad'])
+                        (
+                            str(opts["tick_labels"][col][0]),
+                            str(opts["tick_labels"][col][1]),
+                        )
+                    )
+                    if opts["tick_labelpad"] is not None:
+                        ax.tick_params(
+                            axis="x", which="major", pad=opts["tick_labelpad"]
+                        )
 
                 # Diagonals
-                if current == 'diag':
+                if current == "diag":
                     if len(samples) > 0:
                         for n, v in enumerate(samples):
-                            if opts['diag'][n] == 'hist':
+                            if opts["diag"][n] == "hist":
                                 h = plt.hist(
                                     v[:, row],
-                                    color=opts['samples_colors'][n],
-                                    **opts['hist_diag']
+                                    color=opts["samples_colors"][n],
+                                    **opts["hist_diag"]
                                 )
-                            elif opts['diag'][n] == 'kde':
+                            elif opts["diag"][n] == "kde":
                                 density = gaussian_kde(
-                                    v[:, row],
-                                    bw_method=opts['kde_diag']['bw_method'])
-                                xs = np.linspace(xmin, xmax, opts['kde_diag']['bins'])
-                                ys = density(xs)
-                                h = plt.plot(xs, ys,
-                                    color=opts['samples_colors'][n],
+                                    v[:, row], bw_method=opts["kde_diag"]["bw_method"]
                                 )
-                            elif opts['diag'][n] == 'cond':
-                                p_vector = eval_conditional_density(opts['pdfs'][n], [opts['condition'][n]], opts['limits'], row, col, resolution=opts['hist_diag']['bins'], log=False)
-                                p_vector = p_vector / np.max(p_vector) # just to scale it to 1
-                                h = plt.plot(np.linspace(opts['limits'][row,0],opts['limits'][col,1],opts['hist_diag']['bins']), p_vector,
-                                    c=opts['samples_colors'][n]
+                                xs = np.linspace(xmin, xmax, opts["kde_diag"]["bins"])
+                                ys = density(xs)
+                                h = plt.plot(xs, ys, color=opts["samples_colors"][n],)
+                            elif opts["diag"][n] == "cond":
+                                p_vector = eval_conditional_density(
+                                    opts["pdfs"][n],
+                                    [opts["condition"][n]],
+                                    opts["limits"],
+                                    row,
+                                    col,
+                                    resolution=opts["hist_diag"]["bins"],
+                                    log=False,
+                                )
+                                p_vector = p_vector / np.max(
+                                    p_vector
+                                )  # just to scale it to 1
+                                h = plt.plot(
+                                    np.linspace(
+                                        opts["limits"][row, 0],
+                                        opts["limits"][col, 1],
+                                        opts["hist_diag"]["bins"],
+                                    ),
+                                    p_vector,
+                                    c=opts["samples_colors"][n],
                                 )
                             else:
                                 pass
@@ -775,8 +836,8 @@ def samples_nd(samples, points=[], **kwargs):
                             h = plt.plot(
                                 [v[:, row], v[:, row]],
                                 extent,
-                                color=opts['points_colors'][n],
-                                **opts['points_diag']
+                                color=opts["points_colors"][n],
+                                **opts["points_diag"]
                             )
 
                 # Off-diagonals
@@ -784,8 +845,11 @@ def samples_nd(samples, points=[], **kwargs):
 
                     if len(samples) > 0:
                         for n, v in enumerate(samples):
-                            if opts['upper'][n] == 'hist' or opts['upper'][n] == 'hist2d':
-                                #h = plt.hist2d(
+                            if (
+                                opts["upper"][n] == "hist"
+                                or opts["upper"][n] == "hist2d"
+                            ):
+                                # h = plt.hist2d(
                                 #     v[:, col], v[:, row],
                                 #     range=(
                                 #         [limits[col][0], limits[col][1]],
@@ -793,58 +857,118 @@ def samples_nd(samples, points=[], **kwargs):
                                 #     **opts['hist_offdiag']
                                 #     )
                                 hist, xedges, yedges = np.histogram2d(
-                                    v[:, col], v[:, row], range=[
+                                    v[:, col],
+                                    v[:, row],
+                                    range=[
                                         [limits[col][0], limits[col][1]],
-                                        [limits[row][0], limits[row][1]]],
-                                    **opts['hist_offdiag'])
-                                h = plt.imshow(hist.T,
-                                    origin='lower',
-                                    extent=[xedges[0], xedges[-1], yedges[0], yedges[-1]],
-                                    aspect='auto'
+                                        [limits[row][0], limits[row][1]],
+                                    ],
+                                    **opts["hist_offdiag"]
+                                )
+                                h = plt.imshow(
+                                    hist.T,
+                                    origin="lower",
+                                    extent=[
+                                        xedges[0],
+                                        xedges[-1],
+                                        yedges[0],
+                                        yedges[-1],
+                                    ],
+                                    aspect="auto",
                                 )
 
-                            elif opts['upper'][n] in ['kde', 'kde2d', 'contour', 'contourf']:
-                                density = gaussian_kde(v[:, [col, row]].T, bw_method=opts['kde_offdiag']['bw_method'])
-                                X, Y = np.meshgrid(np.linspace(limits[col][0], limits[col][1], opts['kde_offdiag']['bins']),
-                                                   np.linspace(limits[row][0], limits[row][1], opts['kde_offdiag']['bins']))
+                            elif opts["upper"][n] in [
+                                "kde",
+                                "kde2d",
+                                "contour",
+                                "contourf",
+                            ]:
+                                density = gaussian_kde(
+                                    v[:, [col, row]].T,
+                                    bw_method=opts["kde_offdiag"]["bw_method"],
+                                )
+                                X, Y = np.meshgrid(
+                                    np.linspace(
+                                        limits[col][0],
+                                        limits[col][1],
+                                        opts["kde_offdiag"]["bins"],
+                                    ),
+                                    np.linspace(
+                                        limits[row][0],
+                                        limits[row][1],
+                                        opts["kde_offdiag"]["bins"],
+                                    ),
+                                )
                                 positions = np.vstack([X.ravel(), Y.ravel()])
                                 Z = np.reshape(density(positions).T, X.shape)
 
-                                if opts['upper'][n] == 'kde' or opts['upper'][n] == 'kde2d':
-                                    h = plt.imshow(Z,
-                                        extent=[limits[col][0], limits[col][1], limits[row][0], limits[row][1]],
-                                        origin='lower',
-                                        aspect='auto',
+                                if (
+                                    opts["upper"][n] == "kde"
+                                    or opts["upper"][n] == "kde2d"
+                                ):
+                                    h = plt.imshow(
+                                        Z,
+                                        extent=[
+                                            limits[col][0],
+                                            limits[col][1],
+                                            limits[row][0],
+                                            limits[row][1],
+                                        ],
+                                        origin="lower",
+                                        aspect="auto",
                                     )
-                                elif opts['upper'][n] == 'contour':
-                                    Z = (Z - Z.min())/(Z.max() - Z.min())
-                                    h = plt.contour(X, Y, Z,
-                                        origin='lower',
-                                        extent=[limits[col][0], limits[col][1], limits[row][0], limits[row][1]],
-                                        colors=opts['samples_colors'][n],
-                                        **opts['contour_offdiag']
+                                elif opts["upper"][n] == "contour":
+                                    Z = (Z - Z.min()) / (Z.max() - Z.min())
+                                    h = plt.contour(
+                                        X,
+                                        Y,
+                                        Z,
+                                        origin="lower",
+                                        extent=[
+                                            limits[col][0],
+                                            limits[col][1],
+                                            limits[row][0],
+                                            limits[row][1],
+                                        ],
+                                        colors=opts["samples_colors"][n],
+                                        **opts["contour_offdiag"]
                                     )
                                 else:
                                     pass
-                            elif opts['upper'][n] == 'scatter':
+                            elif opts["upper"][n] == "scatter":
                                 h = plt.scatter(
-                                    v[:, col], v[:, row],
-                                    color=opts['samples_colors'][n],
-                                    **opts['scatter_offdiag']
+                                    v[:, col],
+                                    v[:, row],
+                                    color=opts["samples_colors"][n],
+                                    **opts["scatter_offdiag"]
                                 )
-                            elif opts['upper'][n] == 'plot':
+                            elif opts["upper"][n] == "plot":
                                 h = plt.plot(
-                                    v[:, col], v[:, row],
-                                    color=opts['samples_colors'][n],
-                                    **opts['plot_offdiag']
+                                    v[:, col],
+                                    v[:, row],
+                                    color=opts["samples_colors"][n],
+                                    **opts["plot_offdiag"]
                                 )
-                            elif opts['upper'][n] == 'cond':
-                                p_image = eval_conditional_density(opts['pdfs'][n],
-                                [opts['condition'][n]], opts['limits'], row, col,
-                                resolution=opts['hist_offdiag']['bins'], log=False)
-                                h = plt.imshow(p_image, origin='lower',
-                                                extent=[opts['limits'][col, 0], opts['limits'][col, 1], opts['limits'][row, 0], opts['limits'][row, 1]],
-                                                aspect='auto'
+                            elif opts["upper"][n] == "cond":
+                                p_image = eval_conditional_density(
+                                    opts["pdfs"][n],
+                                    [opts["condition"][n]],
+                                    opts["limits"],
+                                    row,
+                                    col,
+                                    resolution=opts["hist_offdiag"]["bins"],
+                                    log=False,
+                                )
+                                h = plt.imshow(
+                                    p_image,
+                                    origin="lower",
+                                    extent=[
+                                        opts["limits"][col, 0],
+                                        opts["limits"][col, 1],
+                                        opts["limits"][row, 0],
+                                        opts["limits"][row, 1],
+                                    ],
+                                    aspect="auto",
                                 )
                             else:
                                 pass
@@ -853,20 +977,27 @@ def samples_nd(samples, points=[], **kwargs):
 
                         for n, v in enumerate(points):
                             h = plt.plot(
-                                v[:, col], v[:, row],
-                                color=opts['points_colors'][n],
-                                **opts['points_offdiag']
+                                v[:, col],
+                                v[:, row],
+                                color=opts["points_colors"][n],
+                                **opts["points_offdiag"]
                             )
 
         if len(subset) < dim:
             for row in range(len(subset)):
-                ax = axes[row, len(subset)-1]
+                ax = axes[row, len(subset) - 1]
                 x0, x1 = ax.get_xlim()
                 y0, y1 = ax.get_ylim()
-                text_kwargs = {'fontsize': plt.rcParams['font.size']*2.}
-                ax.text(x1 + (x1 - x0) / 8., (y0 + y1) / 2., '...', **text_kwargs)
-                if row == len(subset)-1:
-                    ax.text(x1 + (x1 - x0) / 12., y0 - (y1 - y0) / 1.5, '...', rotation=-45, **text_kwargs)
+                text_kwargs = {"fontsize": plt.rcParams["font.size"] * 2.0}
+                ax.text(x1 + (x1 - x0) / 8.0, (y0 + y1) / 2.0, "...", **text_kwargs)
+                if row == len(subset) - 1:
+                    ax.text(
+                        x1 + (x1 - x0) / 12.0,
+                        y0 - (y1 - y0) / 1.5,
+                        "...",
+                        rotation=-45,
+                        **text_kwargs
+                    )
 
     return fig, axes
 
@@ -1137,42 +1268,99 @@ from copy import deepcopy
 #         self.pdfX = conditional_correlation.normalize_pdf_1D(self.pdfX, self.lx, self.ux, self.resolution_x)
 #         self.pdfY = conditional_correlation.normalize_pdf_1D(self.pdfY, self.ly, self.uy, self.resolution_y)
 
+
 def get_labels_8pt(mathmode=False, include_q10=True):
     # membrane_conds = np.asarray(params.use_membrane)
-    membrane_names = [['AB-Na', 'AB-CaT', 'AB-CaS', 'AB-A', 'AB-KCa', 'AB-Kd', 'AB-H', 'AB-leak'],
-                      ['LP-Na', 'LP-CaT', 'LP-CaS', 'LP-A', 'LP-KCa', 'LP-Kd', 'LP-H', 'LP-leak'],
-                      ['PY-Na', 'PY-CaT', 'PY-CaS', 'PY-A', 'PY-KCa', 'PY-Kd', 'PY-H', 'PY-leak']]
+    membrane_names = [
+        ["AB-Na", "AB-CaT", "AB-CaS", "AB-A", "AB-KCa", "AB-Kd", "AB-H", "AB-leak"],
+        ["LP-Na", "LP-CaT", "LP-CaS", "LP-A", "LP-KCa", "LP-Kd", "LP-H", "LP-leak"],
+        ["PY-Na", "PY-CaT", "PY-CaS", "PY-A", "PY-KCa", "PY-Kd", "PY-H", "PY-leak"],
+    ]
     if mathmode:
         membrane_names = [
-            [r'$\mathrm{AB}_\mathrm{Na}$', r'$\mathrm{AB}_\mathrm{CaT}$', r'$\mathrm{AB}_\mathrm{CaS}$', r'$\mathrm{AB}_\mathrm{A}$', r'$\mathrm{AB}_\mathrm{KCa}$', r'$\mathrm{AB}_\mathrm{Kd}$', r'$\mathrm{AB}_\mathrm{H}$', r'$\mathrm{AB}_\mathrm{leak}$'],
-            [r'$\mathrm{LP}_\mathrm{Na}$', r'$\mathrm{LP}_\mathrm{CaT}$', r'$\mathrm{LP}_\mathrm{CaS}$', r'$\mathrm{LP}_\mathrm{A}$', r'$\mathrm{LP}_\mathrm{KCa}$', r'$\mathrm{LP}_\mathrm{Kd}$', r'$\mathrm{LP}_\mathrm{H}$', r'$\mathrm{LP}_\mathrm{leak}$'],
-            [r'$\mathrm{PY}_\mathrm{Na}$', r'$\mathrm{PY}_\mathrm{CaT}$', r'$\mathrm{PY}_\mathrm{CaS}$', r'$\mathrm{PY}_\mathrm{A}$', r'$\mathrm{PY}_\mathrm{KCa}$', r'$\mathrm{PY}_\mathrm{Kd}$', r'$\mathrm{PY}_\mathrm{H}$', r'$\mathrm{PY}_\mathrm{leak}$']]
+            [
+                r"$\mathrm{AB}_\mathrm{Na}$",
+                r"$\mathrm{AB}_\mathrm{CaT}$",
+                r"$\mathrm{AB}_\mathrm{CaS}$",
+                r"$\mathrm{AB}_\mathrm{A}$",
+                r"$\mathrm{AB}_\mathrm{KCa}$",
+                r"$\mathrm{AB}_\mathrm{Kd}$",
+                r"$\mathrm{AB}_\mathrm{H}$",
+                r"$\mathrm{AB}_\mathrm{leak}$",
+            ],
+            [
+                r"$\mathrm{LP}_\mathrm{Na}$",
+                r"$\mathrm{LP}_\mathrm{CaT}$",
+                r"$\mathrm{LP}_\mathrm{CaS}$",
+                r"$\mathrm{LP}_\mathrm{A}$",
+                r"$\mathrm{LP}_\mathrm{KCa}$",
+                r"$\mathrm{LP}_\mathrm{Kd}$",
+                r"$\mathrm{LP}_\mathrm{H}$",
+                r"$\mathrm{LP}_\mathrm{leak}$",
+            ],
+            [
+                r"$\mathrm{PY}_\mathrm{Na}$",
+                r"$\mathrm{PY}_\mathrm{CaT}$",
+                r"$\mathrm{PY}_\mathrm{CaS}$",
+                r"$\mathrm{PY}_\mathrm{A}$",
+                r"$\mathrm{PY}_\mathrm{KCa}$",
+                r"$\mathrm{PY}_\mathrm{Kd}$",
+                r"$\mathrm{PY}_\mathrm{H}$",
+                r"$\mathrm{PY}_\mathrm{leak}$",
+            ],
+        ]
     membrane_names = np.asarray(membrane_names)
     relevant_membrane_names = membrane_names
     synapse_names = np.asarray([pick_synapse(num, True) for num in range(7)])
     relevant_labels = np.concatenate((relevant_membrane_names.flatten(), synapse_names))
-    #q10_names = [u'Q_{10} g\u0305_{glut}', u'Q_{10} g\u0305_{chol}', r'Q_{10} \tau_{glut}', r'Q_{10} \tau_{chol}']
+    # q10_names = [u'Q_{10} g\u0305_{glut}', u'Q_{10} g\u0305_{chol}', r'Q_{10} \tau_{glut}', r'Q_{10} \tau_{chol}']
     if include_q10:
-        q10_names = ['Q_{10} Na', 'Q_{10} CaT', 'Q_{10} CaS', 'Q_{10} CaA', 'Q_{10} KCa', 'Q_{10} Kd', 'Q_{10} H', 'Q_{10} leak', u'Q_{10} g\u0305_{glut}', u'Q_{10} g\u0305_{chol}']
+        q10_names = [
+            "Q_{10} Na",
+            "Q_{10} CaT",
+            "Q_{10} CaS",
+            "Q_{10} CaA",
+            "Q_{10} KCa",
+            "Q_{10} Kd",
+            "Q_{10} H",
+            "Q_{10} leak",
+            u"Q_{10} g\u0305_{glut}",
+            u"Q_{10} g\u0305_{chol}",
+        ]
         relevant_labels = np.concatenate((relevant_labels, q10_names))
 
     return relevant_labels
 
+
 # get the title of the synapses
 def pick_synapse(num, mathmode=False):
     if mathmode:
-        if num == 0: return r'$\mathdefault{AB-LP}$'
-        if num == 1: return r'$\mathdefault{PD-LP}$'
-        if num == 2: return r'$\mathdefault{AB-PY}$'
-        if num == 3: return r'$\mathdefault{PD-PY}$'
-        if num == 4: return r'$\mathdefault{LP-PD}$'
-        if num == 5: return r'$\mathdefault{LP-PY}$'
-        if num == 6: return r'$\mathdefault{PY-LP}$'
+        if num == 0:
+            return r"$\mathdefault{AB-LP}$"
+        if num == 1:
+            return r"$\mathdefault{PD-LP}$"
+        if num == 2:
+            return r"$\mathdefault{AB-PY}$"
+        if num == 3:
+            return r"$\mathdefault{PD-PY}$"
+        if num == 4:
+            return r"$\mathdefault{LP-PD}$"
+        if num == 5:
+            return r"$\mathdefault{LP-PY}$"
+        if num == 6:
+            return r"$\mathdefault{PY-LP}$"
     else:
-        if num == 0: return 'AB-LP'
-        if num == 1: return 'PD-LP'
-        if num == 2: return 'AB-PY'
-        if num == 3: return 'PD-PY'
-        if num == 4: return 'LP-PD'
-        if num == 5: return 'LP-PY'
-        if num == 6: return 'PY-LP'
+        if num == 0:
+            return "AB-LP"
+        if num == 1:
+            return "PD-LP"
+        if num == 2:
+            return "AB-PY"
+        if num == 3:
+            return "PD-PY"
+        if num == 4:
+            return "LP-PD"
+        if num == 5:
+            return "LP-PY"
+        if num == 6:
+            return "PY-LP"
