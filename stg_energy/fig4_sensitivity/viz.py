@@ -36,6 +36,37 @@ def all_sensitivity_bars(cum_grad, ylim, figsize):
     )
 
 
+def other_sensitivity_bars(cum_grad, ylim, figsize):
+    fig, ax = plt.subplots(1, figsize=figsize)
+
+    barlist = ax.bar(np.arange(len(cum_grad[0])), cum_grad[0], width=0.5)
+    for i in range(0, 8):
+        barlist[i].set_color("#fc8d59")
+    for i in range(8, 16):
+        barlist[i].set_color("#2ca25f")
+    for i in range(16, 23):
+        barlist[i].set_color("k")
+    ax.set_ylim(ylim)
+    ax.spines["right"].set_visible(False)
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+    ax.spines["top"].set_visible(False)
+    ax.get_xaxis().set_ticks([])
+    ax.spines["left"].set_visible(False)
+    ax.set_yticks([])
+    ax.set_xlim([-0.5, 22.5])
+
+    ax.set_xticks([-0.5, 7.5, 15.5, 22.5])
+    ax.set_xticklabels(
+        [
+            r"$\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\mathdefault{LP}$",
+            r"$\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\mathdefault{PY}$",
+            r"$\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\mathdefault{Synapses}$",
+            "",
+        ]
+    )
+
+
 def single_neuron_sensitivity_bar(
     cum_grad, ylim, figsize, start=0, end=8, color="#3182bd"
 ):

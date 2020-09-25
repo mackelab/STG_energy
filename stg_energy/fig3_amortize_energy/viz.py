@@ -232,11 +232,16 @@ def all_sensitivity_bars(cum_grad, ylim, figsize, ylabel=None):
         ax.set_ylabel(ylabel)
 
 
-def py_sensitivity_bars(cum_grad, ylim, figsize, ylabel=None):
+def py_sensitivity_bars(
+    cum_grad, ylim, figsize, ylabel=None, plot_labels=True, color="#2ca25f"
+):
     fig, ax = plt.subplots(1, figsize=figsize)
 
     _ = ax.bar(
-        np.arange(1, 1 + len(cum_grad[0])), cum_grad[0], width=0.3, color="#2ca25f"
+        np.arange(1, 1 + len(cum_grad[0])),
+        cum_grad[0],
+        width=0.9 / figsize[0],
+        color=color,
     )
 
     ax.set_ylim(ylim)
@@ -245,7 +250,42 @@ def py_sensitivity_bars(cum_grad, ylim, figsize, ylabel=None):
     ax.get_xaxis().set_ticks([])
 
     ax.set_xticks(range(1, 9))
-    ax.set_xticklabels(["Na", "CaT", "CaS", "A", "KCa", "Kd", "H", "leak"])
+    ax.set_xticklabels(["Na", "CaT", "CaS", "A", "KCa", "Kd", "H", "leak"], rotation=45)
+    ax.set_xlim(0.5, 8.5)
+    if not plot_labels:
+        ax.spines["left"].set_visible(False)
+        ax.set_yticks([])
+        ax.set_xlim(0.7, 8.3)
+
+    if ylabel is not None:
+        ax.set_ylabel(ylabel)
+
+
+def synapse_sensitivity_bars(
+    cum_grad, ylim, figsize, ylabel=None, plot_labels=True, color="#2ca25f"
+):
+    fig, ax = plt.subplots(1, figsize=figsize)
+
+    _ = ax.bar(
+        np.arange(1, 1 + len(cum_grad[0])),
+        cum_grad[0],
+        width=0.9 / figsize[0],
+        color=color,
+    )
+
+    ax.set_ylim(ylim)
+    ax.spines["right"].set_visible(False)
+    ax.spines["top"].set_visible(False)
+    ax.get_xaxis().set_ticks([])
+
+    ax.set_xticks(range(1, 8))
+    if plot_labels:
+        ax.set_xticklabels(
+            ["AB-LP", "PD-LP", "AB-PY", "PD-PY", "LP-PD", "LP-PY", "PY-LP"], rotation=45
+        )
+        ax.spines["left"].set_visible(False)
+        ax.set_yticks([])
+        ax.set_xlim(0.7, 7.3)
 
     if ylabel is not None:
         ax.set_ylabel(ylabel)
