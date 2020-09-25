@@ -124,7 +124,7 @@ def vis_sample_plain(
     current_counter += 1
 
 
-def energy_scape(out_target, t, figsize, cols, time_len, offset):
+def energy_scape(out_target, t, figsize, cols, time_len, offset, neuron=2):
     fig, ax = plt.subplots(2, 1, figsize=figsize)
     iii = 0
 
@@ -142,7 +142,7 @@ def energy_scape(out_target, t, figsize, cols, time_len, offset):
     current_col = 0
     Vx = out_target["data"]
     axV = ax[0]
-    for j in range(2, 3):
+    for j in range(neuron, neuron + 1):
         if time_len is not None:
             axV.plot(
                 t[:time_len:5],
@@ -170,7 +170,7 @@ def energy_scape(out_target, t, figsize, cols, time_len, offset):
     axS = ax[1]
     all_energies = out_target["all_energies"]
 
-    for current_current in range(2, 3):
+    for current_current in range(neuron, neuron + 1):
         all_currents_PD = all_energies[:, current_current, :]
 
         for i in range(8):
