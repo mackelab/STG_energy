@@ -295,10 +295,10 @@ def synapse_sensitivity_bars(
         ax.set_ylabel(ylabel)
 
 
-def plot_eigenvalues(cum_grad, figsize, ylabel="log(Eigenvalue)"):
+def plot_eigenvalues(cum_grad, figsize, ylabel="log(Eigenvalue)", color="#045a8d"):
     fig, ax = plt.subplots(1, figsize=figsize)
 
-    _ = ax.bar(np.arange(len(cum_grad)), cum_grad, width=0.5, color="#045a8d")
+    _ = ax.bar(np.arange(len(cum_grad)), cum_grad, width=0.5, color=color)
 
     ax.spines["right"].set_visible(False)
     ax.spines["top"].set_visible(False)
