@@ -124,7 +124,9 @@ def vis_sample_plain(
     current_counter += 1
 
 
-def energy_scape(out_target, t, figsize, cols, time_len, offset, neuron=2):
+def energy_scape(
+    out_target, t, figsize, cols, time_len, offset, ylimE=[0, 200], neuron=2
+):
     fig, ax = plt.subplots(2, 1, figsize=figsize)
     iii = 0
 
@@ -138,6 +140,8 @@ def energy_scape(out_target, t, figsize, cols, time_len, offset, neuron=2):
         "#a6761d",
         "#666666",
     ]
+
+    names = ["PM", "LP", "PY"]
 
     current_col = 0
     Vx = out_target["data"]
@@ -157,7 +161,7 @@ def energy_scape(out_target, t, figsize, cols, time_len, offset, neuron=2):
     box = axV.get_position()
 
     axV.set_position([box.x0, box.y0, box.width, box.height])
-    axV.set_ylabel("V (PY)", labelpad=3)
+    axV.set_ylabel("V (" + names[neuron] + ")", labelpad=3)
     axV.tick_params(axis="both", which="major")
 
     axV.spines["right"].set_visible(False)
@@ -193,8 +197,8 @@ def energy_scape(out_target, t, figsize, cols, time_len, offset, neuron=2):
     axS.spines["right"].set_visible(False)
     axS.spines["top"].set_visible(False)
     axS.set_xlabel("Time (ms)")
-    axS.set_ylabel("E (PY)")
-    axS.set_ylim([0, 200])
+    axS.set_ylabel("E (" + names[neuron] + ")")
+    axS.set_ylim(ylimE)
     axS.tick_params(axis="both", which="major")
 
     plt.subplots_adjust(wspace=0.3, hspace=0.3)
@@ -291,7 +295,7 @@ def synapse_sensitivity_bars(
         ax.set_ylabel(ylabel)
 
 
-def plot_eigenvalues(cum_grad, figsize):
+def plot_eigenvalues(cum_grad, figsize, ylabel="log(Eigenvalue)"):
     fig, ax = plt.subplots(1, figsize=figsize)
 
     _ = ax.bar(np.arange(len(cum_grad)), cum_grad, width=0.5, color="#045a8d")
@@ -299,7 +303,7 @@ def plot_eigenvalues(cum_grad, figsize):
     ax.spines["right"].set_visible(False)
     ax.spines["top"].set_visible(False)
     ax.set_xlabel("Dimension")
-    ax.set_ylabel("log(Eigenvalue)")
+    ax.set_ylabel(ylabel)
 
 
 def sensitivity_hist(shift_in_mean_normalized, figsize):
