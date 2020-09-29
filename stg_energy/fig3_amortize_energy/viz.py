@@ -125,7 +125,15 @@ def vis_sample_plain(
 
 
 def energy_scape(
-    out_target, t, figsize, cols, time_len, offset, ylimE=[0, 200], neuron=2
+    out_target,
+    t,
+    figsize,
+    cols,
+    time_len,
+    offset,
+    ylimE=[0, 2000],
+    v_labelpad=4.8,
+    neuron=2,
 ):
     fig, ax = plt.subplots(2, 1, figsize=figsize)
     iii = 0
@@ -161,7 +169,7 @@ def energy_scape(
     box = axV.get_position()
 
     axV.set_position([box.x0, box.y0, box.width, box.height])
-    axV.set_ylabel("V (" + names[neuron] + ")", labelpad=3)
+    axV.set_ylabel("V (" + names[neuron] + ")\n (mV)", labelpad=v_labelpad)
     axV.tick_params(axis="both", which="major")
 
     axV.spines["right"].set_visible(False)
@@ -178,14 +186,19 @@ def energy_scape(
         all_currents_PD = all_energies[:, current_current, :]
 
         for i in range(8):
-            summed_currents_until = np.sum(
-                all_currents_PD[:i, 10000 + offset : 10000 + offset + time_len : 5],
-                axis=0,
+            # times 10 because: times 10000 for cm**2, but /1000 for micro from nano J
+            summed_currents_until = (
+                np.sum(
+                    all_currents_PD[:i, 10000 + offset : 10000 + offset + time_len : 5],
+                    axis=0,
+                )
+                * 10
             )
             summed_currents_include = np.sum(
                 all_currents_PD[
                     : i + 1, 10000 + offset : 10000 + offset + time_len : 5,
-                ],
+                ]
+                * 10,
                 axis=0,
             )
             axS.fill_between(
@@ -197,7 +210,7 @@ def energy_scape(
     axS.spines["right"].set_visible(False)
     axS.spines["top"].set_visible(False)
     axS.set_xlabel("Time (ms)")
-    axS.set_ylabel("E (" + names[neuron] + ")")
+    axS.set_ylabel("E (" + names[neuron] + ")\n $(\mu$J/s)", labelpad=1)
     axS.set_ylim(ylimE)
     axS.tick_params(axis="both", which="major")
 
