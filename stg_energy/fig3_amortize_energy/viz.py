@@ -158,7 +158,7 @@ def energy_scape(
         if time_len is not None:
             axV.plot(
                 t[:time_len:5],
-                Vx[j, 10000 + offset : 10000 + offset + time_len : 5] + 130.0 * (2 - j),
+                Vx[j, 10000 + offset : 10000 + offset + time_len : 5],
                 lw=0.6,
                 c=cols[iii],
             )
@@ -176,6 +176,7 @@ def energy_scape(
     axV.spines["top"].set_visible(False)
 
     axV.set_xticks([])
+    axV.set_ylim([-90, 60])
 
     plt.subplots_adjust(wspace=0.05)
 
