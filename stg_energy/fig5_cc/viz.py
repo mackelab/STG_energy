@@ -734,65 +734,34 @@ def single2Dmarginal(samples, points=[], **kwargs):
                     ax.set_facecolor(opts["fig_bg_colors"][current])
 
                 # Axes
-                if opts[current] is None:
-                    ax.axis("off")
+                if current != "upper":
                     continue
+                else:
+                    # Limits
+                    if limits is not None:
+                        ax.set_xlim((limits[col][0], limits[col][1]))
+                        if current != "diag":
+                            ax.set_ylim((limits[row][0], limits[row][1]))
+                    xmin, xmax = ax.get_xlim()
+                    ymin, ymax = ax.get_ylim()
 
-                # Limits
-                if limits is not None:
-                    ax.set_xlim((limits[col][0], limits[col][1]))
-                    if current != "diag":
-                        ax.set_ylim((limits[row][0], limits[row][1]))
-                xmin, xmax = ax.get_xlim()
-                ymin, ymax = ax.get_ylim()
-
-                # Ticks
-                if ticks is not None:
-                    ax.set_xticks((ticks[col][0], ticks[col][1]))
-                    if current != "diag":
-                        ax.set_yticks((ticks[row][0], ticks[row][1]))
-
-                # Despine
-                sns.despine(ax=ax, **opts["despine"])
-
-                # Formatting axes
-                if current == "diag":  # off-diagnoals
-                    if opts["lower"] is None or col == dim - 1:
-                        _format_axis(
-                            ax,
-                            xhide=False,
-                            xlabel=labels_dim[col],
-                            yhide=True,
-                            tickformatter=opts["tickformatter"],
-                        )
-                        if opts["labelpad"] is not None:
-                            ax.xaxis.labelpad = opts["labelpad"]
-                    else:
-                        _format_axis(ax, xhide=True, yhide=True)
-                else:  # off-diagnoals
-                    if row == dim - 1:
-                        _format_axis(
-                            ax,
-                            xhide=False,
-                            xlabel=labels_dim[col],
-                            yhide=True,
-                            tickformatter=opts["tickformatter"],
-                        )
-                    else:
-                        _format_axis(ax, xhide=True, yhide=True)
-                if opts["tick_labels"] is not None:
+                    # Formatting axes
+                    ax.set_xticks([ticks[col][0], ticks[col][1]])
+                    ax.set_yticks([ticks[row][0], ticks[row][1]])
                     ax.set_xticklabels(
                         (
                             str(opts["tick_labels"][col][0]),
                             str(opts["tick_labels"][col][1]),
                         )
                     )
-                    if opts["tick_labelpad"] is not None:
-                        ax.tick_params(
-                            axis="x", which="major", pad=opts["tick_labelpad"]
-                        )
+                    ax.set_yticklabels(
+                        (opts["tick_labels"][row][0], opts["tick_labels"][row][1])
+                    )
+                    ax.set_xlabel(opts["labels"][col], labelpad=-3)
+                    ax.set_ylabel(opts["labels"][row], labelpad=-5)
 
                 if col != row:
+                    print("running this", current)
                     if len(samples) > 0:
                         for n, v in enumerate(samples):
                             if (

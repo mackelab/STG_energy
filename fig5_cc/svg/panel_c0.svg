@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Created with matplotlib (https://matplotlib.org/) -->
+<svg height="127.932375pt" version="1.1" viewBox="0 0 144.0225 127.932375" width="144.0225pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <metadata>
+  <rdf:RDF xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2020-09-30T18:52:15.890734</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.3.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linecap:butt;stroke-linejoin:round;}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M -0 127.932375 
+L 144.0225 127.932375 
+L 144.0225 0 
+L -0 0 
+z
+" style="fill:none;"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 34.7825 101.247375 
+L 124.0625 101.247375 
+L 124.0625 10.239375 
+L 34.7825 10.239375 
+z
+" style="fill:none;"/>
+   </g>
+   <g clip-path="url(#pd47ceb3325)">
+    <image height="91.2" id="imagefed81daea1" transform="scale(1 -1)translate(0 -91.2)" width="89.52" x="34.7825" xlink:href="data:image/png;base64,
+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" y="-10.047375"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path d="M 0 0 
+L 0 3.5 
+" id="mfc9987e822" style="stroke:#000000;stroke-width:1.5;"/>
+      </defs>
+      <g>
+       <use style="stroke:#000000;stroke-width:1.5;" x="34.7825" xlink:href="#mfc9987e822" y="101.247375"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <!-- $\mathdefault{25.0}$ -->
+      <g transform="translate(25.8625 114.326125)">
+       <text>
+        <tspan style="font-family:DejaVu Sans;font-size:8px;font-style:book;font-weight:book;" x="0 5.089844 10.179688 12.722656" y="-0.0625">25.0</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use style="stroke:#000000;stroke-width:1.5;" x="124.0625" xlink:href="#mfc9987e822" y="101.247375"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <!-- $\mathdefault{150.0}$  -->
+      <g transform="translate(111.3025 114.326125)">
+       <text>
+        <tspan style="font-family:DejaVu Sans;font-size:8px;font-style:book;font-weight:book;" x="0 5.089844 10.179688 15.269531 17.8125 22.902344" y="-0.0625">150.0 </tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="text_3">
+     <text style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:middle;" transform="rotate(-0, 79.4225, 119.068625)" x="79.4225" y="119.068625">AB-Kd</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_3">
+      <defs>
+       <path d="M 0 0 
+L -3.5 0 
+" id="m2783c7a690" style="stroke:#000000;stroke-width:1.5;"/>
+      </defs>
+      <g>
+       <use style="stroke:#000000;stroke-width:1.5;" x="34.7825" xlink:href="#m2783c7a690" y="101.247375"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <!-- $\mathdefault{0}$ -->
+      <g transform="translate(22.6625 104.28675)">
+       <text>
+        <tspan style="font-family:DejaVu Sans;font-size:8px;font-style:book;font-weight:book;" x="0" y="-0.0625">0</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_4">
+      <g>
+       <use style="stroke:#000000;stroke-width:1.5;" x="34.7825" xlink:href="#m2783c7a690" y="10.239375"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <!-- $\mathdefault{500}$  -->
+      <g transform="translate(9.9425 13.27875)">
+       <text>
+        <tspan style="font-family:DejaVu Sans;font-size:8px;font-style:book;font-weight:book;" x="0 5.089844 10.179688 15.269531" y="-0.0625">500 </tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="text_6">
+     <text style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:middle;" transform="rotate(-90, 13.27875, 55.743375)" x="13.27875" y="55.743375">AB-Na</text>
+    </g>
+   </g>
+   <g id="patch_3">
+    <path d="M 34.7825 101.247375 
+L 34.7825 10.239375 
+" style="fill:none;stroke:#000000;stroke-linecap:square;stroke-linejoin:miter;stroke-width:1.5;"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 34.7825 101.247375 
+L 124.0625 101.247375 
+" style="fill:none;stroke:#000000;stroke-linecap:square;stroke-linejoin:miter;stroke-width:1.5;"/>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pd47ceb3325">
+   <rect height="91.008" width="89.28" x="34.7825" y="10.239375"/>
+  </clipPath>
+ </defs>
+</svg>

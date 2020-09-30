@@ -2,7 +2,15 @@ import numpy as np
 from copy import deepcopy
 
 
-def extract_min_prob(posterior_MAF_11, condition1_norm, grid_bins, dim1, dim2, lims, mode='posterior_prob'):
+def extract_min_prob(
+    posterior_MAF_11,
+    condition1_norm,
+    grid_bins,
+    dim1,
+    dim2,
+    lims,
+    mode="posterior_prob",
+):
     """
     Used for plotting the energy in the plane of the conditional probability
 
@@ -39,32 +47,107 @@ def extract_min_prob(posterior_MAF_11, condition1_norm, grid_bins, dim1, dim2, l
     return min_prob
 
 
-def energy_of_conditional(posterior_MAF_11, pyloric_sim, energy_calc, condition1_norm,
-                          grid_bins, min_prob, dim1, dim2, lims, stats_std,
-                          neuron_to_observe='AB/PD'):
+from pyloric.sbi_wrapper import simulate, stats
+
+
+def check_if_close_to_obs(stats, observation, num_std, stats_std=None):
     """
-    Builds the image that contains the energy of each parameter value in conditional plane.
+    Returns those summstats that are within num_std standard deviations
+        from the observation and no bursts and no plateaus.
+    :param data: summstats
+    :param observation:
+    :param num_std:
+    :return:
+    """
+    if stats_std is None:
+        # setting to experimental stds from prinz paper
+
+        stats_std = np.asarray(
+            [
+                279,
+                133,
+                113,
+                150,
+                109,
+                60,
+                169,
+                216,
+                0.040,
+                0.059,
+                0.054,
+                0.065,
+                0.034,
+                0.054,
+                0.060,
+            ]
+        )
+
+    data_trunc = np.asarray(stats[:15])
+    observation = observation[:15]
+
+    good_sim = True
+
+    # check distance to observation
+    diff_to_obs = np.abs(data_trunc - observation) / stats_std[:15]
+    if not np.all(diff_to_obs < num_std):
+        good_sim = False
+
+    # check if more than 7 bursts
+    backup_stats = deepcopy(stats)
+    if not np.all(backup_stats[22:24] > 7.5):
+        good_sim = False
+
+    # check if no plateaus
+    backup_stats = deepcopy(stats)
+    if not np.all(backup_stats[15:18] == 2.5):
+        good_sim = False
+
+    return good_sim
+
+
+def energy_of_conditional(
+    posterior_MAF_11,
+    condition1_norm,
+    grid_bins,
+    min_prob,
+    dim1,
+    dim2,
+    lims,
+    stats_std,
+    neuron_to_observe,
+    patience=3,
+):
+    """
+    Return image that contains the energy of each parameter value in conditional plane.
+
+    Will return -1.0 if the parameter set has to low of a posterior probability to be
+    simulated.
+
+    Will return 0.0 if the parameter set has been simulated, but had summary stats that
+    were outside of the permissible distance from the observation.
+
+    Will return the energy if simulated and close enough to the simulation.
 
     :param posterior_MAF_11: posterior
-    :param pyloric_sim: simulator object
-    :param pyloric_sim: summstats object
     :param obs: true observation
     :param condition1_norm: the value (usually posterior sample) we are conditioning on
     :param grid_bins: number of bins / resolution
     :param min_prob: float, minimum required probability to be simulated
     :param dim1: int
     :param dim2: int
-    :param neuron_to_observe: string, If mode == 'spike', then what neuron should we compute the energy per spike of?
-            either of the following: 'PM', 'LP', 'PY'
-    :param mode: string: 'spike' computes energy per spike. 'total' computes total energy
+    :param neuron_to_observe: string, What neuron should we compute the energy per
+        spike of? Either of the following: 'PM', 'LP', 'PY'
+    :param patience: how often we simulate when outside of allowed error from
+        observation.
 
     :return: image
     """
     lowest_allowed = min_prob
 
     npz = np.load(
-        '../../../results/experimental/summstats/845_082/190807_summstats_prep845_082_0044.npz')
-    observation = npz['summ_stats']
+        "/home/michael/Documents/STG_energy/results/experimental_data/190807_summstats_prep845_082_0044.npz"
+    )
+    observation = npz["summ_stats"]
 
     # off-diagonals
     if dim1 != dim2:
@@ -72,45 +155,85 @@ def energy_of_conditional(posterior_MAF_11, pyloric_sim, energy_calc, condition1
         vec_dim2 = np.linspace(lims[dim2, 0], lims[dim2, 1], grid_bins)
 
         energy_image = -np.ones((grid_bins, grid_bins))
+        energy_image_specific_neuron = -np.ones((grid_bins, grid_bins))
         energy_per_spike = -np.ones((grid_bins, grid_bins))
         number_of_spikes_per_burst = -np.ones((grid_bins, grid_bins))
-        spike_width = np.zeros((grid_bins, grid_bins))
 
         for i1, v1 in enumerate(vec_dim1):
             for i2, v2 in enumerate(vec_dim2):
                 parameter_set = deepcopy(condition1_norm)
 
-                parameter_set[0,dim1] = v1
-                parameter_set[0,dim2] = v2
+                parameter_set[0, dim1] = v1
+                parameter_set[0, dim2] = v2
                 prob = np.exp(posterior_MAF_11.log_prob(parameter_set).detach().item())
                 if prob > lowest_allowed:
-                    energy_image[i1, i2] = 0.0
-                    out_target = pyloric_sim[0].gen_single(deepcopy(parameter_set[0]), seed_sim=True, to_seed=8607175)
-                    ss = energy_calc.calc([out_target])[0]
-                    ss_dict = energy_calc.calc_dict([out_target])[0]
-                    if np.invert(np.any(np.isnan(ss))):
-                        num_std = np.asarray(
-                            [0.02, 0.02, 0.02, 0.02, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2,
-                             0.2, 0.2, 0.2]) * 2
+                    remaining_patience = patience
+                    successful_trace = False
+                    seeds = [8607175 + 2, 8607175 + 1, 8607175]
+                    while (not successful_trace) and (remaining_patience > 0):
+                        energy_image[i1, i2] = 0.0
+                        energy_image_specific_neuron[i1, i2] = 0.0
+                        out_target = simulate(
+                            deepcopy(parameter_set[0]),
+                            seed=seeds[remaining_patience - 1],
+                        )
+                        print("Done", i1, i2)
+                        ss = stats(out_target)
+                        if np.invert(np.any(np.isnan(ss))):
+                            num_std = np.asarray(
+                                [
+                                    0.02,
+                                    0.02,
+                                    0.02,
+                                    0.02,
+                                    0.2,
+                                    0.2,
+                                    0.2,
+                                    0.2,
+                                    0.2,
+                                    0.2,
+                                    0.2,
+                                    0.2,
+                                    0.2,
+                                    0.2,
+                                    0.2,
+                                ]
+                            )
 
-                        if check_if_close_to_obs(ss, observation, num_std=num_std, stats_std=stats_std):
-                                total_energy = np.sum(out_target['energy'][:, 40000:])
+                            if check_if_close_to_obs(
+                                ss, observation, num_std=num_std, stats_std=stats_std
+                            ):
+                                successful_trace = True
+                                total_energy = np.sum(out_target["energy"][:, 40000:])
                                 energy_image[i1, i2] = total_energy
 
-                                energy_per_spike[i1, i2] = ss_dict['energy'][
-                                    neuron_to_observe]
+                                # E / spike", ss[19:22]
+                                # neuron_to_observe = 'PM' or so...
+                                str_to_ind = {"PM": 0, "LP": 1, "PY": 2}
 
-                                spike_width[i1, i2] = np.mean(
-                                    ss_dict['rebound_times'][neuron_to_observe])
+                                energy_image_specific_neuron[i1, i2] = np.sum(
+                                    out_target["energy"][
+                                        str_to_ind[neuron_to_observe], 40000:
+                                    ]
+                                )
 
-                                number_of_spikes_per_burst[i1, i2] = \
-                                    ss_dict['num_spikes'][neuron_to_observe] / \
-                                    ss_dict['num_bursts'][neuron_to_observe]
+                                energy_per_spike[i1, i2] = ss[19:22][
+                                    str_to_ind[neuron_to_observe]
+                                ]
+
+                                # number of spikes", ss[31:34]
+                                # number of bursts", ss[22:25]
+                                number_of_spikes_per_burst[i1, i2] = (
+                                    ss[31:34][str_to_ind[neuron_to_observe]]
+                                    / ss[22:25][str_to_ind[neuron_to_observe]]
+                                )
+                        remaining_patience -= 1
     # diagonals
     else:
         vec_dim1 = np.linspace(lims[dim1, 0], lims[dim1, 1], grid_bins)
 
         energy_image = -np.ones(grid_bins)
+        energy_image_specific_neuron = -np.ones(grid_bins)
         energy_per_spike = -np.ones(grid_bins)
         number_of_spikes_per_burst = -np.ones(grid_bins)
         spike_width = np.zeros(grid_bins)
@@ -121,31 +244,56 @@ def energy_of_conditional(posterior_MAF_11, pyloric_sim, energy_calc, condition1
             prob = np.exp(posterior_MAF_11.log_prob(parameter_set).detach().item())
             if prob > lowest_allowed:
                 energy_image[i1] = 0.0
-                out_target = pyloric_sim[0].gen_single(deepcopy(parameter_set[0]),
-                                                       seed_sim=True,
-                                                       to_seed=8607175)
+                energy_image_specific_neuron[i1] = 0.0
+                out_target = pyloric_sim[0].gen_single(
+                    deepcopy(parameter_set[0]), seed_sim=True, to_seed=8607175
+                )
                 ss = energy_calc.calc([out_target])[0]
                 ss_dict = energy_calc.calc_dict([out_target])[0]
                 if np.invert(np.any(np.isnan(ss))):
                     num_std = np.asarray(
-                        [0.02, 0.02, 0.02, 0.02, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2,
-                         0.2,
-                         0.2, 0.2, 0.2]) * 2
+                        [
+                            0.02,
+                            0.02,
+                            0.02,
+                            0.02,
+                            0.2,
+                            0.2,
+                            0.2,
+                            0.2,
+                            0.2,
+                            0.2,
+                            0.2,
+                            0.2,
+                            0.2,
+                            0.2,
+                            0.2,
+                        ]
+                    )
 
-                    if check_if_close_to_obs(ss, observation, num_std=num_std,
-                                             stats_std=stats_std):
+                    if check_if_close_to_obs(
+                        ss, observation, num_std=num_std, stats_std=stats_std
+                    ):
 
-                        total_energy = np.sum(out_target['energy'][:, 40000:])
+                        total_energy = np.sum(out_target["energy"][:, 40000:])
                         energy_image[i1] = total_energy
 
-                        energy_per_spike[i1] = ss_dict['energy'][
-                            neuron_to_observe]
+                        str_to_ind = {"PM": 0, "LP": 1, "PY": 2}
 
-                        spike_width[i1] = np.mean(
-                            ss_dict['rebound_times'][neuron_to_observe])
+                        energy_image_specific_neuron[i1] = np.sum(
+                            out_target["energy"][str_to_ind[neuron_to_observe], 40000:]
+                        )
 
-                        number_of_spikes_per_burst[i1] = \
-                            ss_dict['num_spikes'][neuron_to_observe] / \
-                            ss_dict['num_bursts'][neuron_to_observe]
+                        energy_per_spike[i1] = ss[19:22][str_to_ind[neuron_to_observe]]
 
-    return energy_image, energy_per_spike, number_of_spikes_per_burst, spike_width
+                        number_of_spikes_per_burst[i1] = (
+                            ss[31:34][str_to_ind[neuron_to_observe]]
+                            / ss[22:25][str_to_ind[neuron_to_observe]]
+                        )
+
+    return (
+        energy_image,
+        energy_image_specific_neuron,
+        energy_per_spike,
+        number_of_spikes_per_burst,
+    )
