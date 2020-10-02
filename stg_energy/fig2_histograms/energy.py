@@ -1,5 +1,6 @@
 import numpy as np
 from copy import deepcopy
+
 # from find_pyloric import check_ss_to_obs_diff_stds
 
 
@@ -13,11 +14,27 @@ def select_ss_close_to_obs(params, stats, seeds, observation, num_std, stats_std
     :return:
     """
     if stats_std is None:
-        #setting to experimental stds from prinz paper
+        # setting to experimental stds from prinz paper
 
         stats_std = np.asarray(
-            [279, 133, 113, 150, 109, 60, 169, 216, 0.040, 0.059, 0.054, 0.065, 0.034,
-             0.054, 0.060])
+            [
+                279,
+                133,
+                113,
+                150,
+                109,
+                60,
+                169,
+                216,
+                0.040,
+                0.059,
+                0.054,
+                0.065,
+                0.034,
+                0.054,
+                0.060,
+            ]
+        )
 
     data_trunc = np.asarray(stats[:, :15])
     observation = observation[:15]
@@ -39,6 +56,12 @@ def select_ss_close_to_obs(params, stats, seeds, observation, num_std, stats_std
     good_data = good_data[np.all(backup_stats[:, 15:18] == 2.5, axis=1)]
     good_params = good_params[np.all(backup_stats[:, 15:18] == 2.5, axis=1)]
     good_seeds = good_seeds[np.all(backup_stats[:, 15:18] == 2.5, axis=1)]
+
+    # check if no NaN
+    backup_stats = deepcopy(good_data)
+    good_data = good_data[np.invert(np.any(np.isnan(backup_stats)))]
+    good_params = good_params[np.invert(np.any(np.isnan(backup_stats)))]
+    good_seeds = good_seeds[np.invert(np.any(np.isnan(backup_stats)))]
 
     return good_params, good_data, good_seeds
 

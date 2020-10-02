@@ -1298,16 +1298,16 @@ def get_labels_8pt(mathmode=False, include_q10=True):
     # q10_names = [u'Q_{10} g\u0305_{glut}', u'Q_{10} g\u0305_{chol}', r'Q_{10} \tau_{glut}', r'Q_{10} \tau_{chol}']
     if include_q10:
         q10_names = [
-            "Q_{10} Na",
-            "Q_{10} CaT",
-            "Q_{10} CaS",
-            "Q_{10} CaA",
-            "Q_{10} KCa",
-            "Q_{10} Kd",
-            "Q_{10} H",
-            "Q_{10} leak",
-            u"Q_{10} g\u0305_{glut}",
-            u"Q_{10} g\u0305_{chol}",
+            r"$\mathrm{Q}_{\mathrm{10}} \mathrm{glut}$",
+            r"$\mathrm{Q}_{\mathrm{10}} \mathrm{chol}$",
+            r"$\mathrm{Q}_{\mathrm{10}} \mathrm{Na}$",
+            r"$\mathrm{Q}_{\mathrm{10}} \mathrm{CaT}$",
+            r"$\mathrm{Q}_{\mathrm{10}} \mathrm{CaS}$",
+            r"$\mathrm{Q}_{\mathrm{10}} \mathrm{CaA}$",
+            r"$\mathrm{Q}_{\mathrm{10}} \mathrm{KCa}$",
+            r"$\mathrm{Q}_{\mathrm{10}} \mathrm{Kd}$",
+            r"$\mathrm{Q}_{\mathrm{10}} \mathrm{H}$",
+            r"$\mathrm{Q}_{\mathrm{10}} \mathrm{leak}$",
         ]
         relevant_labels = np.concatenate((relevant_labels, q10_names))
 
