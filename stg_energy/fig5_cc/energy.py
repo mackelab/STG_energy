@@ -115,7 +115,7 @@ def energy_of_conditional(
     lims,
     stats_std,
     neuron_to_observe,
-    patience=3,
+    patience=1,
 ):
     """
     Return image that contains the energy of each parameter value in conditional plane.
@@ -169,15 +169,14 @@ def energy_of_conditional(
                 if prob > lowest_allowed:
                     remaining_patience = patience
                     successful_trace = False
-                    seeds = [8607175 + 2, 8607175 + 1, 8607175]
+                    seeds = 8607175
+                    iter = 0
                     while (not successful_trace) and (remaining_patience > 0):
                         energy_image[i1, i2] = 0.0
                         energy_image_specific_neuron[i1, i2] = 0.0
                         out_target = simulate(
-                            deepcopy(parameter_set[0]),
-                            seed=seeds[remaining_patience - 1],
+                            deepcopy(parameter_set[0]), seed=seeds + iter,
                         )
-                        print("Done", i1, i2)
                         ss = stats(out_target)
                         if np.invert(np.any(np.isnan(ss))):
                             num_std = np.asarray(
@@ -228,6 +227,7 @@ def energy_of_conditional(
                                     / ss[22:25][str_to_ind[neuron_to_observe]]
                                 )
                         remaining_patience -= 1
+                        iter += 1
     # diagonals
     else:
         vec_dim1 = np.linspace(lims[dim1, 0], lims[dim1, 1], grid_bins)
@@ -236,7 +236,6 @@ def energy_of_conditional(
         energy_image_specific_neuron = -np.ones(grid_bins)
         energy_per_spike = -np.ones(grid_bins)
         number_of_spikes_per_burst = -np.ones(grid_bins)
-        spike_width = np.zeros(grid_bins)
         for i1, v1 in enumerate(vec_dim1):
             parameter_set = deepcopy(condition1_norm)
 
@@ -245,11 +244,8 @@ def energy_of_conditional(
             if prob > lowest_allowed:
                 energy_image[i1] = 0.0
                 energy_image_specific_neuron[i1] = 0.0
-                out_target = pyloric_sim[0].gen_single(
-                    deepcopy(parameter_set[0]), seed_sim=True, to_seed=8607175
-                )
-                ss = energy_calc.calc([out_target])[0]
-                ss_dict = energy_calc.calc_dict([out_target])[0]
+                out_target = simulate(deepcopy(parameter_set[0]), seed=8607175)
+                ss = stats(out_target)
                 if np.invert(np.any(np.isnan(ss))):
                     num_std = np.asarray(
                         [

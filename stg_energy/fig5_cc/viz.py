@@ -463,26 +463,26 @@ def singleOneDmarginal(samples, points=[], **kwargs):
 
             # Ticks
             if ticks is not None:
-                ax.set_xticks((ticks[col][0], ticks[col][1]))
+                ax.set_xticks((ticks[col][0], ticks[col][1] + 0.005))
                 if current != "diag":
                     ax.set_yticks((ticks[row][0], ticks[row][1]))
 
             # Despine
             sns.despine(ax=ax, **opts["despine"])
-
-            # Formatting axes
-            if opts["lower"] is None or col == dim - 1:
-                _format_axis(
-                    ax,
-                    xhide=False,
-                    xlabel=labels_dim[col],
-                    yhide=True,
-                    tickformatter=opts["tickformatter"],
-                )
-                if opts["labelpad"] is not None:
-                    ax.xaxis.labelpad = opts["labelpad"]
-            else:
-                _format_axis(ax, xhide=True, yhide=True)
+            #
+            # # Formatting axes
+            # if opts["lower"] is None or col == dim - 1:
+            #     _format_axis(
+            #         ax,
+            #         xhide=False,
+            #         xlabel=labels_dim[col],
+            #         yhide=True,
+            #         tickformatter=opts["tickformatter"],
+            #     )
+            #     if opts["labelpad"] is not None:
+            #         ax.xaxis.labelpad = opts["labelpad"]
+            # else:
+            #     _format_axis(ax, xhide=True, yhide=True)
 
             if opts["tick_labels"] is not None:
                 ax.set_xticklabels(
@@ -490,6 +490,9 @@ def singleOneDmarginal(samples, points=[], **kwargs):
                 )
                 if opts["tick_labelpad"] is not None:
                     ax.tick_params(axis="x", which="major", pad=opts["tick_labelpad"])
+
+            ax.set_ylabel(r"p($\theta$|x)", labelpad=-6)
+            ax.spines["left"].set_visible(True)
 
             # Diagonals
             if len(samples) > 0:
@@ -529,6 +532,11 @@ def singleOneDmarginal(samples, points=[], **kwargs):
                         )
                     else:
                         pass
+
+            ax.set_yticks([np.min(p_vector) - 0.01])
+            ax.set_ylim([np.min(p_vector) - 0.01, np.max(p_vector) + 0.03])
+            ax.set_yticklabels([0.0])
+            ax.set_xlabel("AB-Na", labelpad=-3)
 
             if len(points) > 0:
                 extent = ax.get_ylim()
@@ -703,14 +711,14 @@ def single2Dmarginal(samples, points=[], **kwargs):
 
         # Style axes
         row_idx = -1
-        for row in range(dim):
+        for row in subset:
             if row not in subset:
                 continue
             else:
                 row_idx += 1
 
             col_idx = -1
-            for col in range(dim):
+            for col in subset:
                 if col not in subset:
                     continue
                 else:
@@ -718,7 +726,7 @@ def single2Dmarginal(samples, points=[], **kwargs):
 
                 if row == col:
                     current = "diag"
-                elif row < col:
+                elif row > col:
                     current = "upper"
                 else:
                     current = "lower"
@@ -758,7 +766,7 @@ def single2Dmarginal(samples, points=[], **kwargs):
                         (opts["tick_labels"][row][0], opts["tick_labels"][row][1])
                     )
                     ax.set_xlabel(opts["labels"][col], labelpad=-3)
-                    ax.set_ylabel(opts["labels"][row], labelpad=-5)
+                    ax.set_ylabel(opts["labels"][row], labelpad=-9)
 
                 if col != row:
                     print("running this", current)
@@ -1073,11 +1081,18 @@ def compute_energy_difference(energy_image):
     percent and hence ranges from [0, 100].
     """
 
-    energy_of_most_efficient = np.min(energy_image[energy_image > 0.0])
-    energy_of_least_efficient = np.max(energy_image)
+    if np.any(energy_image > 0.0):
 
-    energy_diff = energy_of_least_efficient - energy_of_most_efficient
-    percentage_diff = energy_diff / energy_of_least_efficient
+        energy_of_most_efficient = np.min(energy_image[energy_image > 0.0])
+        energy_of_least_efficient = np.max(energy_image)
+
+        energy_diff = energy_of_least_efficient - energy_of_most_efficient
+        percentage_diff = energy_diff / energy_of_least_efficient
+    else:
+        print(
+            "Problem: not a single model was good. Shape of image", energy_image.shape
+        )
+        percentage_diff = 0.0
 
     return percentage_diff
 
@@ -1125,7 +1140,7 @@ def fill_matrix(m):
     return new_m
 
 
-def energy_gain_matrix(list_of_all_energy_images, figsize, title="", lims=[0.0, 30]):
+def energy_gain_matrix(list_of_all_energy_images, figsize, title="", lims=[0.0, 80]):
     # K = N(N+1)/2 --> N = ...
     number_of_dimensions = int(
         (-1 + np.sqrt(1 + 8 * len(list_of_all_energy_images))) / 2

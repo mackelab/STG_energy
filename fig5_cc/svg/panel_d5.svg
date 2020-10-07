@@ -2,36 +2,48 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
   "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <!-- Created with matplotlib (https://matplotlib.org/) -->
-<svg height="127.05225pt" version="1.1" viewBox="0 0 43.14495 127.05225" width="43.14495pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg height="127.4785pt" version="1.1" viewBox="0 0 45.93719 127.4785" width="45.93719pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <metadata>
+  <rdf:RDF xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2020-10-06T18:28:02.649388</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.3.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
  <defs>
-  <style type="text/css">
-*{stroke-linecap:butt;stroke-linejoin:round;}
-  </style>
+  <style type="text/css">*{stroke-linecap:butt;stroke-linejoin:round;}</style>
  </defs>
  <g id="figure_1">
   <g id="patch_1">
-   <path d="M 0 127.05225 
-L 43.14495 127.05225 
-L 43.14495 0 
+   <path d="M 0 127.4785 
+L 45.93719 127.4785 
+L 45.93719 0 
 L 0 0 
 z
 " style="fill:none;"/>
   </g>
   <g id="axes_1">
    <g id="patch_2">
-    <path clip-path="url(#p0df0311274)" d="M 7.2 115.399125 
-L 7.2 114.987656 
-L 7.2 10.474594 
-L 7.2 10.063125 
-L 10.7112 10.063125 
-L 10.7112 10.474594 
-L 10.7112 114.987656 
-L 10.7112 115.399125 
+    <path clip-path="url(#pcb26d4d826)" d="M 7.2 115.575375 
+L 7.2 115.163906 
+L 7.2 10.650844 
+L 7.2 10.239375 
+L 11.41344 10.239375 
+L 11.41344 10.650844 
+L 11.41344 115.163906 
+L 11.41344 115.575375 
 z
 " style="fill:#ffffff;stroke:#ffffff;stroke-linejoin:miter;stroke-width:0.01;"/>
    </g>
-   <image height="105.12" id="image0d9540fb62" transform="scale(1 -1)translate(0 -105.12)" width="3.6" x="7.2" xlink:href="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAA8AAAG2CAYAAACgZNxDAAAABHNCSVQICAgIfAhkiAAAAadJREFUeJztm0GOwzAMA72F///dPRRI+gaKgAiC9F2grJFppWn+/r/ve4brzkPPue+ZR3/muudcQphUJoRZ5aLClBlUVLXZtFWoZHs2TdsUldDDlGZQVJCyJyqpGciUZXs+RQUqd4jDlIsKVPZEFTnEFRWqbInK1MOKClyJqEw9rKjAlYjK1MOKClyJqO5DlDuxw4S+/VimHWkGRbUYTKIyLZhl2qGo5otNW2aATLAu7aICg4WoLOdtdqxgXrMRyqG9PQ/WcXY9VVRvC+dty2lIylmn7HiqpL3t+Pwc+fDtaYDCI9mCgcrKi06mTM3bgVcsc2NIJwOVsu2jUaANeZpBUYHBkb+TcO9u8jqsqFBlIri+vaw8Dy6qVWXODCxfp2aiqhlgwYkd5rln07RbsGXleXBRLStTwY5pFxW4ElG1YMvKRPBDTOuJqEzTDkUV+ImUZ8ESlbnPtgMLRvW255FMVDY9kpEFK6rFYFdU9e0I5ZrBZjBbMJ3y/P94uj2bpq1D1YItK7e3QWWqtx3TzkQl+31biaq9DSo77tk07V50y8qOe9al/QP6yBwoyWmEowAAAABJRU5ErkJggg==" y="-10.08"/>
+   <image height="105.12" id="image087bb3d856" transform="scale(1 -1)translate(0 -105.12)" width="4.32" x="7.2" xlink:href="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAABIAAAG2CAYAAAByNNYbAAAB4ElEQVR4nO2c223EMBADncD9t5uPAL4rgfogjAExLGCx5Egr2ff4+fv/fK6C7k6Z6/rtlLmu+3N1WrpLdarWOip2VGqpRq1nTfxRy/hxg23YmvizarsfOdhW8QNntvijlvHzBtvVurDzrIk/yue1LB5+4MwWf5T4s3j4h2e2+E8KAa2t4h+e2eI/KCT+KC/sWeI/KCT+KC/sWcv4nxJ/oLXhwfbMWhP/QSHxRxXPNVzYz2zYvAUJtLaLH3mJoIX9lArxMhJ/Vg0/0Bpv1PIW5PTzGm1BFvdapxBvHS3v/tpeAz6v4Tpq3WqJ1oAdre5+YNjAc204bNzDMTCjHn7DDloOG3jSlgrxTlpi2LiOai+ieNZ4HQGvNa1CPGvE3T872MQf5XvILN7wB1rjrWxeRsv4S4WIg82VnQTMSPxRxMGGe+sn/qjpcw2H38EWtYy/9x2tWWu8jgw7azijYWs8/MPWxH9UaNUaD79hZw1ndD+lJz+eNR7+YWvif7HQ9M/yd8O2o6jif/vgrO12NDxG7OjFQrwxYthZwI7EH8WzxutoeB3Z0YuFHGwvFmqGzeuo8716XkbD1nj4DTtrOKNhazz8w9bEf1II9/kaEb97Lci9dlRo1RoP/7A18R8Vgln7AmK4HCg4drz9AAAAAElFTkSuQmCC" y="-10.32"/>
    <g id="matplotlib.axis_1"/>
    <g id="matplotlib.axis_2">
     <g id="ytick_1">
@@ -39,47 +51,47 @@ iVBORw0KGgoAAAANSUhEUgAAAA8AAAG2CAYAAACgZNxDAAAABHNCSVQICAgIfAhkiAAAAadJREFUeJzt
       <defs>
        <path d="M 0 0 
 L 3.5 0 
-" id="mfb41023dc6" style="stroke:#000000;stroke-width:1.5;"/>
+" id="m5121bce245" style="stroke:#000000;stroke-width:1.5;"/>
       </defs>
       <g>
-       <use style="stroke:#000000;stroke-width:1.5;" x="10.7112" xlink:href="#mfb41023dc6" y="115.399125"/>
+       <use style="stroke:#000000;stroke-width:1.5;" x="11.41344" xlink:href="#m5121bce245" y="115.575375"/>
       </g>
      </g>
      <g id="text_1">
-      <text style="font-family:Arial;font-size:8px;font-style:normal;font-weight:normal;text-anchor:start;" transform="rotate(-0, 17.7112, 118.26225)" x="17.7112" y="118.26225">0 %</text>
+      <text style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:start;" transform="rotate(-0, 18.41344, 118.61475)" x="18.41344" y="118.61475">0 %</text>
      </g>
     </g>
     <g id="ytick_2">
      <g id="line2d_2">
       <g>
-       <use style="stroke:#000000;stroke-width:1.5;" x="10.7112" xlink:href="#mfb41023dc6" y="10.063125"/>
+       <use style="stroke:#000000;stroke-width:1.5;" x="11.41344" xlink:href="#m5121bce245" y="10.239375"/>
       </g>
      </g>
      <g id="text_2">
-      <text style="font-family:Arial;font-size:8px;font-style:normal;font-weight:normal;text-anchor:start;" transform="rotate(-0, 17.7112, 12.92625)" x="17.7112" y="12.92625">30 %</text>
+      <text style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:start;" transform="rotate(-0, 18.41344, 13.27875)" x="18.41344" y="13.27875">30 %</text>
      </g>
     </g>
     <g id="text_3">
-     <text style="font-family:Arial;font-size:8px;font-style:normal;font-weight:normal;text-anchor:middle;" transform="rotate(-90, 31.6712, 62.731125)" x="31.6712" y="62.731125">Potential energy savings</text>
+     <text style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:middle;" transform="rotate(-90, 34.81594, 62.907375)" x="34.81594" y="62.907375">Pot. energy savings</text>
     </g>
    </g>
    <g id="patch_3">
-    <path d="M 7.2 115.399125 
-L 7.2 114.987656 
-L 7.2 10.474594 
-L 7.2 10.063125 
-L 10.7112 10.063125 
-L 10.7112 10.474594 
-L 10.7112 114.987656 
-L 10.7112 115.399125 
+    <path d="M 7.2 115.575375 
+L 7.2 115.163906 
+L 7.2 10.650844 
+L 7.2 10.239375 
+L 11.41344 10.239375 
+L 11.41344 10.650844 
+L 11.41344 115.163906 
+L 11.41344 115.575375 
 z
-" style="fill:none;stroke:#000000;stroke-linejoin:miter;stroke-width:0.2;"/>
+" style="fill:none;stroke:#000000;stroke-linejoin:miter;stroke-width:1.5;"/>
    </g>
   </g>
  </g>
  <defs>
-  <clipPath id="p0df0311274">
-   <rect height="105.336" width="3.5112" x="7.2" y="10.063125"/>
+  <clipPath id="pcb26d4d826">
+   <rect height="105.336" width="4.21344" x="7.2" y="10.239375"/>
   </clipPath>
  </defs>
 </svg>

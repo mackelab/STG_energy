@@ -4,13 +4,24 @@ from copy import deepcopy
 # from find_pyloric import check_ss_to_obs_diff_stds
 
 
-def select_ss_close_to_obs(params, stats, seeds, observation, num_std, stats_std=None):
+def select_ss_close_to_obs(
+    params,
+    stats,
+    seeds,
+    observation,
+    num_std,
+    stats_std=None,
+    new_burst_position_in_ss=False,
+):
     """
     Returns those summstats that are within num_std standard deviations
         from the observation and no bursts and no plateaus.
     :param data: summstats
     :param observation:
     :param num_std:
+    :param new_burst_position_in_ss: if False, then the number of bursts is assumed to
+        the last ss. This was before I added e.g. voltage moments. Later, the number of
+        bursts is in position 22:25
     :return:
     """
     if stats_std is None:
@@ -46,10 +57,16 @@ def select_ss_close_to_obs(params, stats, seeds, observation, num_std, stats_std
     good_seeds = seeds[np.all(diff_to_obs < num_std, axis=1)]
 
     # check if more than 7 bursts
-    backup_stats = deepcopy(good_data)
-    good_data = good_data[np.all(backup_stats[:, -3:] > 7.5, axis=1)]
-    good_params = good_params[np.all(backup_stats[:, -3:] > 7.5, axis=1)]
-    good_seeds = good_seeds[np.all(backup_stats[:, -3:] > 7.5, axis=1)]
+    if new_burst_position_in_ss:
+        backup_stats = deepcopy(good_data)
+        good_data = good_data[np.all(backup_stats[:, 22:25] > 7.5, axis=1)]
+        good_params = good_params[np.all(backup_stats[:, 22:25] > 7.5, axis=1)]
+        good_seeds = good_seeds[np.all(backup_stats[:, 22:25] > 7.5, axis=1)]
+    else:
+        backup_stats = deepcopy(good_data)
+        good_data = good_data[np.all(backup_stats[:, -3:] > 7.5, axis=1)]
+        good_params = good_params[np.all(backup_stats[:, -3:] > 7.5, axis=1)]
+        good_seeds = good_seeds[np.all(backup_stats[:, -3:] > 7.5, axis=1)]
 
     # check if no plateaus
     backup_stats = deepcopy(good_data)
@@ -59,9 +76,9 @@ def select_ss_close_to_obs(params, stats, seeds, observation, num_std, stats_std
 
     # check if no NaN
     backup_stats = deepcopy(good_data)
-    good_data = good_data[np.invert(np.any(np.isnan(backup_stats)))]
-    good_params = good_params[np.invert(np.any(np.isnan(backup_stats)))]
-    good_seeds = good_seeds[np.invert(np.any(np.isnan(backup_stats)))]
+    good_data = good_data[np.invert(np.any(np.isnan(backup_stats), axis=1))]
+    good_params = good_params[np.invert(np.any(np.isnan(backup_stats), axis=1))]
+    good_seeds = good_seeds[np.invert(np.any(np.isnan(backup_stats), axis=1))]
 
     return good_params, good_data, good_seeds
 

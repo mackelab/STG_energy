@@ -134,6 +134,7 @@ def energy_scape(
     ylimE=[0, 2000],
     v_labelpad=4.8,
     neuron=2,
+    ylabels=True,
 ):
     fig, ax = plt.subplots(2, 1, figsize=figsize)
     iii = 0
@@ -169,7 +170,10 @@ def energy_scape(
     box = axV.get_position()
 
     axV.set_position([box.x0, box.y0, box.width, box.height])
-    axV.set_ylabel("V (" + names[neuron] + ")\n (mV)", labelpad=v_labelpad)
+    if ylabels:
+        axV.set_ylabel("V (" + names[neuron] + ")\n (mV)", labelpad=v_labelpad)
+    else:
+        axV.set_yticks([])
     axV.tick_params(axis="both", which="major")
 
     axV.spines["right"].set_visible(False)
@@ -211,7 +215,10 @@ def energy_scape(
     axS.spines["right"].set_visible(False)
     axS.spines["top"].set_visible(False)
     axS.set_xlabel("Time (ms)")
-    axS.set_ylabel("E (" + names[neuron] + ")\n $(\mu$J/s)", labelpad=1)
+    if ylabels:
+        axS.set_ylabel("E (" + names[neuron] + ")\n $(\mu$J/s)", labelpad=1)
+    else:
+        axS.set_yticks([])
     axS.set_ylim(ylimE)
     axS.tick_params(axis="both", which="major")
 

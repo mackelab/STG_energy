@@ -2,12 +2,12 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
   "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <!-- Created with matplotlib (https://matplotlib.org/) -->
-<svg height="104.890817pt" version="1.1" viewBox="0 0 40.828 104.890817" width="40.828pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg height="93.857708pt" version="1.1" viewBox="0 0 40.2736 93.857708" width="40.2736pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
  <metadata>
   <rdf:RDF xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2020-09-30T18:17:34.968363</dc:date>
+    <dc:date>2020-10-07T18:21:36.541559</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -22,28 +22,28 @@
  </defs>
  <g id="figure_1">
   <g id="patch_1">
-   <path d="M 0 104.890817 
-L 40.828 104.890817 
-L 40.828 0 
-L 0 0 
+   <path d="M 0 93.857708 
+L 40.2736 93.857708 
+L 40.2736 -0 
+L 0 -0 
 z
 " style="fill:none;"/>
   </g>
   <g id="axes_1">
    <g id="patch_2">
-    <path clip-path="url(#p2458682f53)" d="M 7.2 92.987692 
-L 7.2 92.662848 
-L 7.2 10.152536 
-L 7.2 9.827692 
-L 11.358 9.827692 
-L 11.358 10.152536 
-L 11.358 92.662848 
-L 11.358 92.987692 
+    <path clip-path="url(#p847431d4a3)" d="M 7.2 81.954583 
+L 7.2 81.673052 
+L 7.2 10.164114 
+L 7.2 9.882583 
+L 10.8036 9.882583 
+L 10.8036 10.164114 
+L 10.8036 81.673052 
+L 10.8036 81.954583 
 z
 " style="fill:#ffffff;stroke:#ffffff;stroke-linejoin:miter;stroke-width:0.01;"/>
    </g>
-   <image height="83.04" id="image4437b0890d" transform="scale(1 -1)translate(0 -83.04)" width="4.08" x="7.2" xlink:href="data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAABEAAAFaCAYAAAD4hbbhAAAA/klEQVR4nO3csQ3DQAzFUDnI/iPH6cN0ZzUEOcCH9XC1r/ueew57nQ7MzLzPv+OhEdk5mSyNZMJ0Jp/zEZ1J7+Q32TmZLI1kwjJhmTCZieycTJZGMmGZsEyYzER2TiZLI5mwTFgmTGYiOyeTpZFMWCZMZiI7J5OlkUxYJiwTJjORnZPJ0kgmLBOWCZOZyM7JZGkkE5YJy4TJTGTnZLI0kgnLhGXCZCayczJZGsmEZcIyYTIT2TmZLI1kwjJhmTCZieycTJZGMmGZMJmJ7JxMlkYyYZmwTJjMRHZOJksjmbBMWCZMZiI7J5N/I/15cmUkE5YJk5nIzrlmzmceMfkCoXUEudMzSQMAAAAASUVORK5CYII=" y="-9.84"/>
+   <image height="72" id="imagef28c5a01f3" transform="scale(1 -1)translate(0 -72)" width="3.6" x="7.2" xlink:href="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAA8AAAEsCAYAAAAcmelmAAAAt0lEQVR4nO3bwQnDMBQFQTmk/5Kj1GAZvlkY3QfBW3TUtffa6/B8z+lan3P68Gb45pFqEr+59u+1m5PYw8hgqTJYqkls7QyWKoOlymCpMliqSWztDJYqg6XKYKkyWKpJbO0MliqDpcpgqSaxtTNYqgyWKoOlymCpJrG1M1iqDJYqg6WaxNbOYKkyWKoMliqDpZrE1s5gqTJYqgyWahJbO4OlymCpMtgn+Qz2qiaxtW+ea61z/mjtP8oABF1P9iDEAAAAAElFTkSuQmCC" y="-9.84"/>
    <g id="matplotlib.axis_1"/>
    <g id="matplotlib.axis_2">
     <g id="ytick_1">
@@ -51,29 +51,29 @@ iVBORw0KGgoAAAANSUhEUgAAABEAAAFaCAYAAAD4hbbhAAAA/klEQVR4nO3csQ3DQAzFUDnI/iPH6cN0
       <defs>
        <path d="M 0 0 
 L 3.5 0 
-" id="m80d23aa916" style="stroke:#000000;stroke-width:1.5;"/>
+" id="m2d28650099" style="stroke:#000000;stroke-width:1.5;"/>
       </defs>
       <g>
-       <use style="stroke:#000000;stroke-width:1.5;" x="11.358" xlink:href="#m80d23aa916" y="92.987692"/>
+       <use style="stroke:#000000;stroke-width:1.5;" x="10.8036" xlink:href="#m2d28650099" y="81.954583"/>
       </g>
      </g>
      <g id="text_1">
-      <text style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:start;" transform="rotate(-0, 18.358, 96.027067)" x="18.358" y="96.027067">94</text>
+      <text style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:start;" transform="rotate(-0, 17.8036, 84.993958)" x="17.8036" y="84.993958">94</text>
      </g>
     </g>
     <g id="ytick_2">
      <g id="line2d_2">
       <g>
-       <use style="stroke:#000000;stroke-width:1.5;" x="11.358" xlink:href="#m80d23aa916" y="10.239375"/>
+       <use style="stroke:#000000;stroke-width:1.5;" x="10.8036" xlink:href="#m2d28650099" y="10.239375"/>
       </g>
      </g>
      <g id="text_2">
-      <text style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:start;" transform="rotate(-0, 18.358, 13.27875)" x="18.358" y="13.27875">120</text>
+      <text style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:start;" transform="rotate(-0, 17.8036, 13.27875)" x="17.8036" y="13.27875">120</text>
      </g>
     </g>
     <g id="text_3">
      <!-- Energy ($\mu$J/s) -->
-     <g transform="translate(29.708 77.047692)rotate(-90)">
+     <g transform="translate(29.1536 71.558583)rotate(-90)">
       <text>
        <tspan style="font-family:DejaVu Sans;font-size:8px;font-style:book;font-weight:book;" x="0 5.054688 10.125 15.046875 18.335938 23.414062 28.148438 30.691406 33.8125 38.902344 41.261719 43.957031 48.125" y="-0.921875">Energy (μJ/s)</tspan>
       </text>
@@ -81,22 +81,22 @@ L 3.5 0
     </g>
    </g>
    <g id="patch_3">
-    <path d="M 7.2 92.987692 
-L 7.2 92.662848 
-L 7.2 10.152536 
-L 7.2 9.827692 
-L 11.358 9.827692 
-L 11.358 10.152536 
-L 11.358 92.662848 
-L 11.358 92.987692 
+    <path d="M 7.2 81.954583 
+L 7.2 81.673052 
+L 7.2 10.164114 
+L 7.2 9.882583 
+L 10.8036 9.882583 
+L 10.8036 10.164114 
+L 10.8036 81.673052 
+L 10.8036 81.954583 
 z
 " style="fill:none;stroke:#000000;stroke-linejoin:miter;stroke-width:1.5;"/>
    </g>
   </g>
  </g>
  <defs>
-  <clipPath id="p2458682f53">
-   <rect height="83.16" width="4.158" x="7.2" y="9.827692"/>
+  <clipPath id="p847431d4a3">
+   <rect height="72.072" width="3.6036" x="7.2" y="9.882583"/>
   </clipPath>
  </defs>
 </svg>
