@@ -2,12 +2,12 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
   "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <!-- Created with matplotlib (https://matplotlib.org/) -->
-<svg height="127.4785pt" version="1.1" viewBox="0 0 45.93719 127.4785" width="45.93719pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg height="127.4785pt" version="1.1" viewBox="0 0 50.63794 127.4785" width="50.63794pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
  <metadata>
   <rdf:RDF xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2020-10-06T18:28:02.649388</dc:date>
+    <dc:date>2020-10-08T18:03:14.191087</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -23,15 +23,15 @@
  <g id="figure_1">
   <g id="patch_1">
    <path d="M 0 127.4785 
-L 45.93719 127.4785 
-L 45.93719 0 
+L 50.63794 127.4785 
+L 50.63794 0 
 L 0 0 
 z
 " style="fill:none;"/>
   </g>
   <g id="axes_1">
    <g id="patch_2">
-    <path clip-path="url(#pcb26d4d826)" d="M 7.2 115.575375 
+    <path clip-path="url(#p694ec75dfe)" d="M 7.2 115.575375 
 L 7.2 115.163906 
 L 7.2 10.650844 
 L 7.2 10.239375 
@@ -42,7 +42,7 @@ L 11.41344 115.575375
 z
 " style="fill:#ffffff;stroke:#ffffff;stroke-linejoin:miter;stroke-width:0.01;"/>
    </g>
-   <image height="105.12" id="image087bb3d856" transform="scale(1 -1)translate(0 -105.12)" width="4.32" x="7.2" xlink:href="data:image/png;base64,
+   <image height="105.12" id="imaged888f5f475" transform="scale(1 -1)translate(0 -105.12)" width="4.32" x="7.2" xlink:href="data:image/png;base64,
 iVBORw0KGgoAAAANSUhEUgAAABIAAAG2CAYAAAByNNYbAAAB4ElEQVR4nO2c223EMBADncD9t5uPAL4rgfogjAExLGCx5Egr2ff4+fv/fK6C7k6Z6/rtlLmu+3N1WrpLdarWOip2VGqpRq1nTfxRy/hxg23YmvizarsfOdhW8QNntvijlvHzBtvVurDzrIk/yue1LB5+4MwWf5T4s3j4h2e2+E8KAa2t4h+e2eI/KCT+KC/sWeI/KCT+KC/sWcv4nxJ/oLXhwfbMWhP/QSHxRxXPNVzYz2zYvAUJtLaLH3mJoIX9lArxMhJ/Vg0/0Bpv1PIW5PTzGm1BFvdapxBvHS3v/tpeAz6v4Tpq3WqJ1oAdre5+YNjAc204bNzDMTCjHn7DDloOG3jSlgrxTlpi2LiOai+ieNZ4HQGvNa1CPGvE3T872MQf5XvILN7wB1rjrWxeRsv4S4WIg82VnQTMSPxRxMGGe+sn/qjpcw2H38EWtYy/9x2tWWu8jgw7azijYWs8/MPWxH9UaNUaD79hZw1ndD+lJz+eNR7+YWvif7HQ9M/yd8O2o6jif/vgrO12NDxG7OjFQrwxYthZwI7EH8WzxutoeB3Z0YuFHGwvFmqGzeuo8716XkbD1nj4DTtrOKNhazz8w9bEf1II9/kaEb97Lci9dlRo1RoP/7A18R8Vgln7AmK4HCg4drz9AAAAAElFTkSuQmCC" y="-10.32"/>
    <g id="matplotlib.axis_1"/>
    <g id="matplotlib.axis_2">
@@ -51,10 +51,10 @@ iVBORw0KGgoAAAANSUhEUgAAABIAAAG2CAYAAAByNNYbAAAB4ElEQVR4nO2c223EMBADncD9t5uPAL4r
       <defs>
        <path d="M 0 0 
 L 3.5 0 
-" id="m5121bce245" style="stroke:#000000;stroke-width:1.5;"/>
+" id="m223d5a5426" style="stroke:#000000;stroke-width:1.5;"/>
       </defs>
       <g>
-       <use style="stroke:#000000;stroke-width:1.5;" x="11.41344" xlink:href="#m5121bce245" y="115.575375"/>
+       <use style="stroke:#000000;stroke-width:1.5;" x="11.41344" xlink:href="#m223d5a5426" y="115.575375"/>
       </g>
      </g>
      <g id="text_1">
@@ -64,15 +64,16 @@ L 3.5 0
     <g id="ytick_2">
      <g id="line2d_2">
       <g>
-       <use style="stroke:#000000;stroke-width:1.5;" x="11.41344" xlink:href="#m5121bce245" y="10.239375"/>
+       <use style="stroke:#000000;stroke-width:1.5;" x="11.41344" xlink:href="#m223d5a5426" y="10.239375"/>
       </g>
      </g>
      <g id="text_2">
-      <text style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:start;" transform="rotate(-0, 18.41344, 13.27875)" x="18.41344" y="13.27875">30 %</text>
+      <text style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:start;" transform="rotate(-0, 18.41344, 13.27875)" x="18.41344" y="13.27875">90 %</text>
      </g>
     </g>
     <g id="text_3">
-     <text style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:middle;" transform="rotate(-90, 34.81594, 62.907375)" x="34.81594" y="62.907375">Pot. energy savings</text>
+     <text style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;" transform="translate(32.81594 103.3855)rotate(-90)">Pot. energy savings </text>
+     <text style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;" transform="translate(41.77419 105.243)rotate(-90)"> in respective neuron</text>
     </g>
    </g>
    <g id="patch_3">
@@ -90,7 +91,7 @@ z
   </g>
  </g>
  <defs>
-  <clipPath id="pcb26d4d826">
+  <clipPath id="p694ec75dfe">
    <rect height="105.336" width="4.21344" x="7.2" y="10.239375"/>
   </clipPath>
  </defs>

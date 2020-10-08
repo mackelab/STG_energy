@@ -26,6 +26,7 @@ def extract_the_data(
     neural_net_zscore_std=None,
     neural_net_zscore_mean_energy=None,
     neural_net_zscore_std_energy=None,
+    min_prob=None,
 ):
     if dim1 >= dim2:
         p_vector = eval_conditional_density(
@@ -39,19 +40,20 @@ def extract_the_data(
         )
         p_vector = p_vector / np.max(p_vector)  # just to scale it to 1
 
-        # get the minimum requried probability to be simulated
-        min_prob = (
-            ue.extract_min_prob(
-                posterior,
-                condition1_norm,
-                grid_bins,
-                dim1,
-                dim2,
-                lims_unnorm,
-                mode="posterior_prob",
+        if min_prob is None:
+            # get the minimum requried probability to be simulated
+            threshold_for_simulating = (
+                ue.extract_min_prob(
+                    posterior,
+                    condition1_norm,
+                    grid_bins,
+                    dim1,
+                    dim2,
+                    lims_unnorm,
+                    mode="posterior_prob",
+                )
+                / 1.5
             )
-            / 1.5
-        )
 
         # get the energies in the conditional plane
         (
@@ -106,6 +108,16 @@ def generate_and_store_data(
     neural_net_zscore_std=None,
     neural_net_zscore_mean_energy=None,
     neural_net_zscore_std_energy=None,
+    min_prob=None,
+    net1=None,
+    mean1=None,
+    std1=None,
+    net2=None,
+    mean2=None,
+    std2=None,
+    net3=None,
+    mean3=None,
+    std3=None,
 ):
     all_conditional_correlations = []
     all_energy_images = []
@@ -144,11 +156,18 @@ def generate_and_store_data(
                     neural_net_zscore_std=neural_net_zscore_std,
                     neural_net_zscore_mean_energy=neural_net_zscore_mean_energy,
                     neural_net_zscore_std_energy=neural_net_zscore_std_energy,
+                    min_prob=min_prob,
                 )
     else:
         for p, n in zip(pairs, neuron_to_observe):
             dim1 = p[0]
             dim2 = p[1]
+            nets = {"PM": net1, "LP": net2, "PY": net3}
+            means = {"PM": mean1, "LP": mean2, "PY": mean3}
+            stds = {"PM": std1, "LP": std2, "PY": std3}
+            net_ = nets[n]
+            mean_ = means[n]
+            std_ = stds[n]
             (
                 all_conditional_correlations,
                 all_energy_images,
@@ -169,6 +188,12 @@ def generate_and_store_data(
                 all_energy_specific,
                 all_energy_per_spike,
                 all_num_spikes_per_burst,
+                regression_net=net_,
+                neural_net_zscore_mean=neural_net_zscore_mean,
+                neural_net_zscore_std=neural_net_zscore_std,
+                neural_net_zscore_mean_energy=mean_,
+                neural_net_zscore_std_energy=std_,
+                min_prob=min_prob,
             )
 
     with open(

@@ -266,7 +266,7 @@ def energy_of_conditional(
             norm_sets = (valid_sets - neural_net_zscore_mean) / neural_net_zscore_std
             net_preds = regression_net.predict(norm_sets).detach()
             net_E = (
-                net_preds * neural_net_zscore_mean_energy + neural_net_zscore_std_energy
+                net_preds * neural_net_zscore_std_energy + neural_net_zscore_mean_energy
             )[:, 0]
             all_preds = -torch.ones(vec_dim1.shape[0] ** 2)
             all_preds[probs > lowest_allowed] = net_E
@@ -354,7 +354,7 @@ def energy_of_conditional(
             norm_sets = (valid_sets - neural_net_zscore_mean) / neural_net_zscore_std
             net_preds = regression_net.predict(norm_sets).detach()
             net_E = (
-                net_preds * neural_net_zscore_mean_energy + neural_net_zscore_std_energy
+                net_preds * neural_net_zscore_std_energy + neural_net_zscore_mean_energy
             )[:, 0]
             all_preds = -torch.ones(vec_dim1.shape[0])
             all_preds[probs > lowest_allowed] = net_E
