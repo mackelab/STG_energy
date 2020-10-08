@@ -150,7 +150,7 @@ def energy_scape(
         "#666666",
     ]
 
-    names = ["PM", "LP", "PY"]
+    names = ["AB", "LP", "PY"]
 
     current_col = 0
     Vx = out_target["data"]

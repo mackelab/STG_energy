@@ -1,5 +1,6 @@
 import numpy as np
 from copy import deepcopy
+import torch
 
 
 def extract_min_prob(
@@ -23,7 +24,7 @@ def extract_min_prob(
     :return: minimum required probability to be simulated
     """
     if mode == "posterior_prob":
-        prob = np.exp(posterior_MAF_11.log_prob(condition1_norm).detach().item())
+        prob = np.exp(posterior_MAF_11.log_prob(condition1_norm).detach().item() - 100)
         min_prob = 0.35 * prob
     else:
         all_probs = []
@@ -37,7 +38,9 @@ def extract_min_prob(
 
                 parameter_set[0, dim1] = v1
                 parameter_set[0, dim2] = v2
-                prob = np.exp(posterior_MAF_11.log_prob(parameter_set).detach().numpy())
+                prob = np.exp(
+                    posterior_MAF_11.log_prob(parameter_set).detach().numpy() - 100
+                )
                 all_probs.append(prob[0])
         all_probs = np.asarray(all_probs)
 
@@ -116,6 +119,11 @@ def energy_of_conditional(
     stats_std,
     neuron_to_observe,
     patience=1,
+    regression_net=None,
+    neural_net_zscore_mean=None,
+    neural_net_zscore_std=None,
+    neural_net_zscore_mean_energy=None,
+    neural_net_zscore_std_energy=None,
 ):
     """
     Return image that contains the energy of each parameter value in conditional plane.
@@ -139,6 +147,14 @@ def energy_of_conditional(
         spike of? Either of the following: 'PM', 'LP', 'PY'
     :param patience: how often we simulate when outside of allowed error from
         observation.
+    :param regression_net: if None, we simulate to obtain the energy of every point on
+        the grid. If provided, we just run the parameter set through the net and let
+        it predict the energy.
+    :param neural_net_zscore_mean, neural_net_zscore_std: mean and std that are used to
+        standardize the parameters before feeding them into the regression_net. Ignored
+        if `regression_net=None`.
+    :param neural_net_zscore_mean_energy, neural_net_zscore_std_energy: mean and std
+        used to un-normalize the energy estimate from the regression net.
 
     :return: image
     """
@@ -159,75 +175,106 @@ def energy_of_conditional(
         energy_per_spike = -np.ones((grid_bins, grid_bins))
         number_of_spikes_per_burst = -np.ones((grid_bins, grid_bins))
 
-        for i1, v1 in enumerate(vec_dim1):
-            for i2, v2 in enumerate(vec_dim2):
-                parameter_set = deepcopy(condition1_norm)
+        if regression_net is None:
+            for i1, v1 in enumerate(vec_dim1):
+                for i2, v2 in enumerate(vec_dim2):
+                    parameter_set = deepcopy(condition1_norm)
 
-                parameter_set[0, dim1] = v1
-                parameter_set[0, dim2] = v2
-                prob = np.exp(posterior_MAF_11.log_prob(parameter_set).detach().item())
-                if prob > lowest_allowed:
-                    remaining_patience = patience
-                    successful_trace = False
-                    seeds = 8607175
-                    iter = 0
-                    while (not successful_trace) and (remaining_patience > 0):
-                        energy_image[i1, i2] = 0.0
-                        energy_image_specific_neuron[i1, i2] = 0.0
-                        out_target = simulate(
-                            deepcopy(parameter_set[0]), seed=seeds + iter,
-                        )
-                        ss = stats(out_target)
-                        if np.invert(np.any(np.isnan(ss))):
-                            num_std = np.asarray(
-                                [
-                                    0.02,
-                                    0.02,
-                                    0.02,
-                                    0.02,
-                                    0.2,
-                                    0.2,
-                                    0.2,
-                                    0.2,
-                                    0.2,
-                                    0.2,
-                                    0.2,
-                                    0.2,
-                                    0.2,
-                                    0.2,
-                                    0.2,
-                                ]
+                    parameter_set[0, dim1] = v1
+                    parameter_set[0, dim2] = v2
+                    prob = np.exp(
+                        posterior_MAF_11.log_prob(parameter_set).detach().item() - 100
+                    )
+                    if prob > lowest_allowed:
+                        remaining_patience = patience
+                        successful_trace = False
+                        seeds = 8607175
+                        iter = 0
+                        while (not successful_trace) and (remaining_patience > 0):
+                            energy_image[i1, i2] = 0.0
+                            energy_image_specific_neuron[i1, i2] = 0.0
+                            out_target = simulate(
+                                deepcopy(parameter_set[0]), seed=seeds + iter,
                             )
-
-                            if check_if_close_to_obs(
-                                ss, observation, num_std=num_std, stats_std=stats_std
-                            ):
-                                successful_trace = True
-                                total_energy = np.sum(out_target["energy"][:, 40000:])
-                                energy_image[i1, i2] = total_energy
-
-                                # E / spike", ss[19:22]
-                                # neuron_to_observe = 'PM' or so...
-                                str_to_ind = {"PM": 0, "LP": 1, "PY": 2}
-
-                                energy_image_specific_neuron[i1, i2] = np.sum(
-                                    out_target["energy"][
-                                        str_to_ind[neuron_to_observe], 40000:
+                            ss = stats(out_target)
+                            if np.invert(np.any(np.isnan(ss))):
+                                num_std = np.asarray(
+                                    [
+                                        0.02,
+                                        0.02,
+                                        0.02,
+                                        0.02,
+                                        0.2,
+                                        0.2,
+                                        0.2,
+                                        0.2,
+                                        0.2,
+                                        0.2,
+                                        0.2,
+                                        0.2,
+                                        0.2,
+                                        0.2,
+                                        0.2,
                                     ]
                                 )
 
-                                energy_per_spike[i1, i2] = ss[19:22][
-                                    str_to_ind[neuron_to_observe]
-                                ]
+                                if check_if_close_to_obs(
+                                    ss,
+                                    observation,
+                                    num_std=num_std,
+                                    stats_std=stats_std,
+                                ):
+                                    successful_trace = True
+                                    total_energy = np.sum(
+                                        out_target["energy"][:, 40000:]
+                                    )
+                                    energy_image[i1, i2] = total_energy
 
-                                # number of spikes", ss[31:34]
-                                # number of bursts", ss[22:25]
-                                number_of_spikes_per_burst[i1, i2] = (
-                                    ss[31:34][str_to_ind[neuron_to_observe]]
-                                    / ss[22:25][str_to_ind[neuron_to_observe]]
-                                )
-                        remaining_patience -= 1
-                        iter += 1
+                                    # E / spike", ss[19:22]
+                                    # neuron_to_observe = 'PM' or so...
+                                    str_to_ind = {"PM": 0, "LP": 1, "PY": 2}
+
+                                    energy_image_specific_neuron[i1, i2] = np.sum(
+                                        out_target["energy"][
+                                            str_to_ind[neuron_to_observe], 40000:
+                                        ]
+                                    )
+
+                                    energy_per_spike[i1, i2] = ss[19:22][
+                                        str_to_ind[neuron_to_observe]
+                                    ]
+
+                                    # number of spikes", ss[31:34]
+                                    # number of bursts", ss[22:25]
+                                    number_of_spikes_per_burst[i1, i2] = (
+                                        ss[31:34][str_to_ind[neuron_to_observe]]
+                                        / ss[22:25][str_to_ind[neuron_to_observe]]
+                                    )
+                            remaining_patience -= 1
+                            iter += 1
+        else:
+            all_parameter_sets = []
+            for i1, v1 in enumerate(vec_dim1):
+                for i2, v2 in enumerate(vec_dim2):
+                    parameter_set = deepcopy(condition1_norm)
+                    parameter_set[0, dim1] = v1
+                    parameter_set[0, dim2] = v2
+                    all_parameter_sets.append(parameter_set)
+            sets_tt = torch.cat(all_parameter_sets)
+            probs = np.exp(posterior_MAF_11.log_prob(sets_tt).detach() - 100)
+            valid_sets = sets_tt[probs > lowest_allowed]
+            norm_sets = (valid_sets - neural_net_zscore_mean) / neural_net_zscore_std
+            net_preds = regression_net.predict(norm_sets).detach()
+            net_E = (
+                net_preds * neural_net_zscore_mean_energy + neural_net_zscore_std_energy
+            )[:, 0]
+            all_preds = -torch.ones(vec_dim1.shape[0] ** 2)
+            all_preds[probs > lowest_allowed] = net_E
+            counter = 0
+            for i1, v1 in enumerate(vec_dim1):
+                for i2, v2 in enumerate(vec_dim2):
+                    energy_image_specific_neuron[i1, i2] = all_preds[counter]
+                    counter += 1
     # diagonals
     else:
         vec_dim1 = np.linspace(lims[dim1, 0], lims[dim1, 1], grid_bins)
@@ -236,56 +283,85 @@ def energy_of_conditional(
         energy_image_specific_neuron = -np.ones(grid_bins)
         energy_per_spike = -np.ones(grid_bins)
         number_of_spikes_per_burst = -np.ones(grid_bins)
-        for i1, v1 in enumerate(vec_dim1):
-            parameter_set = deepcopy(condition1_norm)
 
-            parameter_set[0, dim1] = v1
-            prob = np.exp(posterior_MAF_11.log_prob(parameter_set).detach().item())
-            if prob > lowest_allowed:
-                energy_image[i1] = 0.0
-                energy_image_specific_neuron[i1] = 0.0
-                out_target = simulate(deepcopy(parameter_set[0]), seed=8607175)
-                ss = stats(out_target)
-                if np.invert(np.any(np.isnan(ss))):
-                    num_std = np.asarray(
-                        [
-                            0.02,
-                            0.02,
-                            0.02,
-                            0.02,
-                            0.2,
-                            0.2,
-                            0.2,
-                            0.2,
-                            0.2,
-                            0.2,
-                            0.2,
-                            0.2,
-                            0.2,
-                            0.2,
-                            0.2,
-                        ]
-                    )
+        if regression_net is None:
+            for i1, v1 in enumerate(vec_dim1):
+                parameter_set = deepcopy(condition1_norm)
 
-                    if check_if_close_to_obs(
-                        ss, observation, num_std=num_std, stats_std=stats_std
-                    ):
-
-                        total_energy = np.sum(out_target["energy"][:, 40000:])
-                        energy_image[i1] = total_energy
-
-                        str_to_ind = {"PM": 0, "LP": 1, "PY": 2}
-
-                        energy_image_specific_neuron[i1] = np.sum(
-                            out_target["energy"][str_to_ind[neuron_to_observe], 40000:]
+                parameter_set[0, dim1] = v1
+                prob = np.exp(
+                    posterior_MAF_11.log_prob(parameter_set).detach().item() - 100
+                )
+                if prob > lowest_allowed:
+                    energy_image[i1] = 0.0
+                    energy_image_specific_neuron[i1] = 0.0
+                    print("Simulating")
+                    out_target = simulate(deepcopy(parameter_set[0]), seed=8607175)
+                    ss = stats(out_target)
+                    if np.invert(np.any(np.isnan(ss))):
+                        num_std = np.asarray(
+                            [
+                                0.02,
+                                0.02,
+                                0.02,
+                                0.02,
+                                0.2,
+                                0.2,
+                                0.2,
+                                0.2,
+                                0.2,
+                                0.2,
+                                0.2,
+                                0.2,
+                                0.2,
+                                0.2,
+                                0.2,
+                            ]
                         )
 
-                        energy_per_spike[i1] = ss[19:22][str_to_ind[neuron_to_observe]]
+                        if check_if_close_to_obs(
+                            ss, observation, num_std=num_std, stats_std=stats_std
+                        ):
 
-                        number_of_spikes_per_burst[i1] = (
-                            ss[31:34][str_to_ind[neuron_to_observe]]
-                            / ss[22:25][str_to_ind[neuron_to_observe]]
-                        )
+                            total_energy = np.sum(out_target["energy"][:, 40000:])
+                            energy_image[i1] = total_energy
+
+                            str_to_ind = {"PM": 0, "LP": 1, "PY": 2}
+
+                            energy_image_specific_neuron[i1] = np.sum(
+                                out_target["energy"][
+                                    str_to_ind[neuron_to_observe], 40000:
+                                ]
+                            )
+
+                            energy_per_spike[i1] = ss[19:22][
+                                str_to_ind[neuron_to_observe]
+                            ]
+
+                            number_of_spikes_per_burst[i1] = (
+                                ss[31:34][str_to_ind[neuron_to_observe]]
+                                / ss[22:25][str_to_ind[neuron_to_observe]]
+                            )
+        else:
+            all_parameter_sets = []
+            for i1, v1 in enumerate(vec_dim1):
+                parameter_set = deepcopy(condition1_norm)
+                parameter_set[0, dim1] = v1
+                all_parameter_sets.append(parameter_set)
+            sets_tt = torch.cat(all_parameter_sets)
+            probs = np.exp(posterior_MAF_11.log_prob(sets_tt).detach() - 100)
+            valid_sets = sets_tt[probs > lowest_allowed]
+            norm_sets = (valid_sets - neural_net_zscore_mean) / neural_net_zscore_std
+            net_preds = regression_net.predict(norm_sets).detach()
+            net_E = (
+                net_preds * neural_net_zscore_mean_energy + neural_net_zscore_std_energy
+            )[:, 0]
+            all_preds = -torch.ones(vec_dim1.shape[0])
+            all_preds[probs > lowest_allowed] = net_E
+            counter = 0
+            for i1, v1 in enumerate(vec_dim1):
+                energy_image_specific_neuron[i1] = all_preds[counter]
+                counter += 1
 
     return (
         energy_image,

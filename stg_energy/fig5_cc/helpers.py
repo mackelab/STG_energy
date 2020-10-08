@@ -21,9 +21,13 @@ def extract_the_data(
     all_energy_specific,
     all_energy_per_spike,
     all_num_spikes_per_burst,
+    regression_net=None,
+    neural_net_zscore_mean=None,
+    neural_net_zscore_std=None,
+    neural_net_zscore_mean_energy=None,
+    neural_net_zscore_std_energy=None,
 ):
     if dim1 >= dim2:
-        print("===== New pair =====", dim1, dim2)
         p_vector = eval_conditional_density(
             posterior,
             condition1_norm,
@@ -46,7 +50,7 @@ def extract_the_data(
                 lims_unnorm,
                 mode="posterior_prob",
             )
-            / 10000
+            / 1.5
         )
 
         # get the energies in the conditional plane
@@ -65,6 +69,11 @@ def extract_the_data(
             lims_unnorm,
             stats_std=stats_std,
             neuron_to_observe=neuron_to_observe,
+            regression_net=regression_net,
+            neural_net_zscore_mean=neural_net_zscore_mean,
+            neural_net_zscore_std=neural_net_zscore_std,
+            neural_net_zscore_mean_energy=neural_net_zscore_mean_energy,
+            neural_net_zscore_std_energy=neural_net_zscore_std_energy,
         )
 
         all_conditional_correlations.append(p_vector)
@@ -92,6 +101,11 @@ def generate_and_store_data(
     stats_std,
     pairs=None,
     store_as=None,
+    regression_net=None,
+    neural_net_zscore_mean=None,
+    neural_net_zscore_std=None,
+    neural_net_zscore_mean_energy=None,
+    neural_net_zscore_std_energy=None,
 ):
     all_conditional_correlations = []
     all_energy_images = []
@@ -125,6 +139,11 @@ def generate_and_store_data(
                     all_energy_specific,
                     all_energy_per_spike,
                     all_num_spikes_per_burst,
+                    regression_net=regression_net,
+                    neural_net_zscore_mean=neural_net_zscore_mean,
+                    neural_net_zscore_std=neural_net_zscore_std,
+                    neural_net_zscore_mean_energy=neural_net_zscore_mean_energy,
+                    neural_net_zscore_std_energy=neural_net_zscore_std_energy,
                 )
     else:
         for p, n in zip(pairs, neuron_to_observe):
@@ -153,7 +172,7 @@ def generate_and_store_data(
             )
 
     with open(
-        f"../../results/conditional_correlation_energy/201006_{store_as}_all_stored_data_from_energy_all_conditional_correlations.pickle",
+        f"../../results/conditional_correlation_energy/201007_{store_as}_all_stored_data_from_energy_all_conditional_correlations_nn.pickle",
         "wb",
     ) as handle:
         pickle.dump(
@@ -161,25 +180,25 @@ def generate_and_store_data(
         )
 
     with open(
-        f"../../results/conditional_correlation_energy/201006_{store_as}_all_stored_data_from_energy_all_energy_images.pickle",
+        f"../../results/conditional_correlation_energy/201007_{store_as}_all_stored_data_from_energy_all_energy_images_nn.pickle",
         "wb",
     ) as handle:
         pickle.dump(all_energy_images, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
     with open(
-        f"../../results/conditional_correlation_energy/201006_{store_as}_all_stored_data_from_all_energy_specific.pickle",
+        f"../../results/conditional_correlation_energy/201007_{store_as}_all_stored_data_from_all_energy_specific_nn.pickle",
         "wb",
     ) as handle:
         pickle.dump(all_energy_specific, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
     with open(
-        f"../../results/conditional_correlation_energy/201006_{store_as}_all_stored_data_from_energy_all_energy_per_spike.pickle",
+        f"../../results/conditional_correlation_energy/201007_{store_as}_all_stored_data_from_energy_all_energy_per_spike_nn.pickle",
         "wb",
     ) as handle:
         pickle.dump(all_energy_per_spike, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
     with open(
-        f"../../results/conditional_correlation_energy/201006_{store_as}_all_stored_data_from_energy_all_num_spikes_per_burst.pickle",
+        f"../../results/conditional_correlation_energy/201007_{store_as}_all_stored_data_from_energy_all_num_spikes_per_burst_nn.pickle",
         "wb",
     ) as handle:
         pickle.dump(all_num_spikes_per_burst, handle, protocol=pickle.HIGHEST_PROTOCOL)
