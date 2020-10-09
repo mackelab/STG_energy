@@ -34,16 +34,17 @@ def compare_voltage_low_and_high_energy_trace(
         box = axV.get_position()
 
         axV.set_position([box.x0, box.y0, box.width, box.height])
-        axV.axes.get_yaxis().set_ticks([])
 
         axV.spines["right"].set_visible(False)
         axV.spines["top"].set_visible(False)
-        axV.spines["left"].set_visible(False)
-        axV.spines["bottom"].set_visible(False)
+        axV.set_yticks([])
+        if iii == 0:
+            axV.set_ylabel("Voltage")
+        axV.set_xlabel("Time (seconds)")
         # axV.set_ylabel("Voltage")
-        axV.set_xticks([])
-        axV.set_ylim([-80, 320])
+        axV.set_ylim([-90, 320])
 
+        # scale bar
         end_val_x = (t[:time_len:5] / 1000)[-1] + 0.1
         axV.plot([end_val_x, end_val_x], [-20, 30], c="k")
 
@@ -81,21 +82,23 @@ def compare_energy_low_and_high_energy_trace(
                 - 200 * current_current
             )
             axS.plot(
-                t[:time_len:5] / 1000, summed_currents_include, color="k", linewidth=0.6
+                t[:time_len:5] / 1000,
+                summed_currents_include,
+                color="#666666",
+                linewidth=0.6,
             )
 
         axS.spines["right"].set_visible(False)
         axS.spines["top"].set_visible(False)
-        axS.spines["bottom"].set_visible(False)
-        axS.spines["left"].set_visible(False)
         axS.set_ylim([0, 600])
 
         end_val_x = (t[:time_len:5] / 1000)[-1] + 0.1
-        axS.plot([end_val_x, end_val_x], [20, 120], c="k")
-        # axS.set_ylabel("Instant. Energy")
-        axS.set_xticks([])
+        axS.plot([end_val_x, end_val_x], [40, 140], c="k")
         axS.set_yticks([])
+        if iii == 0:
+            axS.set_ylabel("Energy")
         iii += 1
+        axS.set_xlabel("Time (seconds)")
 
         # start only at 40,000 because of burn-in.
         # divide by 4000 because of stepsize (divison by 40000 = 0.025ms stepsize).
