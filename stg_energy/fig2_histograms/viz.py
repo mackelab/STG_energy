@@ -4,12 +4,13 @@ from stg_energy.common import col
 
 
 def compare_voltage_low_and_high_energy_trace(
-    all_out_targets, t_experimental, t, cols, figsize
+    all_out_targets, t_experimental, t, cols, figsize, offset=None
 ):
     fig, ax = plt.subplots(1, 2, figsize=figsize)
     iii = 0
     time_len = int(30000 * (t_experimental[1] - t_experimental[0]) / 0.025 / 1e-3)
-    offset = [160000, 0]
+    if offset is None:
+        offset = [160000, 0]
     print("Showing :  ", time_len / 40000, "seconds")
     print("Scalebar indicates:  50mV")
 
@@ -54,14 +55,15 @@ def compare_voltage_low_and_high_energy_trace(
 
 
 def compare_energy_low_and_high_energy_trace(
-    all_out_targets, t_experimental, t, cols, figsize
+    all_out_targets, t_experimental, t, cols, figsize, offset=None
 ):
     fig, ax = plt.subplots(1, 2, figsize=figsize)
     iii = 0
     time_len = int(30000 * (t_experimental[1] - t_experimental[0]) / 0.025 / 1e-3)
     print("Showing :  ", time_len / 40000, "seconds")
     print("Scalebar indicates:  1000 micro Joule / second")
-    offset = [160000, 0]
+    if offset is None:
+        offset = [160000, 0]
 
     for out_target in all_out_targets:
         # start only at 40,000 because of burn-in.
@@ -78,8 +80,8 @@ def compare_energy_low_and_high_energy_trace(
                     ],
                     axis=0,
                 )
-                + 400
-                - 200 * current_current
+                + 440
+                - 220 * current_current
             )
             axS.plot(
                 t[:time_len:5] / 1000,
@@ -90,7 +92,7 @@ def compare_energy_low_and_high_energy_trace(
 
         axS.spines["right"].set_visible(False)
         axS.spines["top"].set_visible(False)
-        axS.set_ylim([0, 600])
+        axS.set_ylim([0, 660])
 
         end_val_x = (t[:time_len:5] / 1000)[-1] + 0.1
         axS.plot([end_val_x, end_val_x], [40, 140], c="k")
@@ -109,12 +111,13 @@ def compare_energy_low_and_high_energy_trace(
 
 
 def energy_scape_voltage(
-    all_out_targets, t_experimental, t, figsize, cols,
+    all_out_targets, t_experimental, t, figsize, cols, offset=None
 ):
     fig, ax = plt.subplots(1, 2, figsize=figsize)
     iii = 0
     time_len = int(400 * (t_experimental[1] - t_experimental[0]) / 0.025 / 1e-3)
-    offset = [170000, 189010]
+    if offset is None:
+        offset = [170000, 189010]
 
     cols_hex = [
         "#1b9e77",
@@ -169,12 +172,25 @@ def energy_scape_voltage(
 
 
 def energy_scape_energy(
-    all_out_targets, t_experimental, t, figsize, cols,
+    all_out_targets,
+    t_experimental,
+    t,
+    figsize,
+    cols,
+    offset=None,
+    neuron_to_inspect=2,
+    time_len_multiplier=1.0,
+    set_xlim=True,
 ):
     fig, ax = plt.subplots(1, 2, figsize=figsize)
     iii = 0
-    time_len = int(400 * (t_experimental[1] - t_experimental[0]) / 0.025 / 1e-3)
-    offset = [170000, 189010]
+    time_len = (
+        int(400 * (t_experimental[1] - t_experimental[0]) / 0.025 / 1e-3)
+        * time_len_multiplier
+    )
+    print("time_len", time_len)
+    if offset is None:
+        offset = [170000, 189010]
 
     cols_hex = [
         "#1b9e77",
@@ -192,7 +208,7 @@ def energy_scape_energy(
         axS = ax[iii]
         all_energies = out_target["all_energies"]
 
-        for current_current in range(2, 3):
+        for current_current in range(neuron_to_inspect, neuron_to_inspect + 1):
             # times 10 because: times 10000 for cm**2, but /1000 for micro from nano J
             all_currents_PD = all_energies[:, current_current, :] * 10
 
@@ -238,8 +254,10 @@ def energy_scape_energy(
         axS.spines["top"].set_visible(False)
         axS.set_xlabel("Time (ms)")
         axS.set_ylabel("Energy PY ($\mu$J)")
-        axS.set_ylim([0, 1500])
-        axS.set_xlim([0, 40])
+
+        if set_xlim:
+            axS.set_ylim([0, 1850])
+            axS.set_xlim([0, 40])
         axS.tick_params(axis="both", which="major")
         if iii == 1:
             axS.legend(

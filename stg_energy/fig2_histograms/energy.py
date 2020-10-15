@@ -56,17 +56,18 @@ def select_ss_close_to_obs(
     good_params = params[np.all(diff_to_obs < num_std, axis=1)]
     good_seeds = seeds[np.all(diff_to_obs < num_std, axis=1)]
 
-    # check if more than 7 bursts
-    if new_burst_position_in_ss:
-        backup_stats = deepcopy(good_data)
-        good_data = good_data[np.all(backup_stats[:, 22:25] > 7.5, axis=1)]
-        good_params = good_params[np.all(backup_stats[:, 22:25] > 7.5, axis=1)]
-        good_seeds = good_seeds[np.all(backup_stats[:, 22:25] > 7.5, axis=1)]
-    else:
-        backup_stats = deepcopy(good_data)
-        good_data = good_data[np.all(backup_stats[:, -3:] > 7.5, axis=1)]
-        good_params = good_params[np.all(backup_stats[:, -3:] > 7.5, axis=1)]
-        good_seeds = good_seeds[np.all(backup_stats[:, -3:] > 7.5, axis=1)]
+    # TODO: UNCOMMENT
+    # # check if more than 7 bursts
+    # if new_burst_position_in_ss:
+    #     backup_stats = deepcopy(good_data)
+    #     good_data = good_data[np.all(backup_stats[:, 22:25] > 7.5, axis=1)]
+    #     good_params = good_params[np.all(backup_stats[:, 22:25] > 7.5, axis=1)]
+    #     good_seeds = good_seeds[np.all(backup_stats[:, 22:25] > 7.5, axis=1)]
+    # else:
+    #     backup_stats = deepcopy(good_data)
+    #     good_data = good_data[np.all(backup_stats[:, -3:] > 7.5, axis=1)]
+    #     good_params = good_params[np.all(backup_stats[:, -3:] > 7.5, axis=1)]
+    #     good_seeds = good_seeds[np.all(backup_stats[:, -3:] > 7.5, axis=1)]
 
     # check if no plateaus
     backup_stats = deepcopy(good_data)
