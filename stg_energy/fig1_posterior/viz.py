@@ -145,43 +145,41 @@ def vis_sample_plain(
             path_effects=[pe.Stroke(linewidth=1.3, foreground="k"), pe.Normal()],
         )
 
-    if scale_bar:
+    col = "k" if scale_bar else "w"
 
-        # # time bar bottom left
-        # axV.plot(
-        #     (offset + 5500) * dt
-        #     + offscale
-        #     + np.arange(scale_bar_breadth)[:: scale_bar_breadth - 1],
-        #     (-40 + offvolt)
-        #     * np.ones_like(np.arange(scale_bar_breadth))[:: scale_bar_breadth - 1],
-        #     lw=1.0,
-        #     color="r",
-        # )
-        # time bar
-        axV.plot(
-            (offset + 5500) * dt
-            + offscale
-            + 2200
-            + np.arange(scale_bar_breadth)[:: scale_bar_breadth - 1],
-            (-40 + offvolt + 415)
-            * np.ones_like(np.arange(scale_bar_breadth))[:: scale_bar_breadth - 1],
-            lw=1.0,
-            color="k",
-        )
+    # # time bar bottom left
+    # axV.plot(
+    #     (offset + 5500) * dt
+    #     + offscale
+    #     + np.arange(scale_bar_breadth)[:: scale_bar_breadth - 1],
+    #     (-40 + offvolt)
+    #     * np.ones_like(np.arange(scale_bar_breadth))[:: scale_bar_breadth - 1],
+    #     lw=1.0,
+    #     color="r",
+    # )
+    # time bar
+    axV.plot(
+        (offset + 5500) * dt
+        + offscale
+        + 2200
+        + np.arange(scale_bar_breadth)[:: scale_bar_breadth - 1],
+        (-40 + offvolt + 415)
+        * np.ones_like(np.arange(scale_bar_breadth))[:: scale_bar_breadth - 1],
+        lw=1.0,
+        color=col,
+    )
 
-        print("hi")
-        # voltage bar
-        axV.plot(
-            (2850 + offset * dt + offscale)
-            * np.ones_like(np.arange(scale_bar_voltage_breadth))[
-                :: scale_bar_voltage_breadth - 1
-            ],
-            275
-            + np.arange(scale_bar_voltage_breadth)[:: scale_bar_voltage_breadth - 1],
-            lw=1.0,
-            color=scale_col,
-            zorder=10,
-        )
+    # voltage bar
+    axV.plot(
+        (2850 + offset * dt + offscale)
+        * np.ones_like(np.arange(scale_bar_voltage_breadth))[
+            :: scale_bar_voltage_breadth - 1
+        ],
+        275 + np.arange(scale_bar_voltage_breadth)[:: scale_bar_voltage_breadth - 1],
+        lw=1.0,
+        color=col,
+        zorder=10,
+    )
 
     box = axV.get_position()
 
