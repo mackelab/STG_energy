@@ -11,6 +11,7 @@ fig_names = {
     "3": "fig3_amortize_energy",
     "4": "fig4_sensitivity",
     "5": "fig5_cc",
+    "7": "fig7_temp",
 }
 
 
