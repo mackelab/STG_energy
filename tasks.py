@@ -12,6 +12,8 @@ fig_names = {
     "4": "fig4_sensitivity",
     "5": "fig5_cc",
     "7": "fig7_temp",
+    "8": "cosyne/fig1",
+    "9": "cosyne/fig2",
 }
 
 

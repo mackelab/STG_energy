@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Created with matplotlib (https://matplotlib.org/) -->
+<svg height="75.384pt" version="1.1" viewBox="0 0 32.1917 75.384" width="32.1917pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <metadata>
+  <rdf:RDF xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2020-11-09T21:39:49.818005</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.3.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linecap:butt;stroke-linejoin:round;}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 75.384 
+L 32.1917 75.384 
+L 32.1917 0 
+L 0 0 
+z
+" style="fill:none;"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path clip-path="url(#p482cce9fcf)" d="M 7.2 68.184 
+L 7.2 67.945781 
+L 7.2 7.438219 
+L 7.2 7.2 
+L 10.2492 7.2 
+L 10.2492 7.438219 
+L 10.2492 67.945781 
+L 10.2492 68.184 
+z
+" style="fill:#ffffff;stroke:#ffffff;stroke-linejoin:miter;stroke-width:0.01;"/>
+   </g>
+   <image height="60.96" id="image7813d0ade0" transform="scale(1 -1)translate(0 -60.96)" width="3.12" x="7.2" xlink:href="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAA0AAAD+CAYAAADh7Y/LAAABSklEQVR4nO2awQ3DIBAEAbu01JD+K4nzSQM3SJPVifxXuzcsmFier/V+RvF3zzWrmnGPueoiz2kwJyCai8QjTkN0IiCy1ykduTiTF69hI7KRPyxeWROPvCOI8JlYvLqGxhNBWE6InlcjrxEecuhEROSp4cXriLzlTOzcI04d6R2nLafwB4Al6rm4llN4vPIrN+yUDuI0YkN01ukn0uKBm9Gh9w+nMetn7FmnTZGEnG1CEzkAAd+6IRGJF06POIG/GmY8JhoevY5OQIQagWZC8cLXCRhhehbyJcbrN9MiR1j6TNlOELkWL1xE6KXPlA7iYzllz3SJM1nIr/B4DLlHzwNBnMjiMie0n7TumU7R3UuvEZvJ27lWI7xzD60To6fViG13kZ51zWHdE+N5N5ayBteIOLF44PMNGA85ARGciTixmcA38zAecqqLvlUgjPrNeRYTAAAAAElFTkSuQmCC" y="-7.2"/>
+   <g id="matplotlib.axis_1"/>
+   <g id="matplotlib.axis_2">
+    <g id="text_1">
+     <text style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:middle;" transform="rotate(-90, 23.32795, 37.692)" x="23.32795" y="37.692">Posterior prob.</text>
+    </g>
+   </g>
+   <g id="patch_3">
+    <path d="M 7.2 68.184 
+L 7.2 67.945781 
+L 7.2 7.438219 
+L 7.2 7.2 
+L 10.2492 7.2 
+L 10.2492 7.438219 
+L 10.2492 67.945781 
+L 10.2492 68.184 
+z
+" style="fill:none;stroke:#000000;stroke-linejoin:miter;stroke-width:1.5;"/>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p482cce9fcf">
+   <rect height="60.984" width="3.0492" x="7.2" y="7.2"/>
+  </clipPath>
+ </defs>
+</svg>

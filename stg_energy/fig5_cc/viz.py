@@ -903,7 +903,7 @@ def single2Dmarginal(samples, points=[], **kwargs):
                                 **opts["points_offdiag"]
                             )
 
-    return fig, axes
+    return fig, axes, h
 
 
 neutypes = ["PM", "LP", "PY"]
