@@ -42,6 +42,10 @@ def merge_dataframes(file_dir: str) -> None:
     bad_sims = pd.DataFrame({})
     bad_seeds = np.asarray([])
 
+    all_params = pd.DataFrame({})
+    all_sims = pd.DataFrame({})
+    all_seeds = np.asarray([])
+
     for fname_p, fname_sims, fname_seeds in zip(
         filenames_params, filenames_sims, filenames_seeds
     ):
@@ -66,13 +70,21 @@ def merge_dataframes(file_dir: str) -> None:
         bad_sims = pd.concat([bad_sims, stats[condition]], ignore_index=True)
         bad_seeds = np.concatenate([bad_seeds, np.squeeze(seeds[condition])])
 
+        all_params = pd.concat([all_params, params], ignore_index=True)
+        all_sims = pd.concat([all_sims, stats], ignore_index=True)
+        all_seeds = np.concatenate([all_seeds, np.squeeze(seeds)])
+
     # Save data.
     general_path = "../../../results/"
     path_to_data = "simulation_data_Tube_MLslurm_cluster/01_simulate_11deg/data/"
     valid_params.to_pickle(general_path + path_to_data + "valid_circuit_parameters.pkl")
     valid_sims.to_pickle(general_path + path_to_data + "valid_simulation_outputs.pkl")
-    np.save(general_path + path_to_data + "valid_seeds.npz", valid_seeds)
+    np.save(general_path + path_to_data + "valid_seeds", valid_seeds)
 
     bad_params.to_pickle(general_path + path_to_data + "bad_circuit_parameters.pkl")
     bad_sims.to_pickle(general_path + path_to_data + "bad_simulation_outputs.pkl")
-    np.save(general_path + path_to_data + "bad_seeds.npz", bad_seeds)
+    np.save(general_path + path_to_data + "bad_seeds", bad_seeds)
+
+    all_params.to_pickle(general_path + path_to_data + "all_circuit_parameters.pkl")
+    all_sims.to_pickle(general_path + path_to_data + "all_simulation_outputs.pkl")
+    np.save(general_path + path_to_data + "all_seeds", all_seeds)

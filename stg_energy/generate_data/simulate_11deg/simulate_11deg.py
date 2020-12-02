@@ -55,34 +55,19 @@ for _ in range(num_repeats):
     num_cores = 32
 
     global_seed = int((time.time() % 1) * 1e7)
-    np.random.seed(global_seed)  # Seeding the simulator.
+    np.random.seed(global_seed)  # Seeding the seeds for the simulator.
     torch.manual_seed(global_seed)  # Seeding the prior.
     seeds = np.random.randint(0, 10000, (num_sims, 1))
 
     prior = create_prior()
     parameter_sets = prior.sample((num_sims,))
-    column_names = parameter_sets.columns
     data_np = parameter_sets.to_numpy()
     params_with_seeds = np.concatenate((data_np, seeds), axis=1)
 
-    print("Ran block 2")
-
-    print("Defined simulator")
-
     with Pool(num_cores) as pool:
-        # pool = Pool(processes=num_cores)
-        # data = []
-
-        print("Ran block 4")
-
         start_time = time.time()
-        print("Ran block 5")
         data = pool.map(my_simulator, params_with_seeds)
         print("Simulation time", time.time() - start_time)
-
-    # pool.close()
-    # pool.join()
-    print("ran block 5.5")
 
     sim_outs = pd.concat(data)
 
