@@ -83,13 +83,13 @@
      inkscape:window-height="2430"
      id="namedview2394"
      showgrid="false"
-     inkscape:zoom="1.0009853"
-     inkscape:cx="300.16975"
-     inkscape:cy="146.4653"
+     inkscape:zoom="8.0078821"
+     inkscape:cx="113.34871"
+     inkscape:cy="182.36401"
      inkscape:window-x="2560"
      inkscape:window-y="27"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg2392" />
+     inkscape:current-layer="g893" />
   <g
      id="g2390">
     <g
@@ -319,12 +319,12 @@
          x="-7.15"
          y="23.65"
          font-size="12pt"
+         font-family="Arial"
          font-weight="800"
          letter-spacing="0"
-         id="text84"
          text-anchor="start"
-         font-family="Arial"
-         fill="black">a</text>
+         fill="black"
+         id="text84">a</text>
     </g>
     <g
        transform="translate(193.05, 8.25) scale(1) "
@@ -1839,12 +1839,12 @@
          x="-23.65"
          y="7.15"
          font-size="12pt"
+         font-family="Arial"
          font-weight="800"
          letter-spacing="0"
-         id="text422"
          text-anchor="start"
-         font-family="Arial"
-         fill="black">b</text>
+         fill="black"
+         id="text422">b</text>
     </g>
     <g
        transform="translate(643.5, 8.25) scale(1) "
@@ -2718,12 +2718,12 @@
          x="0.0"
          y="7.15"
          font-size="12pt"
+         font-family="Arial"
          font-weight="800"
          letter-spacing="0"
-         id="text808"
          text-anchor="start"
-         font-family="Arial"
-         fill="black">c</text>
+         fill="black"
+         id="text808">c</text>
     </g>
     <g
        transform="translate(16.5, 136.95) scale(1) "
@@ -2805,10 +2805,10 @@
                  id="g839">
                 <text
                    style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:middle;"
+                   transform="rotate(-0, 63.2198, 76.31515)"
                    x="63.2198"
                    y="76.31515"
-                   id="text837"
-                   transform="rotate(-0, 63.2198, 76.31515)">Parameter 1</text>
+                   id="text837">Parameter 1</text>
               </g>
             </g>
             <g
@@ -2905,12 +2905,12 @@
          x="-16.5"
          y="8.8"
          font-size="12pt"
+         font-family="Arial"
          font-weight="800"
          letter-spacing="0"
-         id="text887"
          text-anchor="start"
-         font-family="Arial"
-         fill="black">d</text>
+         fill="black"
+         id="text887">d</text>
       <text
          x="96.5"
          y="39"
@@ -2920,8 +2920,8 @@
          id="text889"
          style="font-weight:normal;font-size:10.26666641px;font-family:Arial;letter-spacing:0;text-anchor:start;fill:#000000;stroke-linecap:butt;stroke-linejoin:round">inactive</text>
       <text
-         x="89.999512"
-         y="74.974144"
+         x="89.5"
+         y="76.099998"
          font-size="7.7pt"
          font-weight="normal"
          letter-spacing="0"
@@ -3193,10 +3193,10 @@
                    id="g1016">
                   <text
                      style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:middle;"
+                     transform="rotate(-0, 49.47625, 75.71875)"
                      x="49.47625"
                      y="75.71875"
-                     id="text1014"
-                     transform="rotate(-0, 49.47625, 75.71875)">Na</text>
+                     id="text1014">Na</text>
                 </g>
               </g>
               <g
@@ -3217,10 +3217,10 @@
                    id="g1028">
                   <text
                      style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:middle;"
+                     transform="rotate(-0, 71.09875, 75.71875)"
                      x="71.09875"
                      y="75.71875"
-                     id="text1026"
-                     transform="rotate(-0, 71.09875, 75.71875)">CaT</text>
+                     id="text1026">CaT</text>
                 </g>
               </g>
               <g
@@ -3241,10 +3241,10 @@
                    id="g1040">
                   <text
                      style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:middle;"
+                     transform="rotate(-0, 92.72125, 75.71875)"
                      x="92.72125"
                      y="75.71875"
-                     id="text1038"
-                     transform="rotate(-0, 92.72125, 75.71875)">CaS</text>
+                     id="text1038">CaS</text>
                 </g>
               </g>
               <g
@@ -3265,10 +3265,10 @@
                    id="g1051">
                   <text
                      style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:middle;"
+                     transform="rotate(-0, 114.34375, 75.71875)"
                      x="114.34375"
                      y="75.71875"
-                     id="text1049"
-                     transform="rotate(-0, 114.34375, 75.71875)">A</text>
+                     id="text1049">A</text>
                 </g>
               </g>
               <g
@@ -3289,10 +3289,10 @@
                    id="text_5">
                   <text
                      style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:middle;"
+                     transform="rotate(-0, 135.96625, 75.71875)"
                      x="135.96625"
                      y="75.71875"
-                     id="text1060"
-                     transform="rotate(-0, 135.96625, 75.71875)">KCa</text>
+                     id="text1060">KCa</text>
                 </g>
               </g>
               <g
@@ -3313,10 +3313,10 @@
                    id="text_6">
                   <text
                      style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:middle;"
+                     transform="rotate(-0, 157.58875, 75.71875)"
                      x="157.58875"
                      y="75.71875"
-                     id="text1070"
-                     transform="rotate(-0, 157.58875, 75.71875)">Kd</text>
+                     id="text1070">Kd</text>
                 </g>
               </g>
               <g
@@ -3337,10 +3337,10 @@
                    id="text_7">
                   <text
                      style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:middle;"
+                     transform="rotate(-0, 179.21125, 75.71875)"
                      x="179.21125"
                      y="75.71875"
-                     id="text1080"
-                     transform="rotate(-0, 179.21125, 75.71875)">H</text>
+                     id="text1080">H</text>
                 </g>
               </g>
               <g
@@ -3361,10 +3361,10 @@
                    id="text_8">
                   <text
                      style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:middle;"
+                     transform="rotate(-0, 200.83375, 75.71875)"
                      x="200.83375"
                      y="75.71875"
-                     id="text1090"
-                     transform="rotate(-0, 200.83375, 75.71875)">leak</text>
+                     id="text1090">leak</text>
                 </g>
               </g>
             </g>
@@ -3395,10 +3395,10 @@
                    id="text_9">
                   <text
                      style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:end;"
+                     transform="rotate(-0, 31.665, 47.199375)"
                      x="31.665"
                      y="47.199375"
-                     id="text1105"
-                     transform="rotate(-0, 31.665, 47.199375)">0.0</text>
+                     id="text1105">0.0</text>
                 </g>
               </g>
               <g
@@ -3419,10 +3419,10 @@
                    id="text_10">
                   <text
                      style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:end;"
+                     transform="rotate(-0, 31.665, 16.399375)"
                      x="31.665"
                      y="16.399375"
-                     id="text1115"
-                     transform="rotate(-0, 31.665, 16.399375)">0.5</text>
+                     id="text1115">0.5</text>
                 </g>
               </g>
               <g
@@ -3462,10 +3462,10 @@
                  id="text_12">
                 <text
                    style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:start;"
+                   transform="rotate(-0, 231.699, 31.56675)"
                    x="231.699"
                    y="31.56675"
-                   id="text1136"
-                   transform="rotate(-0, 231.699, 31.56675)">AB/PD</text>
+                   id="text1136">AB/PD</text>
               </g>
               <g
                  id="g1141">
@@ -3478,10 +3478,10 @@
                  id="text_13">
                 <text
                    style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:start;"
+                   transform="rotate(-0, 231.699, 43.30925)"
                    x="231.699"
                    y="43.30925"
-                   id="text1143"
-                   transform="rotate(-0, 231.699, 43.30925)">LP</text>
+                   id="text1143">LP</text>
               </g>
               <g
                  id="g1148">
@@ -3494,10 +3494,10 @@
                  id="text_14">
                 <text
                    style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:start;"
+                   transform="rotate(-0, 231.699, 55.05175)"
                    x="231.699"
                    y="55.05175"
-                   id="text1150"
-                   transform="rotate(-0, 231.699, 55.05175)">PY</text>
+                   id="text1150">PY</text>
               </g>
             </g>
           </g>
@@ -3519,12 +3519,12 @@
          x="-8.25"
          y="4.4"
          font-size="12pt"
+         font-family="Arial"
          font-weight="800"
          letter-spacing="0"
-         id="text1165"
          text-anchor="start"
-         font-family="Arial"
-         fill="black">e</text>
+         fill="black"
+         id="text1165">e</text>
     </g>
     <g
        transform="translate(583.0, 137.5) scale(1) "
@@ -4118,10 +4118,10 @@
                    id="g1404">
                   <text
                      style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:middle;"
+                     transform="rotate(-0, 38.9225, 117.29875)"
                      x="38.9225"
                      y="117.29875"
-                     id="text1402"
-                     transform="rotate(-0, 38.9225, 117.29875)">0.0</text>
+                     id="text1402">0.0</text>
                 </g>
               </g>
               <g
@@ -4142,10 +4142,10 @@
                    id="g1416">
                   <text
                      style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:middle;"
+                     transform="rotate(-0, 63.960962, 117.29875)"
                      x="63.960962"
                      y="117.29875"
-                     id="text1414"
-                     transform="rotate(-0, 63.960962, 117.29875)">0.2</text>
+                     id="text1414">0.2</text>
                 </g>
               </g>
               <g
@@ -4166,10 +4166,10 @@
                    id="g1428">
                   <text
                      style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:middle;"
+                     transform="rotate(-0, 88.999423, 117.29875)"
                      x="88.999423"
                      y="117.29875"
-                     id="text1426"
-                     transform="rotate(-0, 88.999423, 117.29875)">0.4</text>
+                     id="text1426">0.4</text>
                 </g>
               </g>
               <g
@@ -4190,20 +4190,20 @@
                    id="g1440">
                   <text
                      style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:middle;"
+                     transform="rotate(-0, 114.037885, 117.29875)"
                      x="114.037885"
                      y="117.29875"
-                     id="text1438"
-                     transform="rotate(-0, 114.037885, 117.29875)">0.6</text>
+                     id="text1438">0.6</text>
                 </g>
               </g>
               <g
                  id="g1446">
                 <text
                    style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:middle;"
+                   transform="rotate(-0, 87.7475, 129.04125)"
                    x="87.7475"
                    y="129.04125"
-                   id="text1444"
-                   transform="rotate(-0, 87.7475, 129.04125)">Consumed Energy</text>
+                   id="text1444">Consumed Energy</text>
               </g>
             </g>
             <g
@@ -4233,10 +4233,10 @@
                    id="g1461">
                   <text
                      style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:end;"
+                     transform="rotate(-0, 31.9225, 107.259375)"
                      x="31.9225"
                      y="107.259375"
-                     id="text1459"
-                     transform="rotate(-0, 31.9225, 107.259375)">0.0</text>
+                     id="text1459">0.0</text>
                 </g>
               </g>
               <g
@@ -4257,10 +4257,10 @@
                    id="g1473">
                   <text
                      style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:end;"
+                     transform="rotate(-0, 31.9225, 82.382452)"
                      x="31.9225"
                      y="82.382452"
-                     id="text1471"
-                     transform="rotate(-0, 31.9225, 82.382452)">0.2</text>
+                     id="text1471">0.2</text>
                 </g>
               </g>
               <g
@@ -4281,10 +4281,10 @@
                    id="g1485">
                   <text
                      style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:end;"
+                     transform="rotate(-0, 31.9225, 57.505529)"
                      x="31.9225"
                      y="57.505529"
-                     id="text1483"
-                     transform="rotate(-0, 31.9225, 57.505529)">0.4</text>
+                     id="text1483">0.4</text>
                 </g>
               </g>
               <g
@@ -4305,10 +4305,10 @@
                    id="g1496">
                   <text
                      style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:end;"
+                     transform="rotate(-0, 31.9225, 32.628606)"
                      x="31.9225"
                      y="32.628606"
-                     id="text1494"
-                     transform="rotate(-0, 31.9225, 32.628606)">0.6</text>
+                     id="text1494">0.6</text>
                 </g>
               </g>
               <g
@@ -4349,10 +4349,10 @@
                  id="g1519">
                 <text
                    style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:start;"
+                   transform="rotate(-0, 22.39, 154.36635)"
                    x="22.39"
                    y="154.36635"
-                   id="text1517"
-                   transform="rotate(-0, 22.39, 154.36635)">Na</text>
+                   id="text1517">Na</text>
               </g>
               <g
                  id="PathCollection_28">
@@ -4370,10 +4370,10 @@
                  id="g1528">
                 <text
                    style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:start;"
+                   transform="rotate(-0, 17.9025, 164.50885)"
                    x="17.9025"
                    y="164.50885"
-                   id="text1526"
-                   transform="rotate(-0, 17.9025, 164.50885)">CaT</text>
+                   id="text1526">CaT</text>
               </g>
               <g
                  id="PathCollection_29">
@@ -4391,10 +4391,10 @@
                  id="g1537">
                 <text
                    style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:start;"
+                   transform="rotate(-0, 50.0775, 154.36635)"
                    x="50.0775"
                    y="154.36635"
-                   id="text1535"
-                   transform="rotate(-0, 50.0775, 154.36635)">CaS</text>
+                   id="text1535">CaS</text>
               </g>
               <g
                  id="PathCollection_30">
@@ -4412,10 +4412,10 @@
                  id="g1546">
                 <text
                    style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:start;"
+                   transform="rotate(-0, 60.1725, 164.50885)"
                    x="60.1725"
                    y="164.50885"
-                   id="text1544"
-                   transform="rotate(-0, 60.1725, 164.50885)">A</text>
+                   id="text1544">A</text>
               </g>
               <g
                  id="PathCollection_31">
@@ -4433,10 +4433,10 @@
                  id="text_15">
                 <text
                    style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:start;"
+                   transform="rotate(-0, 82.445, 154.36635)"
                    x="82.445"
                    y="154.36635"
-                   id="text1553"
-                   transform="rotate(-0, 82.445, 154.36635)">KCa</text>
+                   id="text1553">KCa</text>
               </g>
               <g
                  id="PathCollection_32">
@@ -4454,10 +4454,10 @@
                  id="text_16">
                 <text
                    style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:start;"
+                   transform="rotate(-0, 87.415, 164.50885)"
                    x="87.415"
                    y="164.50885"
-                   id="text1561"
-                   transform="rotate(-0, 87.415, 164.50885)">Kd</text>
+                   id="text1561">Kd</text>
               </g>
               <g
                  id="PathCollection_33">
@@ -4475,10 +4475,10 @@
                  id="text_17">
                 <text
                    style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:start;"
+                   transform="rotate(-0, 125.20375, 154.36635)"
                    x="125.20375"
                    y="154.36635"
-                   id="text1569"
-                   transform="rotate(-0, 125.20375, 154.36635)">H</text>
+                   id="text1569">H</text>
               </g>
               <g
                  id="PathCollection_34">
@@ -4496,10 +4496,10 @@
                  id="text_18">
                 <text
                    style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:start;"
+                   transform="rotate(-0, 114.54, 164.50885)"
                    x="114.54"
                    y="164.50885"
-                   id="text1577"
-                   transform="rotate(-0, 114.54, 164.50885)">leak</text>
+                   id="text1577">leak</text>
               </g>
               <g
                  id="PathCollection_35">
@@ -4520,10 +4520,10 @@
                  id="text_19">
                 <text
                    style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:start;"
+                   transform="rotate(-0, 54.16875, 183.47235)"
                    x="54.16875"
                    y="183.47235"
-                   id="text1587"
-                   transform="rotate(-0, 54.16875, 183.47235)">AB/PD</text>
+                   id="text1587">AB/PD</text>
               </g>
               <g
                  id="PathCollection_36">
@@ -4541,10 +4541,10 @@
                  id="text_20">
                 <text
                    style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:start;"
+                   transform="rotate(-0, 95.60875, 183.47235)"
                    x="95.60875"
                    y="183.47235"
-                   id="text1595"
-                   transform="rotate(-0, 95.60875, 183.47235)">LP</text>
+                   id="text1595">LP</text>
               </g>
               <g
                  id="PathCollection_37">
@@ -4562,10 +4562,10 @@
                  id="text_21">
                 <text
                    style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:start;"
+                   transform="rotate(-0, 121.69, 183.47235)"
                    x="121.69"
                    y="183.47235"
-                   id="text1603"
-                   transform="rotate(-0, 121.69, 183.47235)">PY</text>
+                   id="text1603">PY</text>
               </g>
               <g
                  id="PathCollection_38">
@@ -4599,12 +4599,12 @@
          x="-5.5"
          y="8.25"
          font-size="12pt"
+         font-family="Arial"
          font-weight="800"
          letter-spacing="0"
-         id="text1623"
          text-anchor="start"
-         font-family="Arial"
-         fill="black">f</text>
+         fill="black"
+         id="text1623">f</text>
     </g>
     <g
        transform="translate(2.75, 266.75) scale(1) "
@@ -4739,10 +4739,10 @@
                  id="g1681">
                 <text
                    style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:middle;"
+                   transform="rotate(-0, 57.38, 84.940625)"
                    x="57.38"
                    y="84.940625"
-                   id="text1679"
-                   transform="rotate(-0, 57.38, 84.940625)">AB-Na</text>
+                   id="text1679">AB-Na</text>
               </g>
             </g>
             <g
@@ -4859,12 +4859,12 @@
          x="-2.75"
          y="6.050000000000001"
          font-size="12pt"
+         font-family="Arial"
          font-weight="800"
          letter-spacing="0"
-         id="text1745"
          text-anchor="start"
-         font-family="Arial"
-         fill="black">g</text>
+         fill="black"
+         id="text1745">g</text>
     </g>
     <g
        transform="translate(105.6, 269.5) scale(1) "
@@ -5076,10 +5076,10 @@
                    id="g1832">
                   <text
                      style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:middle;"
+                     transform="rotate(-0, 29.47, 78.758125)"
                      x="29.47"
                      y="78.758125"
-                     id="text1830"
-                     transform="rotate(-0, 29.47, 78.758125)">0</text>
+                     id="text1830">0</text>
                 </g>
               </g>
               <g
@@ -5100,20 +5100,20 @@
                    id="g1844">
                   <text
                      style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:middle;"
+                     transform="rotate(-0, 85.27, 78.758125)"
                      x="85.27"
                      y="78.758125"
-                     id="text1842"
-                     transform="rotate(-0, 85.27, 78.758125)">500</text>
+                     id="text1842">500</text>
                 </g>
               </g>
               <g
                  id="g1850">
                 <text
                    style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:middle;"
+                   transform="rotate(-0, 57.37, 83.500625)"
                    x="57.37"
                    y="83.500625"
-                   id="text1848"
-                   transform="rotate(-0, 57.37, 83.500625)">AB-Na</text>
+                   id="text1848">AB-Na</text>
               </g>
             </g>
             <g
@@ -5143,10 +5143,10 @@
                    id="g1865">
                   <text
                      style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:end;"
+                     transform="rotate(-0, 22.47, 68.71875)"
                      x="22.47"
                      y="68.71875"
-                     id="text1863"
-                     transform="rotate(-0, 22.47, 68.71875)">25</text>
+                     id="text1863">25</text>
                 </g>
               </g>
               <g
@@ -5167,10 +5167,10 @@
                    id="g1877">
                   <text
                      style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:end;"
+                     transform="rotate(-0, 22.47, 13.27875)"
                      x="22.47"
                      y="13.27875"
-                     id="text1875"
-                     transform="rotate(-0, 22.47, 13.27875)">150</text>
+                     id="text1875">150</text>
                 </g>
               </g>
               <g
@@ -5216,12 +5216,12 @@
          x="-9.35"
          y="6.050000000000001"
          font-size="12pt"
+         font-family="Arial"
          font-weight="800"
          letter-spacing="0"
-         id="text1906"
          text-anchor="start"
-         font-family="Arial"
-         fill="black">h</text>
+         fill="black"
+         id="text1906">h</text>
     </g>
     <g
        transform="translate(260.15, 270.6) scale(1) "
@@ -5307,10 +5307,10 @@
                    id="g1938">
                   <text
                      style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:start;"
+                     transform="rotate(-0, 16.6948, 62.750409)"
                      x="16.6948"
                      y="62.750409"
-                     id="text1936"
-                     transform="rotate(-0, 16.6948, 62.750409)">18</text>
+                     id="text1936">18</text>
                 </g>
               </g>
               <g
@@ -5331,10 +5331,10 @@
                    id="g1950">
                   <text
                      style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:start;"
+                     transform="rotate(-0, 16.6948, 13.27875)"
                      x="16.6948"
                      y="13.27875"
-                     id="text1948"
-                     transform="rotate(-0, 16.6948, 13.27875)">37</text>
+                     id="text1948">37</text>
                 </g>
               </g>
               <g
@@ -5456,10 +5456,10 @@
                    id="g2010">
                   <text
                      style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:end;"
+                     transform="rotate(-0, 45.5845, 30.955272)"
                      x="45.5845"
                      y="30.955272"
-                     id="text2008"
-                     transform="rotate(-0, 45.5845, 30.955272)">−50</text>
+                     id="text2008">−50</text>
                 </g>
               </g>
               <g
@@ -5480,10 +5480,10 @@
                    id="g2022">
                   <text
                      style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:end;"
+                     transform="rotate(-0, 45.5845, 22.117011)"
                      x="45.5845"
                      y="22.117011"
-                     id="text2020"
-                     transform="rotate(-0, 45.5845, 22.117011)">0</text>
+                     id="text2020">0</text>
                 </g>
               </g>
               <g
@@ -5504,10 +5504,10 @@
                    id="g2034">
                   <text
                      style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:end;"
+                     transform="rotate(-0, 45.5845, 13.27875)"
                      x="45.5845"
                      y="13.27875"
-                     id="text2032"
-                     transform="rotate(-0, 45.5845, 13.27875)">50</text>
+                     id="text2032">50</text>
                 </g>
               </g>
               <g
@@ -5741,10 +5741,10 @@
                    id="g2139">
                   <text
                      style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:middle;"
+                     transform="rotate(-0, 55.120864, 82.534473)"
                      x="55.120864"
                      y="82.534473"
-                     id="text2137"
-                     transform="rotate(-0, 55.120864, 82.534473)">0</text>
+                     id="text2137">0</text>
                 </g>
               </g>
               <g
@@ -5765,20 +5765,20 @@
                    id="g2151">
                   <text
                      style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:middle;"
+                     transform="rotate(-0, 105.860821, 82.534473)"
                      x="105.860821"
                      y="82.534473"
-                     id="text2149"
-                     transform="rotate(-0, 105.860821, 82.534473)">500</text>
+                     id="text2149">500</text>
                 </g>
               </g>
               <g
                  id="g2157">
                 <text
                    style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:middle;"
+                   transform="rotate(-0, 80.4845, 94.276973)"
                    x="80.4845"
                    y="94.276973"
-                   id="text2155"
-                   transform="rotate(-0, 80.4845, 94.276973)">Time (ms)</text>
+                   id="text2155">Time (ms)</text>
               </g>
             </g>
             <g
@@ -5801,10 +5801,10 @@
                    id="g2169">
                   <text
                      style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:end;"
+                     transform="rotate(-0, 45.5845, 72.495098)"
                      x="45.5845"
                      y="72.495098"
-                     id="text2167"
-                     transform="rotate(-0, 45.5845, 72.495098)">0</text>
+                     id="text2167">0</text>
                 </g>
               </g>
               <g
@@ -5825,10 +5825,10 @@
                    id="g2181">
                   <text
                      style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:end;"
+                     transform="rotate(-0, 45.5845, 45.980315)"
                      x="45.5845"
                      y="45.980315"
-                     id="text2179"
-                     transform="rotate(-0, 45.5845, 45.980315)">2000</text>
+                     id="text2179">2000</text>
                 </g>
               </g>
               <g
@@ -5892,14 +5892,14 @@
       </g>
       <text
          x="-3.8499999999999996"
-         y="6.050000000000001"
+         y="10.45"
          font-size="12pt"
+         font-family="Arial"
          font-weight="800"
          letter-spacing="0"
-         id="text2219"
          text-anchor="start"
-         font-family="Arial"
-         fill="black">i</text>
+         fill="black"
+         id="text2219">i</text>
     </g>
     <g
        transform="translate(474.65, 262.9) scale(1) "
@@ -6170,10 +6170,10 @@
                    id="g2342">
                   <text
                      style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:middle;"
+                     transform="rotate(-0, 13.236364, 81.26275)"
                      x="13.236364"
                      y="81.26275"
-                     id="text2340"
-                     transform="rotate(-0, 13.236364, 81.26275)">0</text>
+                     id="text2340">0</text>
                 </g>
               </g>
               <g
@@ -6194,20 +6194,20 @@
                    id="g2354">
                   <text
                      style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:middle;"
+                     transform="rotate(-0, 63.976321, 81.26275)"
                      x="63.976321"
                      y="81.26275"
-                     id="text2352"
-                     transform="rotate(-0, 63.976321, 81.26275)">500</text>
+                     id="text2352">500</text>
                 </g>
               </g>
               <g
                  id="g2360">
                 <text
                    style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:middle;"
+                   transform="rotate(-0, 38.6, 93.00525)"
                    x="38.6"
                    y="93.00525"
-                   id="text2358"
-                   transform="rotate(-0, 38.6, 93.00525)">Time (ms)</text>
+                   id="text2358">Time (ms)</text>
               </g>
             </g>
             <g
@@ -6253,7 +6253,7 @@
     </g>
   </g>
   <path
-     transform="matrix(0.82378922,0,0,0.82378922,-270.3424,139.4835)"
+     transform="matrix(0.82378922,0,0,0.82378922,-270.39559,139.47366)"
      style="fill:none;stroke:#636363;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
      d="m 422.43831,46.318783 c -0.88414,1.472848 -2.53406,4.360198 -3.35935,6.334515 -0.8253,1.974317 -0.8253,3.034542 -0.55955,3.639192 0.26575,0.604649 0.79558,0.751824 2.25248,1.149161 1.45691,0.397337 3.84641,1.046336 5.80566,0.692416 1.95925,-0.353921 3.49175,-1.709595 4.06578,-3.093728 0.57403,-1.384134 0.19075,-2.799323 0.0878,-4.154519 -0.103,-1.355196 0.0739,-2.652181 0.2211,-3.992121 0.14723,-1.33994 0.26517,-2.725629 -0.97196,-3.093589 -1.23712,-0.367961 -3.82937,0.280102 -5.18469,0.633524 -1.35532,0.353422 -1.47308,0.412302 -2.35723,1.885149 z"
      id="path3849"
@@ -6262,7 +6262,7 @@
      inkscape:original-d="m 423.20341,44.905461 c -1.64892,2.886353 -3.29883,5.773706 -4.94975,8.662058 10e-4,1.060096 10e-4,2.120321 0,3.181981 0.53183,0.146453 1.06166,0.293628 1.59099,0.441942 2.38447,0.646361 4.77397,1.295362 7.15946,1.944543 1.53263,-1.355902 3.06513,-2.711576 4.59619,-4.065864 -0.38175,-1.414237 -0.76503,-2.829427 -1.14905,-4.24264 0.1777,-1.29674 0.35456,-2.593725 0.53033,-3.889088 0.11875,-1.384557 0.23669,-2.770245 0.35356,-4.154252 -2.59221,0.647302 -5.18446,1.295365 -7.77818,1.944545 -0.11694,0.05797 -0.2347,0.116851 -0.35355,0.176775 z"
      sodipodi:nodetypes="ccccccccccc" />
   <path
-     transform="matrix(0.82378922,0,0,0.82378922,-270.3424,139.4835)"
+     transform="matrix(0.82378922,0,0,0.82378922,-270.39559,139.47366)"
      style="fill:none;stroke:#636363;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
      d="m 450.02868,65.835908 c -0.17554,0.62509 -0.35072,1.248907 -1.03556,3.004909 -0.68484,1.756002 -1.87987,4.644638 -3.43384,6.588322 -1.55396,1.943683 -3.46982,2.945826 -5.85594,3.756035 -2.38611,0.81021 -5.2447,1.42908 -8.3823,1.488117 -3.13759,0.05904 -6.55603,-0.441942 -9.75246,-1.119497 -3.19642,-0.677556 -6.17268,-1.532125 -8.7211,-2.519051 -2.54841,-0.986926 -4.66975,-2.106522 -6.8207,-3.712326 -2.15095,-1.605805 -4.33089,-3.697369 -6.09891,-5.966331 -1.76803,-2.268961 -3.12973,-4.725956 -3.9367,-7.121648 -0.80698,-2.395692 -1.07204,-4.751844 -0.52673,-7.56614 0.54531,-2.814296 1.89993,-6.083058 3.38829,-8.882793 1.48835,-2.799735 3.10809,-5.126274 4.24251,-7.631137 1.13441,-2.504863 1.78203,-5.183631 2.58131,-7.169044 0.79928,-1.985412 1.74771,-3.271688 2.88261,-4.067324 1.13491,-0.795636 2.39354,-1.085239 3.95253,-1.052288 1.55899,0.03295 3.29669,0.415833 5.74258,0.430487 2.44589,0.01465 5.59724,-0.338767 8.7209,-0.810285 3.12367,-0.471518 6.21618,-1.060568 9.44291,-1.78255 3.22673,-0.721982 6.58411,-1.576052 9.58996,-2.135925 3.00585,-0.559873 5.65657,-0.824945 8.07282,-0.736471 2.41625,0.08847 4.59623,0.530361 6.51116,1.325876 1.91494,0.795516 3.56552,1.945034 4.1839,3.756124 0.61837,1.811089 0.2059,4.28596 -0.30954,5.965539 -0.51543,1.679579 -1.13386,2.563055 -1.75293,3.37379 -0.61906,0.810735 -1.23698,1.546354 -2.04799,2.622752 -0.81101,1.076397 -1.81128,2.488536 -2.44494,3.460991 -0.63366,0.972455 -0.89861,1.502358 -1.29493,2.261296 -0.39632,0.758938 -0.92133,1.741798 -1.44807,2.727878"
      id="path3853"
@@ -6271,7 +6271,7 @@
      inkscape:original-d="m 450.02868,65.835908 c 0,0 -0.34991,1.249133 -0.52661,1.875271 -1.19329,2.885847 -2.38832,5.774484 -3.58287,8.660534 -1.91408,1.000735 -3.82994,2.002877 -5.74524,3.005204 -2.85689,0.617718 -5.71548,1.236588 -8.57367,1.856155 -3.41668,-0.501867 -6.83512,-1.002845 -10.25305,-1.502602 -2.97474,-0.85542 -5.951,-1.70999 -8.92722,-2.563262 -2.12032,-1.120585 -4.24166,-2.240182 -6.36396,-3.358757 -2.17925,-2.092857 -4.35919,-4.184423 -6.54074,-6.275573 -1.35429,-2.446411 -2.73854,-4.890912 -4.06586,-7.336232 -0.26417,-2.358023 -0.52923,-4.714176 -0.7955,-7.071068 1.35629,-3.271369 2.71091,-6.540133 4.06587,-9.811107 1.62145,-2.32856 3.24119,-4.655101 4.86136,-6.982679 0.64918,-2.682114 1.29679,-5.360883 1.94454,-8.04334 0.95027,-1.288415 1.8987,-2.57469 2.84781,-3.862245 1.32036,-0.304575 2.57375,-0.616972 3.95809,-0.910726 1.73931,0.382016 3.47701,0.764899 5.21492,1.149049 3.15351,-0.354554 6.30486,-0.707976 9.45755,-1.06066 3.09459,-0.590256 6.1871,-1.179305 9.28077,-1.767767 3.35976,-0.855421 6.71714,-1.709491 10.07628,-2.563263 2.65265,-0.266165 5.30337,-0.531236 7.95495,-0.795495 2.18124,0.440942 4.36122,0.882829 6.54074,1.325826 1.65091,1.148048 3.3015,2.297563 4.94974,3.447145 -0.41148,2.473876 -0.82395,4.948748 -1.23743,7.424622 -0.618,0.883289 -1.23643,1.766767 -1.85615,2.65165 -0.61852,0.73652 -1.23644,1.472139 -1.85615,2.209708 -1.00221,1.415285 -2.00247,2.827428 -3.00521,4.242641 -0.26438,0.529757 -0.52933,1.05966 -0.79549,1.59099 -0.52644,0.986581 -1.05146,1.969439 -1.57863,2.955287"
      sodipodi:nodetypes="ccccccccccccccccccccccccccccc" />
   <path
-     transform="matrix(0.82378922,0,0,0.82378922,-270.3424,139.4835)"
+     transform="matrix(0.82378922,0,0,0.82378922,-270.39559,139.47366)"
      style="fill:none;stroke:#636363;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
      d="m 450.74664,63.26737 c 0.1587,-2.203133 0.31733,-4.405222 0.57337,-6.345363 0.25604,-1.940142 0.60986,-3.620811 0.88239,-4.762294 0.27253,-1.141482 0.46418,-1.745893 0.65532,-2.348699"
      id="path3857"
@@ -6280,7 +6280,7 @@
      inkscape:original-d="m 450.74664,63.26737 c 0.15982,-2.203052 0.31845,-4.405141 0.47588,-6.606258 0.35428,-1.679088 0.7081,-3.359758 1.06066,-5.038136 0.19237,-0.60455 0.38402,-1.20896 0.57454,-1.811962"
      sodipodi:nodetypes="cccc" />
   <path
-     transform="matrix(0.82378922,0,0,0.82378922,-270.3424,139.4835)"
+     transform="matrix(0.82378922,0,0,0.82378922,-270.39559,139.47366)"
      style="fill:none;stroke:#636363;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
      d="m 430.62803,66.560607 c 1.68055,-0.383283 3.35993,-0.766299 4.59688,-1.576544 1.23695,-0.810244 2.03299,-2.048543 2.51874,-3.403109 0.48574,-1.354566 0.66269,-2.82909 0.63318,-4.330978 -0.0295,-1.501888 -0.26538,-3.035102 -0.29477,-4.699395 -0.0294,-1.664293 0.14748,-3.462493 0.3538,-4.69978 0.20632,-1.237288 0.44217,-1.915344 0.88373,-2.709996 0.44156,-0.794651 1.09089,-1.709617 1.76813,-2.607662 0.67724,-0.898044 1.38523,-1.78303 1.79755,-2.209622 0.41232,-0.426592 0.53032,-0.397092 0.64746,-0.367805"
      id="path3861"
@@ -6288,7 +6288,7 @@
      inkscape:path-effect="#path-effect3863"
      inkscape:original-d="m 430.62803,66.560607 c 1.68038,-0.384017 3.35976,-0.767033 5.03814,-1.149049 0.79594,-1.237577 1.59199,-2.475874 2.38648,-3.712311 0.17761,-1.472755 0.35456,-2.947278 0.53033,-4.419417 -0.23452,-1.531916 -0.4704,-3.065129 -0.7071,-4.596194 0.17768,-1.79726 0.35455,-3.59546 0.53033,-5.391689 0.23655,-0.678234 0.4724,-1.356288 0.7071,-2.032932 0.64803,-0.912726 1.29736,-1.827693 1.94455,-2.740039 0.70722,-0.883783 1.41521,-1.768767 2.12132,-2.65165 0.1187,0.02843 0.2367,0.05793 0.35355,0.08839" />
   <path
-     transform="matrix(0.82378922,0,0,0.82378922,-270.3424,139.4835)"
+     transform="matrix(0.82378922,0,0,0.82378922,-270.39559,139.47366)"
      style="fill:none;stroke:#636363;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
      d="m 430.62803,66.560607 c -0.73537,0.235319 -1.47231,0.471139 -2.76862,0.530227 -1.29631,0.05909 -3.15318,-0.05881 -5.17107,-0.279725 -2.0179,-0.220916 -4.19853,-0.545064 -6.04004,-1.178462 -1.84151,-0.633399 -3.34419,-1.576255 -4.59643,-2.504371 -1.25224,-0.928116 -2.25335,-1.840892 -2.82826,-3.005423 -0.57491,-1.164531 -0.72207,-2.577359 -0.67779,-3.874548 0.0443,-1.297189 0.2798,-2.474771 0.82517,-3.815807 0.54538,-1.341036 1.39933,-2.842807 2.32758,-4.684657 0.92826,-1.841849 1.92915,-4.020257 2.8135,-5.818399 0.88435,-1.798142 1.6483,-3.208514 2.25361,-3.990803 0.6053,-0.78229 1.04699,-0.92952 2.26978,-1.135675 1.22278,-0.206154 3.22445,-0.471081 4.83106,-0.662688 1.60661,-0.191606 2.81375,-0.309376 4.27262,-0.589413 1.45887,-0.280036 3.16669,-0.721713 4.97915,-1.119546 1.81246,-0.397834 3.72754,-0.751387 5.20035,-1.001751 1.47282,-0.250364 2.50463,-0.397766 3.35873,-0.6335 0.85409,-0.235735 1.53247,-0.560178 2.13562,-0.60419 0.60314,-0.04401 1.13441,0.192109 1.51699,0.648092 0.38259,0.455983 0.61849,1.13422 0.51549,2.136214 -0.10301,1.001993 -0.54458,2.326679 -0.98642,3.210864 -0.44184,0.884185 -0.88338,1.325728 -1.32632,1.76867"
      id="path3865"
