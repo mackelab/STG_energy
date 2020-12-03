@@ -16,23 +16,12 @@ def merge_dataframes(file_dir: str) -> None:
     """
     # checking for hidden files. If the file starts with '.', we discard it. Also
     # discard readme.txt
-    files = os.listdir(file_dir + "circuit_parameters/")
-    filenames_params = []
-    for file in files:
-        if file[0] != "." and file != "readme.txt":
-            filenames_params.append(file)
 
     files = os.listdir(file_dir + "simulation_outputs/")
     filenames_sims = []
     for file in files:
         if file[0] != "." and file != "readme.txt":
             filenames_sims.append(file)
-
-    files = os.listdir(file_dir + "seeds/")
-    filenames_seeds = []
-    for file in files:
-        if file[0] != "." and file != "readme.txt":
-            filenames_seeds.append(file)
 
     valid_params = pd.DataFrame({})
     valid_sims = pd.DataFrame({})
@@ -46,12 +35,10 @@ def merge_dataframes(file_dir: str) -> None:
     all_sims = pd.DataFrame({})
     all_seeds = np.asarray([])
 
-    for fname_p, fname_sims, fname_seeds in zip(
-        filenames_params, filenames_sims, filenames_seeds
-    ):
-        params = pd.read_pickle(file_dir + "circuit_parameters/" + fname_p)
+    for fname_sims in filenames_sims:
+        params = pd.read_pickle(file_dir + "circuit_parameters/" + fname_sims)
         stats = pd.read_pickle(file_dir + "simulation_outputs/" + fname_sims)
-        seeds = np.load(file_dir + "seeds/" + fname_seeds)
+        seeds = np.load(file_dir + "seeds/" + fname_sims[:-3] + "npy")
 
         stats_np = stats.to_numpy()
         condition = np.any(pd.isnull(stats_np), axis=1)
