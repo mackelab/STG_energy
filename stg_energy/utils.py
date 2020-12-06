@@ -2,14 +2,18 @@ import numpy as np
 import pandas as pd
 
 
-def load_valid_sims_11deg():
+def load_valid_sims_11deg(identifier=""):
     """
     Return the circuit parameters, simulations, and seeds of all `valid` simulations.
 
     Returns: Parameters, simulation outputs, seeds.
     """
     general_path = "../results/"
-    path_to_data = "simulation_data_Tube_MLslurm_cluster/01_simulate_11deg/data/valid_"
+    path_to_data = (
+        "simulation_data_Tube_MLslurm_cluster/01_simulate_11deg"
+        + identifier
+        + "/data/valid_"
+    )
     params = pd.read_pickle(general_path + path_to_data + "circuit_parameters.pkl")
     sims = pd.read_pickle(general_path + path_to_data + "simulation_outputs.pkl")
     seeds = np.load(general_path + path_to_data + "seeds.npy")
@@ -17,14 +21,18 @@ def load_valid_sims_11deg():
     return params, sims, seeds
 
 
-def load_bad_sims_11deg():
+def load_bad_sims_11deg(identifier=""):
     """
     Return the circuit parameters, simulations, and seeds of all `bad` simulations.
 
     Returns: Parameters, simulation outputs, seeds.
     """
     general_path = "../results/"
-    path_to_data = "simulation_data_Tube_MLslurm_cluster/01_simulate_11deg/data/bad_"
+    path_to_data = (
+        "simulation_data_Tube_MLslurm_cluster/01_simulate_11deg"
+        + identifier
+        + "/data/bad_"
+    )
     params = pd.read_pickle(general_path + path_to_data + "circuit_parameters.pkl")
     sims = pd.read_pickle(general_path + path_to_data + "simulation_outputs.pkl")
     seeds = np.load(general_path + path_to_data + "seeds.npy")
@@ -32,14 +40,18 @@ def load_bad_sims_11deg():
     return params, sims, seeds
 
 
-def load_all_sims_11deg():
+def load_all_sims_11deg(identifier=""):
     """
     Return the circuit parameters, simulations, and seeds of all `bad` simulations.
 
     Returns: Parameters, simulation outputs, seeds.
     """
     general_path = "../results/"
-    path_to_data = "simulation_data_Tube_MLslurm_cluster/01_simulate_11deg/data/all_"
+    path_to_data = (
+        "simulation_data_Tube_MLslurm_cluster/01_simulate_11deg"
+        + identifier
+        + "/data/all_"
+    )
     params = pd.read_pickle(general_path + path_to_data + "circuit_parameters.pkl")
     sims = pd.read_pickle(general_path + path_to_data + "simulation_outputs.pkl")
     seeds = np.load(general_path + path_to_data + "seeds.npy")
