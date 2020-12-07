@@ -63,7 +63,7 @@ def merge_dataframes(file_dir: str) -> None:
 
     # Save data.
     general_path = "../../../results/"
-    path_to_data = "simulation_data_Tube_MLslurm_cluster/01_simulate_11deg_R2/data/"
+    path_to_data = "simulation_data_Tube_MLslurm_cluster/01_simulate_11deg/data/"
     valid_params.to_pickle(general_path + path_to_data + "valid_circuit_parameters.pkl")
     valid_sims.to_pickle(general_path + path_to_data + "valid_simulation_outputs.pkl")
     np.save(general_path + path_to_data + "valid_seeds", valid_seeds)
