@@ -59,10 +59,10 @@ def compute_false_positives(batch_size, lr, dropout, hidden, blocks):
     print("fraction_false_positives", fp)
 
     file_dir = "../../results/trained_neural_nets/inference/"
-    # with open(file_dir + f"optimized_network_R2.pickle", "wb",) as handle:
-    #     pickle.dump(restricted_prior, handle, protocol=4)
-    with open(file_dir + f"restricted_prior_R2_fp_{fp}.pickle", "wb",) as handle:
-        pickle.dump(restricted_prior, handle, protocol=pickle.HIGHEST_PROTOCOL)
+    with open(file_dir + f"optimized_network_estimator_R2.pickle", "wb",) as handle:
+        pickle.dump(restriction_estimator, handle, protocol=4)
+    with open(file_dir + f"optimized_network_R2.pickle", "wb",) as handle:
+        pickle.dump(restricted_prior, handle, protocol=4)
 
     return -fp
 
