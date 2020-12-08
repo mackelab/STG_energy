@@ -20,6 +20,9 @@ x = pd.read_pickle(general_path + path_to_data + "simulation_outputs_train.pkl")
 theta = torch.as_tensor(theta.to_numpy(), dtype=torch.float32)
 x = torch.as_tensor(x.to_numpy(), dtype=torch.float32)
 
+print("theta.shape", theta.shape)
+print("x.shape", x.shape)
+
 # Load prior.
 prior = create_prior(as_torch_dist=True)
 prior = PytorchReturnTypeWrapper(prior)
@@ -27,10 +30,13 @@ prior = PytorchReturnTypeWrapper(prior)
 
 def train_flow(batch_size, lr, hidden, layers):
     # Run SNPE.
-    estimator = posterior_nn("nsf", hidden_features=hidden, num_transforms=layers)
+    print("batch_size, lr, hidden, layers: ", batch_size, lr, hidden, layers)
+    estimator = posterior_nn(
+        "nsf", hidden_features=int(hidden), num_transforms=int(layers)
+    )
     inference = SNPE(prior, density_estimator=estimator)
     density_estimator = inference.append_simulations(theta, x).train(
-        training_batch_size=batch_size, learning_rate=lr
+        training_batch_size=int(batch_size), learning_rate=lr, max_num_epochs=250
     )
     posterior = inference.build_posterior()
     best_log_prob = inference._best_val_log_prob
@@ -40,12 +46,14 @@ def train_flow(batch_size, lr, hidden, layers):
     with open(
         f"../../results/trained_neural_nets/inference/flow_{best_log_prob}.pickle", "wb"
     ) as handle:
-        pickle.dump(handle, posterior, protocol=4)
+        pickle.dump(posterior, handle, protocol=4)
     with open(
-        f"../../results/trained_neural_nets/inference/inference_{best_log_prob}.pickle",
+        f"../../results/trained_neural_nets/inference/inference_snpe_{best_log_prob}.pickle",
         "wb",
     ) as handle:
-        pickle.dump(handle, inference_object, protocol=4)
+        pickle.dump(inference, handle, protocol=4)
+
+    return best_log_prob
 
 
 # Bounded region of parameter space
@@ -58,9 +66,9 @@ hyperparameter_bounds = {
 
 # Perform Bayesian optimization on the hyperparameters.
 optimizer = BayesianOptimization(
-    f=compute_false_positives, pbounds=hyperparameter_bounds, random_state=0,
+    f=train_flow, pbounds=hyperparameter_bounds, random_state=0,
 )
 optimizer.maximize(
-    init_points=15, n_iter=8,
+    init_points=5, n_iter=1,
 )
 print("Optimal parameters:  ", optimizer.max)

@@ -57,3 +57,20 @@ def load_all_sims_11deg(identifier=""):
     seeds = np.load(general_path + path_to_data + "seeds.npy")
 
     return params, sims, seeds
+
+
+def load_all_rounds_11deg():
+    """
+    Return all valid circuit parameters, simulations, and seeds of all rounds.
+
+    Returns: Parameters, simulation outputs, seeds.
+    """
+    general_path = "../results/"
+    path_to_data = "simulation_data_Tube_MLslurm_cluster/all_"
+    params = pd.read_pickle(
+        general_path + path_to_data + "circuit_parameters_train.pkl"
+    )
+    sims = pd.read_pickle(general_path + path_to_data + "simulation_outputs_train.pkl")
+    seeds = np.load(general_path + path_to_data + "seeds_train.npy")
+
+    return params, sims, seeds

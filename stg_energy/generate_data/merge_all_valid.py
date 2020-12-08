@@ -6,19 +6,19 @@ import torch
 torch.manual_seed(0)
 
 general_path = "../../results/"
-path_to_data = "simulation_data_Tube_MLslurm_cluster/01_simulate_11deg/data/all_"
+path_to_data = "simulation_data_Tube_MLslurm_cluster/01_simulate_11deg/data/valid_"
 theta_r1 = pd.read_pickle(general_path + path_to_data + "circuit_parameters.pkl")
 x_r1 = pd.read_pickle(general_path + path_to_data + "simulation_outputs.pkl")
 seeds_r1 = np.load(general_path + path_to_data + "seeds.npy")
 
-path_to_data = "simulation_data_Tube_MLslurm_cluster/01_simulate_11deg_R2/data/all_"
+path_to_data = "simulation_data_Tube_MLslurm_cluster/01_simulate_11deg_R2/data/valid_"
 theta_r2 = pd.read_pickle(general_path + path_to_data + "circuit_parameters.pkl")
 x_r2 = pd.read_pickle(general_path + path_to_data + "simulation_outputs.pkl")
 seeds_r2 = np.load(general_path + path_to_data + "seeds.npy")
 
-path_to_data = "simulation_data_Tube_MLslurm_cluster/01_simulate_11deg_R3/data/all_"
+path_to_data = "simulation_data_Tube_MLslurm_cluster/01_simulate_11deg_R3/data/valid_"
 theta_r3 = pd.read_pickle(general_path + path_to_data + "circuit_parameters.pkl")
-x = pd.read_pickle(general_path + path_to_data + "simulation_outputs.pkl")
+x_r3 = pd.read_pickle(general_path + path_to_data + "simulation_outputs.pkl")
 seeds_r3 = np.load(general_path + path_to_data + "seeds.npy")
 
 theta = pd.concat((theta_r1, theta_r2, theta_r3))
