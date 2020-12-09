@@ -55,10 +55,8 @@ def train_flow(hyperparams):
         training_batch_size=int(batch_size), learning_rate=lr, max_num_epochs=250
     )
     print("training time", time.time() - start_time)
-    print("4")
     posterior = inference.build_posterior()
     best_log_prob = inference._best_val_log_prob
-    print("5")
     print(
         "batch_size, lr, hidden, layers,  log_prob:  ",
         batch_size,
@@ -99,14 +97,7 @@ torch.manual_seed(global_seed)
 
 print("starting script2")
 
-hyperparam_dist = BoxUniform(
-    torch.tensor([100, 1e-4, 50, 5]), torch.tensor([250, 1e-3, 150, 12])
-)
-n_processes = 4
-hyperparams = hyperparam_dist.sample((n_processes,))
-
-print("starting script3")
-
+hyperparams = torch.tensor([[200, 1e-4, 200, 10]])
 st = time.time()
 for h in hyperparams:
     print("entering loop")

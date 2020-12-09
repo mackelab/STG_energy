@@ -26,6 +26,8 @@ x = pd.concat((x_r1, x_r2, x_r3))
 seeds = np.concatenate((seeds_r1, seeds_r2, seeds_r3))
 
 path_to_save = "simulation_data_Tube_MLslurm_cluster/all_"
-theta.to_pickle(general_path + path_to_save + "circuit_parameters_train.pkl")
-x.to_pickle(general_path + path_to_save + "simulation_outputs_train.pkl")
+theta.to_pickle(
+    general_path + path_to_save + "circuit_parameters_train.pkl", protocol=4
+)
+x.to_pickle(general_path + path_to_save + "simulation_outputs_train.pkl", protocol=4)
 np.save(general_path + path_to_save + "seeds_train.npy", seeds)
