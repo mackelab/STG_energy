@@ -31,6 +31,9 @@ def train_flow(hyperparams):
     theta = torch.as_tensor(theta.to_numpy(), dtype=torch.float32)
     x = torch.as_tensor(x.to_numpy(), dtype=torch.float32)
 
+    x = x[:, :18]
+    print("x[0]", x[0])
+
     print("theta.shape", theta.shape)
     print("x.shape", x.shape)
 
