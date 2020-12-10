@@ -21,7 +21,16 @@ import dill as pickle
 
 
 def my_simulator(params_with_seeds):
-    p1 = create_prior()
+    p1 = create_prior(
+        customization={
+            "Q10_gbar_mem": [True, True, True, True, True, True, True, True],
+            "Q10_gbar_syn": [True, True],
+            "Q10_tau_m": [True],
+            "Q10_tau_h": [True],
+            "Q10_tau_CaBuff": [True],
+            "Q10_tau_syn": [True, True],
+        }
+    )
     pars = p1.sample((1,))
     column_names = pars.columns
 
@@ -33,7 +42,7 @@ def my_simulator(params_with_seeds):
         seed=int(params_with_seeds[-1]),
         dt=0.025,
         t_max=11000,
-        temperature=283,
+        temperature=299,
         noise_std=0.001,
         track_energy=True,
     )
@@ -49,30 +58,59 @@ def my_simulator(params_with_seeds):
     return summary_stats(out_target, stats_customization=custom_stats, t_burn_in=1000)
 
 
-num_repeats = 30
+num_repeats = 1  # 17
 
 for _ in range(num_repeats):
 
-    num_sims = 10000
+    num_sims = 1000
     num_cores = 32
 
-    p1 = create_prior()
-    pars = p1.sample((1,))
-    column_names = pars.columns
+    generic_prior = create_prior()
+    generic_sample = generic_prior.sample((1,))
+    column_names = generic_sample.columns
 
     global_seed = int((time.time() % 1) * 1e7)
     np.random.seed(global_seed)  # Seeding the seeds for the simulator.
     torch.manual_seed(global_seed)  # Seeding the prior.
     seeds = np.random.randint(0, 10000, (num_sims, 1))
 
+    q10_prior = create_prior(
+        customization={
+            "Q10_gbar_mem": [True, True, True, True, True, True, True, True],
+            "Q10_gbar_syn": [True, True],
+            "Q10_tau_m": [True],
+            "Q10_tau_h": [True],
+            "Q10_tau_CaBuff": [True],
+            "Q10_tau_syn": [True, True],
+        }
+    )
+    parameter_sets_pd = q10_prior.sample((num_sims,)).to_numpy()
     path = "../../../results/trained_neural_nets/inference/"
-    with open(path + "optimized_network_R2.pickle", "rb") as handle:
-        restricted_prior = pickle.load(handle)
-    parameter_sets = restricted_prior.sample((num_sims,))
+    with open(path + "posterior_11deg.pickle", "rb") as handle:
+        posterior = pickle.load(handle)
+    x_o = np.load(
+        "../../../results/experimental_data/201210_summstats_reordered_prep845_082_0044.npy",
+        allow_pickle=True,
+    )
+    parameter_sets = posterior.sample(
+        (num_sims,), x=torch.as_tensor([x_o], dtype=torch.float32)
+    )
     data_np = parameter_sets.detach().numpy()
-    params_with_seeds = np.concatenate((data_np, seeds), axis=1)
+    params_with_q10s = parameter_sets_pd
+    params_with_q10s[:, :31] = data_np
+    params_with_seeds = np.concatenate((params_with_q10s, seeds), axis=1)
 
     parameter_sets_pd = pd.DataFrame(data_np, columns=column_names)
+
+    parameter_sets_pd["AB/PD"] = parameter_sets_pd["AB/PD"]
+    parameter_sets_pd["LP"] = parameter_sets_pd["LP"]
+    parameter_sets_pd["PY"] = parameter_sets_pd["PY"]
+    parameter_sets_pd["Synapses"] = parameter_sets_pd["Synapses"]
+
+    print("params_with_seeds", params_with_seeds)
+    print("params_with_seeds[0]", params_with_seeds[0])
+    print("parameter_sets_pd", parameter_sets_pd)
+    print("parameter_sets_pd.loc[0]", parameter_sets_pd.loc[0])
 
     with Pool(num_cores) as pool:
         start_time = time.time()
