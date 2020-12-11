@@ -14,6 +14,7 @@ import dill as pickle
 # Transmit data:
 # scp -r results/trained_neural_nets/inference/posterior_11deg.pickle mdeistler57@134.2.168.52:~/Documents/STG_energy/results/trained_neural_nets/inference/
 # scp -r stg_energy/generate_data/* mdeistler57@134.2.168.52:~/Documents/STG_energy/stg_energy/generate_data
+# scp -r results/experimental_data/201210_summstats_reordered_prep845_082_0044.npy mdeistler57@134.2.168.52:~/Documents/STG_energy/results/experimental_data/
 
 # Get data back:
 # scp -r mdeistler57@134.2.168.52:~/Documents/STG_energy/results/simulation_data_Tube_MLslurm_cluster/simulate_11deg_R3_predictives_at_11deg/data/* results/simulation_data_Tube_MLslurm_cluster/simulate_11deg_R3_predictives_at_11deg/data
