@@ -28,3 +28,7 @@ def obtain_lp_py_gap(stats):
 stats_original = np.load('../../results/experimental_data/190807_summstats_prep845_082_0044.npz')['summ_stats']
 new_stats = obtain_lp_py_gap(build_reordered_stats(stats_original))
 np.save('../../results/experimental_data/201210_summstats_reordered_prep845_082_0044', new_stats)
+
+stats_original = np.load('../../results/experimental_data/190807_summstats_prep845_082_0064.npz')['summ_stats']
+new_stats = obtain_lp_py_gap(build_reordered_stats(stats_original))
+np.save('../../results/experimental_data/201210_summstats_reordered_prep845_082_0064', new_stats)
