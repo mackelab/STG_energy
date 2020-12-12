@@ -12,12 +12,11 @@ import dill as pickle
 # 46a527673dae6a25cf6d4d6bdbf14f6f0282796e "stats is now called summary_stats"
 
 # Transmit data:
-# scp -r results/trained_neural_nets/inference/optimized_network_R2.pickle mdeistler57@134.2.168.52:~/Documents/STG_energy/results/trained_neural_nets/inference/
+# scp -r results/trained_neural_nets/inference/posterior_11deg.pickle mdeistler57@134.2.168.52:~/Documents/STG_energy/results/trained_neural_nets/inference/
 # scp -r stg_energy/generate_data/* mdeistler57@134.2.168.52:~/Documents/STG_energy/stg_energy/generate_data
-# scp -r results/simulation_data_Tube_MLslurm_cluster/01_simulate_11deg_R3/* mdeistler57@134.2.168.52:~/Documents/STG_energy/results/simulation_data_Tube_MLslurm_cluster/01_simulate_11deg_R3
 
 # Get data back:
-# scp -r mdeistler57@134.2.168.52:~/Documents/STG_energy/results/simulation_data_Tube_MLslurm_cluster/01_simulate_11deg_R3/data/* results/simulation_data_Tube_MLslurm_cluster/01_simulate_11deg_R3/data
+# scp -r mdeistler57@134.2.168.52:~/Documents/STG_energy/results/simulation_data_Tube_MLslurm_cluster/simulate_11deg_R3_predictives_at_27deg/data/* results/simulation_data_Tube_MLslurm_cluster/simulate_11deg_R3_predictives_at_27deg/data
 
 
 def my_simulator(params_with_seeds):
@@ -58,11 +57,11 @@ def my_simulator(params_with_seeds):
     return summary_stats(out_target, stats_customization=custom_stats, t_burn_in=1000)
 
 
-num_repeats = 1  # 17
+num_repeats = 40  # 17
 
 for _ in range(num_repeats):
 
-    num_sims = 1000
+    num_sims = 10000
     num_cores = 32
 
     generic_prior = create_prior()
@@ -84,33 +83,32 @@ for _ in range(num_repeats):
             "Q10_tau_syn": [True, True],
         }
     )
-    parameter_sets_pd = q10_prior.sample((num_sims,)).to_numpy()
+    prior_parameter_sets_pd = q10_prior.sample((num_sims,))
     path = "../../../results/trained_neural_nets/inference/"
     with open(path + "posterior_11deg.pickle", "rb") as handle:
         posterior = pickle.load(handle)
     x_o = np.load(
-        "../../../results/experimental_data/201210_summstats_reordered_prep845_082_0044.npy",
+        "../../../results/experimental_data/xo_11deg.npy",
         allow_pickle=True,
     )
-    parameter_sets = posterior.sample(
+    posterior_parameter_sets = posterior.sample(
         (num_sims,), x=torch.as_tensor([x_o], dtype=torch.float32)
     )
-    data_np = parameter_sets.detach().numpy()
-    params_with_q10s = parameter_sets_pd
-    params_with_q10s[:, :31] = data_np
+    posterior_data_np = posterior_parameter_sets.detach().numpy()
+    params_with_q10s = prior_parameter_sets_pd.to_numpy()
+    params_with_q10s[:, :31] = posterior_data_np
     params_with_seeds = np.concatenate((params_with_q10s, seeds), axis=1)
 
-    parameter_sets_pd = pd.DataFrame(data_np, columns=column_names)
-
-    parameter_sets_pd["AB/PD"] = parameter_sets_pd["AB/PD"]
-    parameter_sets_pd["LP"] = parameter_sets_pd["LP"]
-    parameter_sets_pd["PY"] = parameter_sets_pd["PY"]
-    parameter_sets_pd["Synapses"] = parameter_sets_pd["Synapses"]
+    posterior_parameter_sets_pd = pd.DataFrame(posterior_data_np, columns=column_names)
+    prior_parameter_sets_pd["AB/PD"] = posterior_parameter_sets_pd["AB/PD"]
+    prior_parameter_sets_pd["LP"] = posterior_parameter_sets_pd["LP"]
+    prior_parameter_sets_pd["PY"] = posterior_parameter_sets_pd["PY"]
+    prior_parameter_sets_pd["Synapses"] = posterior_parameter_sets_pd["Synapses"]
 
     print("params_with_seeds", params_with_seeds)
     print("params_with_seeds[0]", params_with_seeds[0])
-    print("parameter_sets_pd", parameter_sets_pd)
-    print("parameter_sets_pd.loc[0]", parameter_sets_pd.loc[0])
+    print("parameter_sets_pd", prior_parameter_sets_pd)
+    print("parameter_sets_pd.loc[0]", prior_parameter_sets_pd.loc[0])
 
     with Pool(num_cores) as pool:
         start_time = time.time()
@@ -125,7 +123,7 @@ for _ in range(num_repeats):
     sim_outs.to_pickle(
         general_path + path_to_data + "simulation_outputs/" + filename + ".pkl"
     )
-    parameter_sets_pd.to_pickle(
+    prior_parameter_sets_pd.to_pickle(
         general_path + path_to_data + "circuit_parameters/" + filename + ".pkl"
     )
     np.save(general_path + path_to_data + "seeds/" + filename, seeds)

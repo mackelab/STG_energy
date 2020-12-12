@@ -14,7 +14,7 @@ import dill as pickle
 # Transmit data:
 # scp -r results/trained_neural_nets/inference/posterior_11deg.pickle mdeistler57@134.2.168.52:~/Documents/STG_energy/results/trained_neural_nets/inference/
 # scp -r stg_energy/generate_data/* mdeistler57@134.2.168.52:~/Documents/STG_energy/stg_energy/generate_data
-# scp -r results/experimental_data/201210_summstats_reordered_prep845_082_0044.npy mdeistler57@134.2.168.52:~/Documents/STG_energy/results/experimental_data/
+# scp -r results/experimental_data/xo_11deg.npy mdeistler57@134.2.168.52:~/Documents/STG_energy/results/experimental_data/
 
 # Get data back:
 # scp -r mdeistler57@134.2.168.52:~/Documents/STG_energy/results/simulation_data_Tube_MLslurm_cluster/simulate_11deg_R3_predictives_at_11deg/data/* results/simulation_data_Tube_MLslurm_cluster/simulate_11deg_R3_predictives_at_11deg/data
@@ -49,11 +49,11 @@ def my_simulator(params_with_seeds):
     return summary_stats(out_target, stats_customization=custom_stats, t_burn_in=1000)
 
 
-num_repeats = 1  # 17
+num_repeats = 17  # 17
 
 for _ in range(num_repeats):
 
-    num_sims = 1000  # 10000
+    num_sims = 10000  # 10000
     num_cores = 32
 
     p1 = create_prior()
@@ -69,7 +69,7 @@ for _ in range(num_repeats):
     with open(path + "posterior_11deg.pickle", "rb") as handle:
         posterior = pickle.load(handle)
     x_o = np.load(
-        "../../../results/experimental_data/201210_summstats_reordered_prep845_082_0044.npy",
+        "../../../results/experimental_data/xo_11deg.npy",
         allow_pickle=True,
     )
     parameter_sets = posterior.sample(

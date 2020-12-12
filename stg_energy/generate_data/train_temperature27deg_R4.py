@@ -24,7 +24,7 @@ def train_flow(hyperparams):
     torch.manual_seed(seed)
 
     general_path = "../../results/"
-    path_to_data = "simulation_data_Tube_MLslurm_cluster/simulate_11deg_R3_predictives_at_27deg/data/all_"
+    path_to_data = "simulation_data_Tube_MLslurm_cluster/simulate_11deg_R3_predictives_at_27deg/data/valid_"
     theta = pd.read_pickle(general_path + path_to_data + "circuit_parameters.pkl")
     x = pd.read_pickle(general_path + path_to_data + "simulation_outputs.pkl")
 
