@@ -57,18 +57,18 @@ def my_simulator(params_with_seeds):
     return summary_stats(out_target, stats_customization=custom_stats, t_burn_in=1000)
 
 
-num_repeats = 1  # 17
+num_repeats = 17  # 17
 
-for _ in range(num_repeats):
+for kkkk in range(num_repeats):
 
-    num_sims = 1000
+    num_sims = 10000
     num_cores = 32
 
     generic_prior = create_prior()
     generic_sample = generic_prior.sample((1,))
     column_names = generic_sample.columns
 
-    global_seed = int((time.time() % 1) * 1e7)
+    global_seed = kkkk
     np.random.seed(global_seed)  # Seeding the seeds for the simulator.
     torch.manual_seed(global_seed)  # Seeding the prior.
     seeds = np.random.randint(0, 10000, (num_sims, 1))
@@ -83,7 +83,6 @@ for _ in range(num_repeats):
             "Q10_tau_syn": [True, True],
         }
     )
-    prior_parameter_sets_pd = q10_prior.sample((num_sims,))
     path = "../../../results/trained_neural_nets/inference/"
     with open(path + "posterior_27deg.pickle", "rb") as handle:
         posterior = pickle.load(handle)
@@ -95,7 +94,7 @@ for _ in range(num_repeats):
         (num_sims,), x=torch.as_tensor([x_o], dtype=torch.float32)
     )
     posterior_parameter_sets_np = posterior_parameter_sets.numpy()
-    save_sets_pd = pd.DataFrame(posterior_parameter_sets_np, columns=q10_prior.columns)
+    save_sets_pd = pd.DataFrame(posterior_parameter_sets_np, columns=q10_prior.sample((1,)).columns)
     params_with_seeds = np.concatenate((posterior_parameter_sets_np, seeds), axis=1)
 
     print("params_with_seeds", params_with_seeds)

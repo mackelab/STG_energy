@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-n_jobs=12
+n_jobs=6
 
 for ((d=0; d<$n_jobs; d++))
 do

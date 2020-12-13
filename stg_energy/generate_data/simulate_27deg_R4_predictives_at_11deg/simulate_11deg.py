@@ -49,18 +49,18 @@ def my_simulator(params_with_seeds):
     return summary_stats(out_target, stats_customization=custom_stats, t_burn_in=1000)
 
 
-num_repeats = 1  # 17
+num_repeats = 17  # 17
 
-for _ in range(num_repeats):
+for kkkk in range(num_repeats):
 
-    num_sims = 1000  # 10000
+    num_sims = 10000  # 10000
     num_cores = 32
 
     p1 = create_prior()
     pars = p1.sample((1,))
     column_names = pars.columns
 
-    global_seed = int((time.time() % 1) * 1e7)
+    global_seed = kkkk
     np.random.seed(global_seed)  # Seeding the seeds for the simulator.
     torch.manual_seed(global_seed)  # Seeding the prior.
     seeds = np.random.randint(0, 10000, (num_sims, 1))
@@ -79,6 +79,8 @@ for _ in range(num_repeats):
     params_with_seeds = np.concatenate((data_np, seeds), axis=1)
 
     parameter_sets_pd = pd.DataFrame(data_np, columns=column_names)
+    
+    print("params data_np", data_np[0])
 
     with Pool(num_cores) as pool:
         start_time = time.time()
