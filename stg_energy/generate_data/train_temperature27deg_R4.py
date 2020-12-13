@@ -38,7 +38,17 @@ def train_flow(hyperparams):
     print("x.shape", x.shape)
 
     # Load prior.
-    prior = create_prior(as_torch_dist=True)
+    prior = create_prior(
+        customization={
+            "Q10_gbar_mem": [True, True, True, True, True, True, True, True],
+            "Q10_gbar_syn": [True, True],
+            "Q10_tau_m": [True],
+            "Q10_tau_h": [True],
+            "Q10_tau_CaBuff": [True],
+            "Q10_tau_syn": [True, True]
+        },
+        as_torch_dist=True
+    )
     prior = PytorchReturnTypeWrapper(prior)
 
     print("1")
