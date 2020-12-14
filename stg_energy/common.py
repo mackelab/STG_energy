@@ -15,12 +15,44 @@ from stg_energy.fig5_cc.conditional_density import eval_conditional_density
 from scipy.stats import gaussian_kde
 from seaborn.utils import despine
 from svgutils.compose import Unit
-
+from pandas import DataFrame
+from typing import Union, List
 
 try:
     collectionsAbc = collections.abc
 except:
     collectionsAbc = collections
+
+
+def check_if_close_to_obs(x: Union[np.ndarray, DataFrame]) -> np.ndarray:
+    """
+    Returns array of bools which indicates whether `x` was acceptable or not.
+
+    Args:
+        x: Batch of summary stats or single summary stat.
+    """
+
+    path = "../../results/simulation_data_Tube_MLslurm_cluster/01_simulate_11deg"
+    x_prior = pd.read_pickle(path + "/data/valid_simulation_outputs.pkl")
+
+    xo = np.load("../../results/experimental_data/xo_11deg.npy")[:15]
+
+    num_std = np.std(x_prior.to_numpy(), axis=0)
+    factors = np.asarray(
+        [0.02, 0.02, 0.02, 0.02, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2]
+    )
+    allowed_deviation = factors * num_std[:15]
+
+    prinz_stats = x[:, :15]
+    diff_to_obs = np.abs(prinz_stats - xo)
+    cond1 = np.all(diff_to_obs < allowed_deviation, axis=1)
+    cond2 = np.all(x[:, 18:21] > 7.5, axis=1)
+    cond3 = np.all(x[:, 15:18] == 2.5, axis=1)
+    cond4 = np.invert(np.any(np.isnan(x), axis=1))
+
+    c = [c1 and c2 and c3 and c4 for c1, c2, c3, c4 in zip(cond1, cond2, cond3, cond4)]
+
+    return np.asarray(c)
 
 
 def unit(val, to="px"):
@@ -582,20 +614,31 @@ def samples_nd(samples, points=[], **kwargs):
         # options for contour
         "contour_offdiag": {"levels": [0.68]},
         # options for scatter
-        "scatter_offdiag": {"alpha": 0.5, "edgecolor": "none", "rasterized": False,},
+        "scatter_offdiag": {
+            "alpha": 0.5,
+            "edgecolor": "none",
+            "rasterized": False,
+        },
         # options for plot
         "plot_offdiag": {},
         # formatting points (scale, markers)
         "points_diag": {},
-        "points_offdiag": {"marker": ".", "markersize": 20,},
+        "points_offdiag": {
+            "marker": ".",
+            "markersize": 20,
+        },
         # matplotlib style
         "style": os.path.join(os.path.dirname(__file__), ".matplotlibrc"),
         # other options
         "fig_size": (10, 10),
         "fig_bg_colors": {"upper": None, "diag": None, "lower": None},
-        "fig_subplots_adjust": {"top": 0.9,},
+        "fig_subplots_adjust": {
+            "top": 0.9,
+        },
         "subplots": {},
-        "despine": {"offset": 5,},
+        "despine": {
+            "offset": 5,
+        },
         "title_format": {"fontsize": 16},
     }
     # TODO: add color map support
@@ -797,7 +840,11 @@ def samples_nd(samples, points=[], **kwargs):
                             )
                             xs = np.linspace(xmin, xmax, opts["kde_diag"]["bins"])
                             ys = density(xs)
-                            h = plt.plot(xs, ys, color=opts["samples_colors"][n],)
+                            h = plt.plot(
+                                xs,
+                                ys,
+                                color=opts["samples_colors"][n],
+                            )
                         elif opts["diag"][n] == "cond":
                             p_vector = eval_conditional_density(
                                 opts["pdfs"][n],
@@ -858,7 +905,12 @@ def samples_nd(samples, points=[], **kwargs):
                             h = plt.imshow(
                                 hist.T,
                                 origin="lower",
-                                extent=[xedges[0], xedges[-1], yedges[0], yedges[-1],],
+                                extent=[
+                                    xedges[0],
+                                    xedges[-1],
+                                    yedges[0],
+                                    yedges[-1],
+                                ],
                                 aspect="auto",
                             )
 

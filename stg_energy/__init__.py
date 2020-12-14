@@ -1,0 +1,1 @@
+from stg_energy.common import check_if_close_to_obs

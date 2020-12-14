@@ -111,7 +111,7 @@ def vis_sample_plain(
 
     data = voltage_trace
 
-    Vx = data["data"]
+    Vx = data["voltage"]
 
     current_col = 0
     for j in range(len(neutypes)):
