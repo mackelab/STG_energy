@@ -7,6 +7,7 @@ from scipy.stats import gaussian_kde
 import os
 import matplotlib as mpl
 import seaborn as sns
+from pyloric.utils import energy_of_membrane
 
 
 def vis_sample_plain(
@@ -62,7 +63,10 @@ def vis_sample_plain(
             )
         else:
             axV.plot(
-                t, Vx[j] + 120.0 * (2 - j), lw=0.3, c=col[current_col],
+                t,
+                Vx[j] + 120.0 * (2 - j),
+                lw=0.3,
+                c=col[current_col],
             )
         current_col += 1
 
@@ -131,7 +135,7 @@ def energy_scape(
     cols,
     time_len,
     offset,
-    ylimE=[0, 2000],
+    ylimE=[0, 300],
     v_labelpad=4.8,
     neuron=2,
     ylabels=True,
@@ -153,7 +157,7 @@ def energy_scape(
     names = ["AB", "LP", "PY"]
 
     current_col = 0
-    Vx = out_target["data"]
+    Vx = out_target["voltage"]
     axV = ax[0]
     for j in range(neuron, neuron + 1):
         if time_len is not None:
@@ -185,7 +189,7 @@ def energy_scape(
     plt.subplots_adjust(wspace=0.05)
 
     axS = ax[1]
-    all_energies = out_target["all_energies"]
+    all_energies = np.asarray(energy_of_membrane(out_target))
 
     for current_current in range(neuron, neuron + 1):
         all_currents_PD = all_energies[:, current_current, :]
@@ -197,13 +201,14 @@ def energy_scape(
                     all_currents_PD[:i, 10000 + offset : 10000 + offset + time_len : 5],
                     axis=0,
                 )
-                * 10
+                / 1000
             )
             summed_currents_include = np.sum(
                 all_currents_PD[
-                    : i + 1, 10000 + offset : 10000 + offset + time_len : 5,
+                    : i + 1,
+                    10000 + offset : 10000 + offset + time_len : 5,
                 ]
-                * 10,
+                / 1000,
                 axis=0,
             )
             axS.fill_between(
@@ -320,10 +325,23 @@ def py_sensitivity_bars_cosyne(
     vec, ylim, figsize, ylabel=None, plot_labels=True, color="#2ca25f"
 ):
     fig, ax = plt.subplots(1, figsize=figsize)
-    _ = ax.bar(np.arange(1, 9) - 0.2, vec[:8], width=0.4 / figsize[0], color="#3182bd",)
-    _ = ax.bar(np.arange(1, 9), vec[8:16], width=0.4 / figsize[0], color="#fc8d59",)
     _ = ax.bar(
-        np.arange(1, 9) + 0.2, vec[16:24], width=0.4 / figsize[0], color="#2ca25f",
+        np.arange(1, 9) - 0.2,
+        vec[:8],
+        width=0.4 / figsize[0],
+        color="#3182bd",
+    )
+    _ = ax.bar(
+        np.arange(1, 9),
+        vec[8:16],
+        width=0.4 / figsize[0],
+        color="#fc8d59",
+    )
+    _ = ax.bar(
+        np.arange(1, 9) + 0.2,
+        vec[16:24],
+        width=0.4 / figsize[0],
+        color="#2ca25f",
     )
 
     ax.set_ylim(ylim)
@@ -414,20 +432,31 @@ def oneDmarginal(samples, points=[], **kwargs):
         # options for contour
         "contour_offdiag": {"levels": [0.68]},
         # options for scatter
-        "scatter_offdiag": {"alpha": 0.5, "edgecolor": "none", "rasterized": False,},
+        "scatter_offdiag": {
+            "alpha": 0.5,
+            "edgecolor": "none",
+            "rasterized": False,
+        },
         # options for plot
         "plot_offdiag": {},
         # formatting points (scale, markers)
         "points_diag": {},
-        "points_offdiag": {"marker": ".", "markersize": 20,},
+        "points_offdiag": {
+            "marker": ".",
+            "markersize": 20,
+        },
         # matplotlib style
         "style": "../../.matplotlibrc",
         # other options
         "fig_size": (10, 10),
         "fig_bg_colors": {"upper": None, "diag": None, "lower": None},
-        "fig_subplots_adjust": {"top": 0.9,},
+        "fig_subplots_adjust": {
+            "top": 0.9,
+        },
         "subplots": {},
-        "despine": {"offset": 5,},
+        "despine": {
+            "offset": 5,
+        },
         "title_format": {"fontsize": 16},
     }
 
@@ -599,7 +628,11 @@ def oneDmarginal(samples, points=[], **kwargs):
                         )
                         xs = np.linspace(xmin, xmax, opts["kde_diag"]["bins"])
                         ys = density(xs)
-                        h = plt.plot(xs, ys, color=opts["samples_colors"][n],)
+                        h = plt.plot(
+                            xs,
+                            ys,
+                            color=opts["samples_colors"][n],
+                        )
                     else:
                         pass
 
