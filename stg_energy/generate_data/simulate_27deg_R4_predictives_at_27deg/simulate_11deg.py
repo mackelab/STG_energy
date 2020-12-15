@@ -94,13 +94,15 @@ for kkkk in range(num_repeats):
         (num_sims,), x=torch.as_tensor([x_o], dtype=torch.float32)
     )
     posterior_parameter_sets_np = posterior_parameter_sets.numpy()
-    save_sets_pd = pd.DataFrame(posterior_parameter_sets_np, columns=q10_prior.sample((1,)).columns)
+    save_sets_pd = pd.DataFrame(
+        posterior_parameter_sets_np, columns=q10_prior.sample((1,)).columns
+    )
     params_with_seeds = np.concatenate((posterior_parameter_sets_np, seeds), axis=1)
 
     print("params_with_seeds", params_with_seeds)
     print("params_with_seeds[0]", params_with_seeds[0])
     print("save_sets_pd", save_sets_pd.loc[0])
-    
+
     with Pool(num_cores) as pool:
         start_time = time.time()
         data = pool.map(my_simulator, params_with_seeds)
