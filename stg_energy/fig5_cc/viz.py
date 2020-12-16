@@ -56,20 +56,31 @@ def oneDmarginal(samples, points=[], **kwargs):
         # options for contour
         "contour_offdiag": {"levels": [0.68]},
         # options for scatter
-        "scatter_offdiag": {"alpha": 0.5, "edgecolor": "none", "rasterized": False,},
+        "scatter_offdiag": {
+            "alpha": 0.5,
+            "edgecolor": "none",
+            "rasterized": False,
+        },
         # options for plot
         "plot_offdiag": {},
         # formatting points (scale, markers)
         "points_diag": {},
-        "points_offdiag": {"marker": ".", "markersize": 20,},
+        "points_offdiag": {
+            "marker": ".",
+            "markersize": 20,
+        },
         # matplotlib style
         "style": "../../.matplotlibrc",
         # other options
         "fig_size": (10, 10),
         "fig_bg_colors": {"upper": None, "diag": None, "lower": None},
-        "fig_subplots_adjust": {"top": 0.9,},
+        "fig_subplots_adjust": {
+            "top": 0.9,
+        },
         "subplots": {},
-        "despine": {"offset": 5,},
+        "despine": {
+            "offset": 5,
+        },
         "title_format": {"fontsize": 16},
     }
 
@@ -241,7 +252,11 @@ def oneDmarginal(samples, points=[], **kwargs):
                         )
                         xs = np.linspace(xmin, xmax, opts["kde_diag"]["bins"])
                         ys = density(xs)
-                        h = plt.plot(xs, ys, color=opts["samples_colors"][n],)
+                        h = plt.plot(
+                            xs,
+                            ys,
+                            color=opts["samples_colors"][n],
+                        )
                     elif opts["diag"][n] == "cond":
                         p_vector = eval_conditional_density(
                             opts["pdfs"][n],
@@ -321,20 +336,31 @@ def singleOneDmarginal(samples, points=[], **kwargs):
         # options for contour
         "contour_offdiag": {"levels": [0.68]},
         # options for scatter
-        "scatter_offdiag": {"alpha": 0.5, "edgecolor": "none", "rasterized": False,},
+        "scatter_offdiag": {
+            "alpha": 0.5,
+            "edgecolor": "none",
+            "rasterized": False,
+        },
         # options for plot
         "plot_offdiag": {},
         # formatting points (scale, markers)
         "points_diag": {},
-        "points_offdiag": {"marker": ".", "markersize": 20,},
+        "points_offdiag": {
+            "marker": ".",
+            "markersize": 20,
+        },
         # matplotlib style
         "style": "../../.matplotlibrc",
         # other options
         "fig_size": (10, 10),
         "fig_bg_colors": {"upper": None, "diag": None, "lower": None},
-        "fig_subplots_adjust": {"top": 0.9,},
+        "fig_subplots_adjust": {
+            "top": 0.9,
+        },
         "subplots": {},
-        "despine": {"offset": 5,},
+        "despine": {
+            "offset": 5,
+        },
         "title_format": {"fontsize": 16},
     }
 
@@ -509,7 +535,11 @@ def singleOneDmarginal(samples, points=[], **kwargs):
                         )
                         xs = np.linspace(xmin, xmax, opts["kde_diag"]["bins"])
                         ys = density(xs)
-                        h = plt.plot(xs, ys, color=opts["samples_colors"][n],)
+                        h = plt.plot(
+                            xs,
+                            ys,
+                            color=opts["samples_colors"][n],
+                        )
                     elif opts["diag"][n] == "cond":
                         p_vector = eval_conditional_density(
                             opts["pdfs"][n],
@@ -597,20 +627,31 @@ def single2Dmarginal(samples, points=[], **kwargs):
         # options for contour
         "contour_offdiag": {"levels": [0.68]},
         # options for scatter
-        "scatter_offdiag": {"alpha": 0.5, "edgecolor": "none", "rasterized": False,},
+        "scatter_offdiag": {
+            "alpha": 0.5,
+            "edgecolor": "none",
+            "rasterized": False,
+        },
         # options for plot
         "plot_offdiag": {},
         # formatting points (scale, markers)
         "points_diag": {},
-        "points_offdiag": {"marker": ".", "markersize": 20,},
+        "points_offdiag": {
+            "marker": ".",
+            "markersize": 20,
+        },
         # matplotlib style
         "style": "../../.matplotlibrc",
         # other options
         "fig_size": (10, 10),
         "fig_bg_colors": {"upper": None, "diag": None, "lower": None},
-        "fig_subplots_adjust": {"top": 0.9,},
+        "fig_subplots_adjust": {
+            "top": 0.9,
+        },
         "subplots": {},
-        "despine": {"offset": 5,},
+        "despine": {
+            "offset": 5,
+        },
         "title_format": {"fontsize": 16},
     }
     # TODO: add color map support
@@ -949,7 +990,7 @@ def vis_sample_plain(
 
     data = voltage_trace
 
-    Vx = data["data"]
+    Vx = data["voltage"]
 
     current_col = 0
     for j in range(len(neutypes)):
@@ -1032,7 +1073,12 @@ def vis_sample_plain(
 
 
 def plot_energy_scape(
-    out_target, time, neuron_to_plot, t_min, t_max, figsize,
+    out_target,
+    time,
+    neuron_to_plot,
+    t_min,
+    t_max,
+    figsize,
 ):
     cols_hex = [
         "#1b9e77",

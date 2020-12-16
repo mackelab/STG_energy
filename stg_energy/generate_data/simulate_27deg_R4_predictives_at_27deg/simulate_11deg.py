@@ -57,11 +57,11 @@ def my_simulator(params_with_seeds):
     return summary_stats(out_target, stats_customization=custom_stats, t_burn_in=1000)
 
 
-num_repeats = 17  # 17
+num_repeats = 1  # 17
 
 for kkkk in range(num_repeats):
 
-    num_sims = 10000
+    num_sims = 1000
     num_cores = 32
 
     generic_prior = create_prior()

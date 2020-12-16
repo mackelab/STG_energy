@@ -16,7 +16,7 @@ from scipy.stats import gaussian_kde
 from seaborn.utils import despine
 from svgutils.compose import Unit
 from pandas import DataFrame
-from typing import Union, List
+from typing import Union, List, Optional
 
 try:
     collectionsAbc = collections.abc
@@ -24,7 +24,9 @@ except:
     collectionsAbc = collections
 
 
-def check_if_close_to_obs(x: Union[np.ndarray, DataFrame]) -> np.ndarray:
+def check_if_close_to_obs(
+    x: Union[np.ndarray, DataFrame]
+) -> np.ndarray:
     """
     Returns array of bools which indicates whether `x` was acceptable or not.
 
@@ -32,10 +34,10 @@ def check_if_close_to_obs(x: Union[np.ndarray, DataFrame]) -> np.ndarray:
         x: Batch of summary stats or single summary stat.
     """
 
-    path = "../../results/simulation_data_Tube_MLslurm_cluster/01_simulate_11deg"
+    path = "/home/michael/Documents/STG_energy/results/simulation_data_Tube_MLslurm_cluster/01_simulate_11deg"
     x_prior = pd.read_pickle(path + "/data/valid_simulation_outputs.pkl")
 
-    xo = np.load("../../results/experimental_data/xo_11deg.npy")[:15]
+    xo = np.load("/home/michael/Documents/STG_energy/results/experimental_data/xo_11deg.npy")[:15]
 
     num_std = np.std(x_prior.to_numpy(), axis=0)
     factors = np.asarray(
