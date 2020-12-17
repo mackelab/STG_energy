@@ -64,7 +64,9 @@ def regression_plot(
     lin_reg = LinearRegression()
     lin_reg.fit(train_num_spikes_norm, train_energies_per_spike_norm)
 
-    x_vals = np.linspace(-3, 3, 100)[None,].T
+    x_vals = np.linspace(-3, 3, 100)[
+        None,
+    ].T
     y_regs = lin_reg.predict(x_vals)
 
     unnorm_x_vals = x_vals * std_num_spikes + mean_num_spikes
