@@ -9,6 +9,7 @@ from mpl_toolkits.axisartist.grid_finder import FixedLocator
 import math
 import matplotlib.cm
 from matplotlib.colors import Normalize
+from typing import Optional
 
 from stg_energy.common import col, _update, _format_axis
 from scipy.stats import gaussian_kde
@@ -245,11 +246,11 @@ def scatter_sensitivity_consumption(all_fractions, eigenvector):
     #     handles, labels = ax.get_legend_handles_labels()
     #     ax.legend(flip(handles, 2), flip(labels, 2), bbox_to_anchor=(1.1, -0.9, 0.1, 0.5), labelspacing=0.3, columnspacing=0.5, markerfirst=False, handletextpad=-0.4, ncol=4)
 
-    ax.arrow(0.6, 0.2, 0.08, -0.065, head_width=0.04, head_length=0.04, facecolor="k")
+    ax.arrow(0.61, 0.19, 0.08, -0.065, head_width=0.04, head_length=0.04, facecolor="k")
     ax.arrow(
-        0.178, 0.645, 0.08, -0.065, head_width=0.04, head_length=0.04, facecolor="k"
+        0.1695, 0.649, 0.08, -0.065, head_width=0.04, head_length=0.04, facecolor="k"
     )
-    ax.arrow(0.07, 0.48, 0.0, -0.1, head_width=0.04, head_length=0.04, facecolor="k")
+    ax.arrow(0.069, 0.49, 0.0, -0.1, head_width=0.04, head_length=0.04, facecolor="k")
 
     ax.plot([0.0, 0.7], [0.0, 0.7], color="grey", alpha=0.5)
     ax.set_xlim([0.0, 0.78])
@@ -273,9 +274,9 @@ def curvelinear_test1(
     parameter_set3_dim2,
 ):
     xlims = [-3.4, 2.2]
-    ylims = [-3.42, 2.8]
+    ylims = [-2.62, 2.8]
 
-    # We need this ration because the scale on the y-axis and on the x-axis is
+    # We need this ratio because the scale on the y-axis and on the x-axis is
     # different. The ration is approximately 2.7 / 1.8, which is the ratio of
     # the mins of the data in the respective dimensions. Correctness of the
     # ration 1.55 was checked by manually rotating the ylabel with:
@@ -292,7 +293,7 @@ def curvelinear_test1(
         return x + y * math.tan(angle_within_90deg) * ratio_yx, y
 
     grid_locator1 = FixedLocator([-1.8, 0, 1.8])
-    grid_locator2 = FixedLocator([-2.7, 0])
+    grid_locator2 = FixedLocator([-2.1, 0])
 
     grid_helper = GridHelperCurveLinear(
         aux_trans=(tr, inv_tr), grid_locator1=grid_locator1, grid_locator2=grid_locator2
@@ -319,8 +320,8 @@ def curvelinear_test1(
 
     ax1.annotate(
         "",
-        xy=(-0.9, -2.1),
-        xytext=(-0.2, -0.5),
+        xy=(-1.1, -1.6),
+        xytext=(-0.5, -0.4),
         arrowprops=dict(
             facecolor="#0570b0",
             edgecolor="#0570b0",
@@ -345,7 +346,7 @@ def curvelinear_test1(
     ax1.set_xlabel("Proj. to 1st E-vec: E / spike")
 
     ax1.axis["y"] = ax1.new_floating_axis(0, -2.4)
-    ax1.axis["x"] = ax1.new_floating_axis(1, -3.4)
+    ax1.axis["x"] = ax1.new_floating_axis(1, -2.6)
     ax1.axis["y"].set_axis_direction("top")
     ax1.axis["y"].label.set_axis_direction("bottom")
     ax1.axis["y"].set_ticklabel_direction("+")
@@ -353,7 +354,7 @@ def curvelinear_test1(
 
     cbar = plt.colorbar(im, aspect=25, fraction=0.04, pad=0.04)
     cbar.set_ticks([])
-    cbar.set_label("Energy (AB)", labelpad=5)
+    cbar.set_label("Energy (AB/PD)", labelpad=5)
 
 
 def bars_for_energy(
@@ -484,7 +485,7 @@ def energy_scape(
     axS.spines["top"].set_visible(False)
     axS.set_xlabel("Time (ms)")
     if ylabels:
-        axS.set_ylabel("E (" + names[neuron] + ")\n $(\mu$J/s)", labelpad=1)
+        axS.set_ylabel("E (" + names[neuron] + ")\n $(\mu$J/s)", labelpad=6.0)
     else:
         axS.set_yticks([])
     axS.set_ylim(ylimE)
@@ -563,6 +564,9 @@ def py_sensitivity_bars_cosyne(
     plot_labels=True,
     color="#2ca25f",
     legend: bool = True,
+    legend_y_offset: float = 0.0,
+    title: Optional[str] = None,
+    title_x_offset: float = 0.0,
 ):
     fig, ax = plt.subplots(1, figsize=figsize)
     _ = ax.bar(
@@ -598,10 +602,12 @@ def py_sensitivity_bars_cosyne(
     if legend:
         ax.legend(
             ["AB/PD", "LP", "PY"],
-            bbox_to_anchor=(1.3, 0.8),
+            bbox_to_anchor=(1.3, 0.8 + legend_y_offset),
             handlelength=0.3,
             handletextpad=0.35,
         )
+
+    ax.text(3.3 + title_x_offset, 0.8, title)
 
     if ylabel is not None:
         ax.set_ylabel(ylabel)

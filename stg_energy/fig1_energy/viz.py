@@ -9,7 +9,7 @@ def compare_voltage_low_and_high_energy_trace(all_out_targets, t, figsize, offse
     iii = 0
     time_len = int(3 * 1000 / 0.025)  # 3 seconds
     if offset is None:
-        offset = [160000, 0]
+        offset = [164000, 149000]
     print("Showing :  ", time_len / 40000, "seconds")
     print("Scalebar indicates:  50mV")
 
@@ -68,7 +68,7 @@ def compare_energy_low_and_high_energy_trace(all_out_targets, t, figsize, offset
     print("Showing :  ", time_len / 40000, "seconds")
     print("Scalebar indicates:  100 micro Joule / second")
     if offset is None:
-        offset = [160000, 0]
+        offset = [164000, 149000]
 
     for out_target in all_out_targets:
         # start only at 40,000 because of burn-in.
@@ -116,7 +116,7 @@ def energy_scape_voltage(all_out_targets, t, figsize, cols, offset=None):
     iii = 0
     time_len = int(3 * 1000 / 0.025 * 0.015)  # 45 ms
     if offset is None:
-        offset = [370000, 189010]
+        offset = [277500, 225100]
 
     cols_hex = [
         "#1b9e77",
@@ -180,10 +180,10 @@ def energy_scape_energy(
 ):
     fig, ax = plt.subplots(1, 2, figsize=figsize)
     iii = 0
-    time_len = int(3 * 1000 / 0.025 * 0.015)  # 45 ms
-    print("time_len", time_len)
+    time_len = 1 * int(3 * 1000 / 0.025 * 0.015)  # 45 ms
+    print("time_len2", time_len)
     if offset is None:
-        offset = [370000, 189010]
+        offset = [277500, 225100]
 
     cols_hex = [
         "#1b9e77",
@@ -251,7 +251,7 @@ def energy_scape_energy(
         axS.set_ylabel("Energy PY ($\mu$J/s)")
 
         if set_xlim:
-            axS.set_ylim([0, 270])
+            axS.set_ylim([0, 200])
             axS.set_xlim([0, 40])
         axS.tick_params(axis="both", which="major")
         if iii == 1:
