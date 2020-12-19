@@ -60,11 +60,11 @@ def my_simulator(params_with_seeds):
 
 def run_simulations(job_number):
 
-    num_repeats = 1  # 17
+    num_repeats = 100
 
     for kkkk in range(num_repeats):
 
-        num_sims = 1000
+        num_sims = 10000
         num_cores = 32
 
         global_seed = kkkk + int(job_number * 100)
@@ -83,7 +83,7 @@ def run_simulations(job_number):
             }
         )
         path = "../../../results/trained_neural_nets/inference/"
-        with open(path + "posterior_27deg.pickle", "rb") as handle:
+        with open(path + "posterior_27deg_notau.pickle", "rb") as handle:
             posterior = pickle.load(handle)
         x_o = np.load(
             "../../../results/experimental_data/xo_27deg.npy",
@@ -109,8 +109,8 @@ def run_simulations(job_number):
 
         sim_outs = pd.concat(data)
 
-        general_path = "/home/macke/mdeistler57/Documents/STG_energy/results/"
-        path_to_data = "simulation_data_Tube_MLslurm_cluster/simulate_27deg_R4_predictives_at_27deg/data/"
+        general_path = "/home/michael/Documents/STG_energy/results/"
+        path_to_data = "simulation_data_Tube_MLslurm_cluster/simulate_27deg_R4_predictives_at_27deg_notau/data/"
         filename = f"sim_{global_seed}"
         sim_outs.to_pickle(
             general_path + path_to_data + "simulation_outputs/" + filename + ".pkl"
