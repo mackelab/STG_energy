@@ -1,6 +1,7 @@
 import numpy as np
 from stg_energy.common import pick_synapse
 import matplotlib.pyplot as plt
+from typing import Optional
 
 
 def get_labels_8pt_supp(mathmode=False, include_q10=True):
@@ -94,6 +95,68 @@ def get_labels_8pt_supp(mathmode=False, include_q10=True):
 
 neutypes = ["PM", "LP", "PY"]
 
+
+def py_sensitivity_bars_q10(
+    vec,
+    ylim,
+    figsize,
+    ylabel=None,
+    plot_labels=True,
+    color="#2ca25f",
+    legend: bool = True,
+    legend_y_offset: float = 0.0,
+    title: Optional[str] = None,
+    title_x_offset: float = 0.0,
+):
+    fig, ax = plt.subplots(1, figsize=figsize)
+    _ = ax.bar(
+        np.arange(1, 9) - 0.27,
+        vec[:8],
+        width=0.4 / figsize[0],
+        color="#3182bd",
+    )
+    _ = ax.bar(
+        np.arange(1, 9) - 0.09,
+        vec[8:16],
+        width=0.4 / figsize[0],
+        color="#fc8d59",
+    )
+    _ = ax.bar(
+        np.arange(1, 9) + 0.09,
+        vec[16:24],
+        width=0.4 / figsize[0],
+        color="#2ca25f",
+    )
+    _ = ax.bar(
+        np.arange(1, 9) + 0.27,
+        vec[31:39],
+        width=0.4 / figsize[0],
+        color="k",
+    )
+
+    ax.set_ylim(ylim)
+    ax.spines["right"].set_visible(False)
+    ax.spines["top"].set_visible(False)
+    ax.get_xaxis().set_ticks([])
+
+    ax.set_xticks(range(1, 9))
+    ax.set_xticklabels(["Na", "CaT", "CaS", "A", "KCa", "Kd", "H", "leak"])
+    ax.set_xlim(0.5, 8.5)
+    if not plot_labels:
+        ax.set_xticks([])
+
+    if legend:
+        ax.legend(
+            ["AB/PD", "LP", "PY", "$Q_{10}$"],
+            bbox_to_anchor=(1.3, 0.9 + legend_y_offset),
+            handlelength=0.3,
+            handletextpad=0.35,
+        )
+
+    ax.text(3.3 + title_x_offset, 0.8, title)
+
+    if ylabel is not None:
+        ax.set_ylabel(ylabel)
 
 def vis_sample_plain(
     voltage_trace,
