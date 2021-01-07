@@ -10,6 +10,7 @@ import math
 import matplotlib.cm
 from matplotlib.colors import Normalize
 from typing import Optional
+import torch
 
 from stg_energy.common import col, _update, _format_axis
 from scipy.stats import gaussian_kde
@@ -531,6 +532,10 @@ def synapse_sensitivity_bars(
 ):
     fig, ax = plt.subplots(1, figsize=figsize)
 
+    min_height = 0.01
+    cum_grad[torch.logical_and(cum_grad > -min_height, cum_grad < 0.0)] = -min_height
+    cum_grad[torch.logical_and(cum_grad < min_height, cum_grad > 0.0)] = min_height
+
     _ = ax.bar(
         np.arange(1, 1 + len(cum_grad[0])),
         cum_grad[0],
@@ -548,12 +553,15 @@ def synapse_sensitivity_bars(
         ax.set_xticklabels(
             ["AB-LP", "PD-LP", "AB-PY", "PD-PY", "LP-PD", "LP-PY", "PY-LP"], rotation=45
         )
-        ax.spines["left"].set_visible(False)
-        ax.set_yticks([])
         ax.set_xlim(0.7, 7.3)
 
     if ylabel is not None:
         ax.set_ylabel(ylabel)
+        ax.set_yticks([-1, 0, 1])
+        ax.set_xlim(0.5, 7.3)
+    else:
+        ax.spines["left"].set_visible(False)
+        ax.set_yticks([])
 
 
 def py_sensitivity_bars_cosyne(
@@ -568,6 +576,11 @@ def py_sensitivity_bars_cosyne(
     title: Optional[str] = None,
     title_x_offset: float = 0.0,
 ):
+    # Very small bars are not visible, which is ugly.
+    min_height = 0.03
+    vec[torch.logical_and(vec > -min_height, vec < 0.0)] = -min_height
+    vec[torch.logical_and(vec < min_height, vec > 0.0)] = min_height
+
     fig, ax = plt.subplots(1, figsize=figsize)
     _ = ax.bar(
         np.arange(1, 9) - 0.2,

@@ -11,7 +11,7 @@ import six
 import time
 import sys
 from stg_energy.fig5_cc.conditional_density import eval_conditional_density
-
+from copy import deepcopy
 from scipy.stats import gaussian_kde
 from seaborn.utils import despine
 from svgutils.compose import Unit
@@ -38,7 +38,9 @@ def check_if_close_to_obs(
     x_prior = pd.read_pickle(path + "/data/valid_simulation_outputs.pkl")
 
     if xo is None:
-        xo = np.load("/home/michael/Documents/STG_energy/results/experimental_data/xo_11deg.npy")[:15]
+        xo = np.load(
+            "/home/michael/Documents/STG_energy/results/experimental_data/xo_11deg.npy"
+        )[:15]
 
     num_std = np.std(x_prior.to_numpy(), axis=0)
     factors = np.asarray(
@@ -56,6 +58,31 @@ def check_if_close_to_obs(
     c = [c1 and c2 and c3 and c4 for c1, c2, c3, c4 in zip(cond1, cond2, cond3, cond4)]
 
     return np.asarray(c)
+
+
+def reorder_stats(x, new_to_old: bool = True):
+    if x.ndim == 1:
+        x = np.asarray([x])
+    if new_to_old:
+        x_new = deepcopy(x)
+        x_new[:, 0:4] = x[:, 0:4]  # durations
+        x_new[:, 8:11] = x[:, 4:7]  # duty cycles
+        x_new[:, 13:15] = x[:, 7:9]  # start phases
+        x_new[:, 6:8] = x[:, 9:11]  # start_to_starts
+        x_new[:, 4:6] = x[:, 11:13]  # ends_to_starts
+        x_new[:, 11:13] = x[:, 13:15]  # phase gaps
+
+        return x_new
+    else:
+        x_new = deepcopy(x)
+        x_new[:, 0:4] = x[:, 0:4]  # durations
+        x_new[:, 4:7] = x[:, 8:11]  # duty cycles
+        x_new[:, 7:9] = x[:, 13:15]  # start phases
+        x_new[:, 9:11] = x[:, 6:8]  # start_to_starts
+        x_new[:, 11:13] = x[:, 4:6]  # ends_to_starts
+        x_new[:, 13:15] = x[:, 11:13]  # phase gaps
+
+        return x_new
 
 
 def unit(val, to="px"):
@@ -1306,7 +1333,7 @@ from copy import deepcopy
 #         self.pdfY = conditional_correlation.normalize_pdf_1D(self.pdfY, self.ly, self.uy, self.resolution_y)
 
 
-def get_labels_8pt(mathmode=False, include_q10=True):
+def get_labels_8pt(mathmode=False, log_syns=False, include_q10=True):
     # membrane_conds = np.asarray(params.use_membrane)
     membrane_names = [
         ["AB-Na", "AB-CaT", "AB-CaS", "AB-A", "AB-KCa", "AB-Kd", "AB-H", "AB-leak"],
@@ -1348,13 +1375,13 @@ def get_labels_8pt(mathmode=False, include_q10=True):
         ]
     membrane_names = np.asarray(membrane_names)
     relevant_membrane_names = membrane_names
-    synapse_names = np.asarray([pick_synapse(num, True) for num in range(7)])
+    synapse_names = np.asarray(
+        [pick_synapse(num, True, log_syns=log_syns) for num in range(7)]
+    )
     relevant_labels = np.concatenate((relevant_membrane_names.flatten(), synapse_names))
     # q10_names = [u'Q_{10} g\u0305_{glut}', u'Q_{10} g\u0305_{chol}', r'Q_{10} \tau_{glut}', r'Q_{10} \tau_{chol}']
     if include_q10:
         q10_names = [
-            r"$\mathrm{Q}_{\mathrm{10}} \mathrm{glut}$",
-            r"$\mathrm{Q}_{\mathrm{10}} \mathrm{chol}$",
             r"$\mathrm{Q}_{\mathrm{10}} \mathrm{Na}$",
             r"$\mathrm{Q}_{\mathrm{10}} \mathrm{CaT}$",
             r"$\mathrm{Q}_{\mathrm{10}} \mathrm{CaS}$",
@@ -1363,6 +1390,8 @@ def get_labels_8pt(mathmode=False, include_q10=True):
             r"$\mathrm{Q}_{\mathrm{10}} \mathrm{Kd}$",
             r"$\mathrm{Q}_{\mathrm{10}} \mathrm{H}$",
             r"$\mathrm{Q}_{\mathrm{10}} \mathrm{leak}$",
+            r"$\mathrm{Q}_{\mathrm{10}} \mathrm{glut}$",
+            r"$\mathrm{Q}_{\mathrm{10}} \mathrm{chol}$",
         ]
         relevant_labels = np.concatenate((relevant_labels, q10_names))
 
@@ -1370,34 +1399,66 @@ def get_labels_8pt(mathmode=False, include_q10=True):
 
 
 # get the title of the synapses
-def pick_synapse(num, mathmode=False):
-    if mathmode:
-        if num == 0:
-            return r"$\mathdefault{AB-LP}$"
-        if num == 1:
-            return r"$\mathdefault{PD-LP}$"
-        if num == 2:
-            return r"$\mathdefault{AB-PY}$"
-        if num == 3:
-            return r"$\mathdefault{PD-PY}$"
-        if num == 4:
-            return r"$\mathdefault{LP-PD}$"
-        if num == 5:
-            return r"$\mathdefault{LP-PY}$"
-        if num == 6:
-            return r"$\mathdefault{PY-LP}$"
+def pick_synapse(num, mathmode=False, log_syns=False):
+    if log_syns:
+        if mathmode:
+            if num == 0:
+                return r"$\mathdefault{log(AB-LP)}$"
+            if num == 1:
+                return r"$\mathdefault{log(PD-LP)}$"
+            if num == 2:
+                return r"$\mathdefault{log(AB-PY)}$"
+            if num == 3:
+                return r"$\mathdefault{log(PD-PY)}$"
+            if num == 4:
+                return r"$\mathdefault{log(LP-PD)}$"
+            if num == 5:
+                return r"$\mathdefault{log(LP-PY)}$"
+            if num == 6:
+                return r"$\mathdefault{log(PY-LP)}$"
+        else:
+            if num == 0:
+                return "AB-LP"
+            if num == 1:
+                return "PD-LP"
+            if num == 2:
+                return "AB-PY"
+            if num == 3:
+                return "PD-PY"
+            if num == 4:
+                return "LP-PD"
+            if num == 5:
+                return "LP-PY"
+            if num == 6:
+                return "PY-LP"
     else:
-        if num == 0:
-            return "AB-LP"
-        if num == 1:
-            return "PD-LP"
-        if num == 2:
-            return "AB-PY"
-        if num == 3:
-            return "PD-PY"
-        if num == 4:
-            return "LP-PD"
-        if num == 5:
-            return "LP-PY"
-        if num == 6:
-            return "PY-LP"
+        if mathmode:
+            if num == 0:
+                return r"$\mathdefault{AB-LP}$"
+            if num == 1:
+                return r"$\mathdefault{PD-LP}$"
+            if num == 2:
+                return r"$\mathdefault{AB-PY}$"
+            if num == 3:
+                return r"$\mathdefault{PD-PY}$"
+            if num == 4:
+                return r"$\mathdefault{LP-PD}$"
+            if num == 5:
+                return r"$\mathdefault{LP-PY}$"
+            if num == 6:
+                return r"$\mathdefault{PY-LP}$"
+        else:
+            if num == 0:
+                return "AB-LP"
+            if num == 1:
+                return "PD-LP"
+            if num == 2:
+                return "AB-PY"
+            if num == 3:
+                return "PD-PY"
+            if num == 4:
+                return "LP-PD"
+            if num == 5:
+                return "LP-PY"
+            if num == 6:
+                return "PY-LP"
