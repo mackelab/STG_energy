@@ -528,7 +528,7 @@ def all_sensitivity_bars(cum_grad, ylim, figsize, ylabel=None):
 
 
 def synapse_sensitivity_bars(
-    cum_grad, ylim, figsize, ylabel=None, plot_labels=True, color="#2ca25f"
+    cum_grad, ylim, figsize, ylabel=None, plot_labels=True, color="#2ca25f", title=None
 ):
     fig, ax = plt.subplots(1, figsize=figsize)
 
@@ -562,6 +562,9 @@ def synapse_sensitivity_bars(
     else:
         ax.spines["left"].set_visible(False)
         ax.set_yticks([])
+
+    if title is not None:
+        ax.set_title(title)
 
 
 def py_sensitivity_bars_cosyne(
@@ -626,7 +629,9 @@ def py_sensitivity_bars_cosyne(
         ax.set_ylabel(ylabel)
 
 
-def plot_eigenvalues(cum_grad, figsize, ylabel="log(Eigenvalue)", color="#045a8d"):
+def plot_eigenvalues(
+    cum_grad, figsize, ylabel="log(Eigenvalue)", color="#045a8d", title=None
+):
     fig, ax = plt.subplots(1, figsize=figsize)
 
     _ = ax.bar(np.arange(len(cum_grad)), cum_grad, width=0.5, color=color)
@@ -635,6 +640,9 @@ def plot_eigenvalues(cum_grad, figsize, ylabel="log(Eigenvalue)", color="#045a8d
     ax.spines["top"].set_visible(False)
     ax.set_xlabel("Dimension")
     ax.set_ylabel(ylabel)
+
+    if title is not None:
+        ax.set_title(title)
 
 
 def sensitivity_hist(shift_in_mean_normalized, figsize):

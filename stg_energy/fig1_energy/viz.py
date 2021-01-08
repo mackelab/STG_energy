@@ -43,10 +43,11 @@ def compare_voltage_low_and_high_energy_trace(all_out_targets, t, figsize, offse
         axV.set_xlabel("Time (seconds)")
         # axV.set_ylabel("Voltage")
         axV.set_ylim([-90, 320])
+        axV.set_xlim([-0.1, (t[:time_len:5] / 1000)[-1] + 0.2])
 
         # scale bar
-        end_val_x = (t[:time_len:5] / 1000)[-1] + 0.1
-        axV.plot([end_val_x, end_val_x], [-20, 30], c="k")
+        end_val_x = (t[:time_len:5] / 1000)[-1] + 0.15
+        axV.plot([end_val_x, end_val_x], [260, 310], c="k")
 
         iii += 1
 
@@ -99,9 +100,12 @@ def compare_energy_low_and_high_energy_trace(all_out_targets, t, figsize, offset
         axS.spines["right"].set_visible(False)
         axS.spines["top"].set_visible(False)
         axS.set_ylim([0, 990])
+        axS.set_xlim([-0.1, (t[:time_len:5] / 1000)[-1] + 0.2])
 
-        end_val_x = (t[:time_len:5] / 1000)[-1] + 0.1
-        axS.plot([end_val_x, end_val_x], [40, 140], c="k")
+        # Scalebar
+        end_val_x = (t[:time_len:5] / 1000)[-1] + 0.15
+        axS.plot([end_val_x, end_val_x], [820, 920], c="k")
+
         axS.set_yticks([])
         if iii == 0:
             axS.set_ylabel("Energy")

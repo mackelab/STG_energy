@@ -6,12 +6,10 @@ basepath = "/home/michael/Documents/STG_energy"
 open_cmd = "open"
 
 fig_names = {
-    "1": "paper/fig1_energy",
-    "2": "paper/fig2_inference",
-    "3": "paper/fig3_active_subspaces",
-    "4": "paper/fig4_sensitivity",
-    "5": "paper/fig5_cc",
-    "7": "paper/fig7_temp",
+    "1": "paper/fig1",
+    "2": "paper/fig2",
+    "3": "paper/fig3",
+    "4": "paper/fig4",
     "8": "cosyne/fig1",
     "9": "cosyne/fig2",
 }
