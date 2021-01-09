@@ -14,10 +14,10 @@ import dill as pickle
 # Transmit data:
 # scp -r results/trained_neural_nets/inference/posterior_11deg.pickle mdeistler57@134.2.168.52:~/Documents/STG_energy/results/trained_neural_nets/inference/
 # scp -r stg_energy/generate_data/* mdeistler57@134.2.168.52:~/Documents/STG_energy/stg_energy/generate_data
-# scp -r results/experimental_data/xo_11deg_0027.npy mdeistler57@134.2.168.52:~/Documents/STG_energy/results/experimental_data/
+# scp -r results/experimental_data/xo_11deg_016.npy mdeistler57@134.2.168.52:~/Documents/STG_energy/results/experimental_data/
 
 # Get data back:
-# scp -r mdeistler57@134.2.168.52:~/Documents/STG_energy/results/simulation_data_Tube_MLslurm_cluster/simulate_11deg_R3_predictives_at_27deg_notau_0027/data/* results/simulation_data_Tube_MLslurm_cluster/simulate_11deg_R3_predictives_at_27deg_notau_0027/data
+# scp -r mdeistler57@134.2.168.52:~/Documents/STG_energy/results/simulation_data_Tube_MLslurm_cluster/simulate_11deg_R3_predictives_at_27deg_notau_016/data/* results/simulation_data_Tube_MLslurm_cluster/simulate_11deg_R3_predictives_at_27deg_notau_016/data
 
 
 def my_simulator(params_with_seeds):
@@ -90,7 +90,7 @@ for _ in range(num_repeats):
         posterior = pickle.load(handle)
     posterior._device = "cpu"
     x_o = np.load(
-        "../../../results/experimental_data/xo_11deg_0027.npy",
+        "../../../results/experimental_data/xo_11deg_016.npy",
         allow_pickle=True,
     )
     posterior_parameter_sets = posterior.sample(
@@ -123,7 +123,7 @@ for _ in range(num_repeats):
     print("number of good sims:  ", np.sum(not_nan))
 
     general_path = "/home/macke/mdeistler57/Documents/STG_energy/results/"
-    path_to_data = "simulation_data_Tube_MLslurm_cluster/simulate_11deg_R3_predictives_at_27deg_notau_0027/data/"
+    path_to_data = "simulation_data_Tube_MLslurm_cluster/simulate_11deg_R3_predictives_at_27deg_notau_016/data/"
     filename = f"sim_{global_seed}"
     sim_outs.to_pickle(
         general_path + path_to_data + "simulation_outputs/" + filename + ".pkl"
