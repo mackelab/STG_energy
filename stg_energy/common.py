@@ -25,13 +25,18 @@ except:
 
 
 def check_if_close_to_obs(
-    x: Union[np.ndarray, DataFrame], xo: Optional[np.ndarray] = None
+    x: Union[np.ndarray, DataFrame],
+    xo: Optional[np.ndarray] = None,
+    sloppiness: float = 1.0,
+    check_burst_num: bool = True,
 ) -> np.ndarray:
     """
     Returns array of bools which indicates whether `x` was acceptable or not.
 
     Args:
         x: Batch of summary stats or single summary stat.
+        sloppiness: Factor with which the allowed margin is multiplied.
+        check_burst_num: Whether to enforce for the minimum burst number to be 8.
     """
 
     path = "/home/michael/Documents/STG_energy/results/simulation_data_Tube_MLslurm_cluster/01_simulate_11deg"
@@ -43,19 +48,43 @@ def check_if_close_to_obs(
         )[:15]
 
     num_std = np.std(x_prior.to_numpy(), axis=0)
-    factors = np.asarray(
-        [0.02, 0.02, 0.02, 0.02, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2]
+    factors = (
+        np.asarray(
+            [
+                0.02,
+                0.02,
+                0.02,
+                0.02,
+                0.2,
+                0.2,
+                0.2,
+                0.2,
+                0.2,
+                0.2,
+                0.2,
+                0.2,
+                0.2,
+                0.2,
+                0.2,
+            ]
+        )
+        * sloppiness
     )
     allowed_deviation = factors * num_std[:15]
 
     prinz_stats = x[:, :15]
     diff_to_obs = np.abs(prinz_stats - xo)
     cond1 = np.all(diff_to_obs < allowed_deviation, axis=1)
-    cond2 = np.all(x[:, 18:21] > 7.5, axis=1)
     cond3 = np.all(x[:, 15:18] == 2.5, axis=1)
     cond4 = np.invert(np.any(np.isnan(x), axis=1))
-
-    c = [c1 and c2 and c3 and c4 for c1, c2, c3, c4 in zip(cond1, cond2, cond3, cond4)]
+    if check_burst_num:
+        cond2 = np.all(x[:, 18:21] > 7.5, axis=1)
+        c = [
+            c1 and c2 and c3 and c4
+            for c1, c2, c3, c4 in zip(cond1, cond2, cond3, cond4)
+        ]
+    else:
+        c = [c1 and c3 and c4 for c1, c3, c4 in zip(cond1, cond3, cond4)]
 
     return np.asarray(c)
 

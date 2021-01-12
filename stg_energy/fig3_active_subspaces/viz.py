@@ -312,7 +312,7 @@ def curvelinear_test1(
         projected_data_x,
         projected_data_y,
         s=3,
-        c=energy_PM_train[:4000],
+        c=energy_PM_train[:4000] / 10 / 1000,
         cmap="autumn_r",
     )
     ax1.scatter(*tr(parameter_set1_dim2, parameter_set1_dim1), color="#0570b0")
@@ -354,8 +354,14 @@ def curvelinear_test1(
     ax1.axis["y"].invert_ticklabel_direction()
 
     cbar = plt.colorbar(im, aspect=25, fraction=0.04, pad=0.04)
-    cbar.set_ticks([])
-    cbar.set_label("Energy (AB/PD)", labelpad=5)
+    cbar.set_ticks(
+        [
+            np.min(energy_PM_train[:4000] / 10 / 1000),
+            np.max(energy_PM_train[:4000] / 10 / 1000),
+        ]
+    )
+    cbar.set_ticklabels(["0.4", "10"])
+    cbar.set_label("Energy (AB/PD)", labelpad=-7)
 
 
 def bars_for_energy(
@@ -554,6 +560,9 @@ def synapse_sensitivity_bars(
             ["AB-LP", "PD-LP", "AB-PY", "PD-PY", "LP-PD", "LP-PY", "PY-LP"], rotation=45
         )
         ax.set_xlim(0.7, 7.3)
+    else:
+        ax.set_xlim(0.7, 7.3)
+        ax.set_xticks([])
 
     if ylabel is not None:
         ax.set_ylabel(ylabel)
@@ -630,7 +639,12 @@ def py_sensitivity_bars_cosyne(
 
 
 def plot_eigenvalues(
-    cum_grad, figsize, ylabel="log(Eigenvalue)", color="#045a8d", title=None
+    cum_grad,
+    figsize,
+    ylabel="log(Eigenvalue)",
+    color="#045a8d",
+    title=None,
+    xlabel=True,
 ):
     fig, ax = plt.subplots(1, figsize=figsize)
 
@@ -638,8 +652,12 @@ def plot_eigenvalues(
 
     ax.spines["right"].set_visible(False)
     ax.spines["top"].set_visible(False)
-    ax.set_xlabel("Dimension")
     ax.set_ylabel(ylabel)
+
+    if xlabel:
+        ax.set_xlabel("Dimension")
+    else:
+        ax.set_xticks([])
 
     if title is not None:
         ax.set_title(title)
