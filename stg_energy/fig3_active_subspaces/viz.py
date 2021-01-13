@@ -247,11 +247,14 @@ def scatter_sensitivity_consumption(all_fractions, eigenvector):
     #     handles, labels = ax.get_legend_handles_labels()
     #     ax.legend(flip(handles, 2), flip(labels, 2), bbox_to_anchor=(1.1, -0.9, 0.1, 0.5), labelspacing=0.3, columnspacing=0.5, markerfirst=False, handletextpad=-0.4, ncol=4)
 
-    ax.arrow(0.61, 0.19, 0.08, -0.065, head_width=0.04, head_length=0.04, facecolor="k")
+    # right
+    ax.arrow(0.59, 0.19, 0.08, -0.065, head_width=0.04, head_length=0.04, facecolor="k")
+    # middle
     ax.arrow(
-        0.1695, 0.649, 0.08, -0.065, head_width=0.04, head_length=0.04, facecolor="k"
+        0.185, 0.649, 0.08, -0.065, head_width=0.04, head_length=0.04, facecolor="k"
     )
-    ax.arrow(0.069, 0.49, 0.0, -0.1, head_width=0.04, head_length=0.04, facecolor="k")
+    # left
+    ax.arrow(0.0695, 0.49, 0.0, -0.1, head_width=0.04, head_length=0.04, facecolor="k")
 
     ax.plot([0.0, 0.7], [0.0, 0.7], color="grey", alpha=0.5)
     ax.set_xlim([0.0, 0.78])
