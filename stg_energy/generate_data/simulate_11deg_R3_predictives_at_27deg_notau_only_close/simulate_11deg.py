@@ -83,7 +83,9 @@ prior_parameter_sets_pd = q10_prior.sample((num_sims,))
 path = "../../../results/trained_neural_nets/inference/"
 
 sims_p = "../../../results/simulation_data_Tube_MLslurm_cluster/"
-posterior_parameter_sets_pd = pd.read_pickle(sims_p+"close_to_xo_circuit_parameters.pkl")
+posterior_parameter_sets_pd = pd.read_pickle(
+    sims_p + "close_to_xo_circuit_parameters.pkl"
+)
 posterior_parameter_sets_pd = posterior_parameter_sets_pd
 posterior_data_np = posterior_parameter_sets_pd.to_numpy()
 
