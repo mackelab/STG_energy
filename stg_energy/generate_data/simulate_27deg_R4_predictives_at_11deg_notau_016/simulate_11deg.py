@@ -51,7 +51,7 @@ def my_simulator(params_with_seeds):
 
 
 def run_simulations(job_number):
-    num_repeats = 100
+    num_repeats = 17
 
     for kkkk in range(num_repeats):
 
