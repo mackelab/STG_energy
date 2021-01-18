@@ -13,7 +13,7 @@ import dill as pickle
 
 # Transmit data:
 # scp -i ~/.ssh/mlcloud_key -r results/trained_neural_nets/inference/posterior_11deg.pickle mdeistler57@134.2.168.52:~/Documents/STG_energy/results/trained_neural_nets/inference/
-# scp -i ~/.ssh/mlcloud_key -r stg_energy/generate_data/* mdeistler57@134.2.168.52:~/Documents/STG_energy/stg_energy/generate_data
+# scp -r stg_energy/generate_data/* mdeistler57@134.2.168.52:~/Documents/STG_energy/stg_energy/generate_data
 # scp -i ~/.ssh/mlcloud_key -r results/experimental_data/xo_11deg_078.npy mdeistler57@134.2.168.52:~/Documents/STG_energy/results/experimental_data/
 
 # Get data back:
@@ -85,6 +85,17 @@ for _ in range(num_repeats):
         }
     )
     prior_parameter_sets_pd = q10_prior.sample((num_sims,))
+    prior_parameter_sets_pd = (prior_parameter_sets_pd - 1.0) * 1.5 + 1.0
+    prior_parameter_sets_pd.iloc[:, -8] = (
+        prior_parameter_sets_pd.iloc[:, -8] - 1.0
+    ) * 2.0 + 1.0
+    prior_parameter_sets_pd.iloc[:, -6] = (
+        prior_parameter_sets_pd.iloc[:, -6] - 1.0
+    ) * 2.0 + 1.0
+    prior_parameter_sets_pd.iloc[:, -4] = (
+        prior_parameter_sets_pd.iloc[:, -4] - 1.0
+    ) * 2.0 + 1.0
+
     path = "../../../results/trained_neural_nets/inference/"
     with open(path + "posterior_11deg.pickle", "rb") as handle:
         posterior = pickle.load(handle)
@@ -107,10 +118,10 @@ for _ in range(num_repeats):
     prior_parameter_sets_pd["PY"] = posterior_parameter_sets_pd["PY"]
     prior_parameter_sets_pd["Synapses"] = posterior_parameter_sets_pd["Synapses"]
 
-    print("params_with_seeds", params_with_seeds)
-    print("params_with_seeds[0]", params_with_seeds[0])
-    print("parameter_sets_pd", prior_parameter_sets_pd)
-    print("parameter_sets_pd.loc[0]", prior_parameter_sets_pd.loc[0])
+    # print("params_with_seeds", params_with_seeds)
+    # print("params_with_seeds[0]", params_with_seeds[0])
+    # print("parameter_sets_pd", prior_parameter_sets_pd)
+    # print("parameter_sets_pd.loc[0]", prior_parameter_sets_pd.loc[0])
 
     with Pool(num_cores) as pool:
         start_time = time.time()

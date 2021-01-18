@@ -1,37 +1,28 @@
 from pyloric import simulate, create_prior, summary_stats
 import numpy as np
 import time
+import sys
 
 import multiprocessing
 from multiprocessing import Pool
 import torch
 import pandas as pd
 import dill as pickle
-import sys
 
 # File is running on `pyloric` commit:
 # 46a527673dae6a25cf6d4d6bdbf14f6f0282796e "stats is now called summary_stats"
 
 # Transmit data:
-# scp -r results/trained_neural_nets/inference/posterior_27deg_notau_016.pickle mdeistler57@134.2.168.52:~/Documents/STG_energy/results/trained_neural_nets/inference/
+# scp -i ~/.ssh/mlcloud_key -r results/trained_neural_nets/inference/posterior_27deg_notau_078.pickle mdeistler57@134.2.168.52:~/Documents/STG_energy/results/trained_neural_nets/inference/
 # scp -i ~/.ssh/mlcloud_key -r stg_energy/generate_data/* mdeistler57@134.2.168.52:~/Documents/STG_energy/stg_energy/generate_data
-# scp -i ~/.ssh/mlcloud_key -r results/experimental_data/xo_27deg_016.npy mdeistler57@134.2.168.52:~/Documents/STG_energy/results/experimental_data/
+# scp -i ~/.ssh/mlcloud_key -r results/experimental_data/xo_27deg_078.npy mdeistler57@134.2.168.52:~/Documents/STG_energy/results/experimental_data/
 
 # Get data back:
-# scp -i ~/.ssh/mlcloud_key -r mdeistler57@134.2.168.52:~/Documents/STG_energy/results/simulation_data_Tube_MLslurm_cluster/simulate_27deg_R4_predictives_at_27deg_notau_016/data/* results/simulation_data_Tube_MLslurm_cluster/simulate_27deg_R4_predictives_at_27deg_notau_016/data
+# scp -i ~/.ssh/mlcloud_key -r mdeistler57@134.2.168.52:~/Documents/STG_energy/results/simulation_data_Tube_MLslurm_cluster/simulate_27deg_R4_predictives_at_11deg_notau_078/data/* results/simulation_data_Tube_MLslurm_cluster/simulate_27deg_R4_predictives_at_11deg_notau_078/data
 
 
 def my_simulator(params_with_seeds):
-    p1 = create_prior(
-        customization={
-            "Q10_gbar_mem": [True, True, True, True, True, True, True, True],
-            "Q10_gbar_syn": [True, True],
-            "Q10_tau_m": [False],
-            "Q10_tau_h": [False],
-            "Q10_tau_CaBuff": [False],
-            "Q10_tau_syn": [False, False],
-        }
-    )
+    p1 = create_prior()
     pars = p1.sample((1,))
     column_names = pars.columns
 
@@ -43,7 +34,7 @@ def my_simulator(params_with_seeds):
         seed=int(params_with_seeds[-1]),
         dt=0.025,
         t_max=11000,
-        temperature=299,
+        temperature=283,
         noise_std=0.001,
         track_energy=True,
     )
@@ -60,48 +51,42 @@ def my_simulator(params_with_seeds):
 
 
 def run_simulations(job_number):
-
     num_repeats = 20
 
     for kkkk in range(num_repeats):
 
-        num_sims = 10000
+        num_sims = 10000  # 10000
         num_cores = 32
 
+        p1 = create_prior()
+        pars = p1.sample((1,))
+        column_names = pars.columns
+
         global_seed = kkkk + int(job_number) * 100
+        print("kkkk", kkkk)
+        print("jobnumber", int(job_number))
+        print("int(job_number * 100)", int(job_number) * 100)
+        print("global_seed", global_seed)
         np.random.seed(global_seed)  # Seeding the seeds for the simulator.
-        _ = torch.manual_seed(global_seed)  # Seeding the prior.
+        torch.manual_seed(global_seed)  # Seeding the prior.
         seeds = np.random.randint(0, 10000, (num_sims, 1))
 
-        q10_prior = create_prior(
-            customization={
-                "Q10_gbar_mem": [True, True, True, True, True, True, True, True],
-                "Q10_gbar_syn": [True, True],
-                "Q10_tau_m": [False],
-                "Q10_tau_h": [False],
-                "Q10_tau_CaBuff": [False],
-                "Q10_tau_syn": [False, False],
-            }
-        )
         path = "../../../results/trained_neural_nets/inference/"
-        with open(path + "posterior_27deg_notau_016.pickle", "rb") as handle:
+        with open(path + "posterior_27deg_notau_078.pickle", "rb") as handle:
             posterior = pickle.load(handle)
         x_o = np.load(
-            "../../../results/experimental_data/xo_27deg_016.npy",
+            "../../../results/experimental_data/xo_27deg_078.npy",
             allow_pickle=True,
         )
-        posterior_parameter_sets = posterior.sample(
+        parameter_sets = posterior.sample(
             (num_sims,), x=torch.as_tensor([x_o], dtype=torch.float32)
         )
-        posterior_parameter_sets_np = posterior_parameter_sets.numpy()
-        save_sets_pd = pd.DataFrame(
-            posterior_parameter_sets_np, columns=q10_prior.sample((1,)).columns
-        )
-        params_with_seeds = np.concatenate((posterior_parameter_sets_np, seeds), axis=1)
+        data_np = parameter_sets.detach().numpy()[:, :31]
+        params_with_seeds = np.concatenate((data_np, seeds), axis=1)
 
-        print("params_with_seeds", params_with_seeds)
-        print("params_with_seeds[0]", params_with_seeds[0])
-        print("save_sets_pd", save_sets_pd.loc[0])
+        parameter_sets_pd = pd.DataFrame(data_np, columns=column_names)
+
+        print("params data_np", data_np[0])
 
         with Pool(num_cores) as pool:
             start_time = time.time()
@@ -111,12 +96,12 @@ def run_simulations(job_number):
         sim_outs = pd.concat(data)
 
         general_path = "/home/macke/mdeistler57/Documents/STG_energy/results/"
-        path_to_data = "simulation_data_Tube_MLslurm_cluster/simulate_27deg_R4_predictives_at_27deg_notau_016/data/"
+        path_to_data = "simulation_data_Tube_MLslurm_cluster/simulate_27deg_R4_predictives_at_11deg_notau_078/data/"
         filename = f"sim_{global_seed}"
         sim_outs.to_pickle(
             general_path + path_to_data + "simulation_outputs/" + filename + ".pkl"
         )
-        save_sets_pd.to_pickle(
+        parameter_sets_pd.to_pickle(
             general_path + path_to_data + "circuit_parameters/" + filename + ".pkl"
         )
         np.save(general_path + path_to_data + "seeds/" + filename, seeds)
