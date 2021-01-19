@@ -10,6 +10,7 @@ fig_names = {
     "2": "paper/fig2",
     "3": "paper/fig3",
     "4": "paper/fig4",
+    "5": "paper/fig5",
     "8": "cosyne/fig1",
     "9": "cosyne/fig2",
 }
