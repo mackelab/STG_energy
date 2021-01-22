@@ -13,11 +13,11 @@ import dill as pickle
 
 # Transmit data:
 # scp -i ~/.ssh/mlcloud_key -r results/trained_neural_nets/inference/posterior_11deg.pickle mdeistler57@134.2.168.52:~/Documents/STG_energy/results/trained_neural_nets/inference/
-# scp -r stg_energy/generate_data/* mdeistler57@134.2.168.242:~/Documents/STG_energy/stg_energy/generate_data
+# scp -r stg_energy/generate_data/* mdeistler57@134.2.168.52:~/Documents/STG_energy/stg_energy/generate_data
 # scp -i ~/.ssh/mlcloud_key -r results/experimental_data/xo_11deg_078.npy mdeistler57@134.2.168.52:~/Documents/STG_energy/results/experimental_data/
 
 # Get data back:
-# scp -i ~/.ssh/mlcloud_key -r mdeistler57@134.2.168.242:~/Documents/STG_energy/results/simulation_data_Tube_MLslurm_cluster/simulate_11deg_R3_predictives_at_27deg_notau_078/data/* results/simulation_data_Tube_MLslurm_cluster/simulate_11deg_R3_predictives_at_27deg_notau_078/data
+# scp -r mdeistler57@134.2.168.242:~/Documents/STG_energy/results/simulation_data_Tube_MLslurm_cluster/simulate_11deg_R3_predictives_at_27deg_notau_078/data/* results/simulation_data_Tube_MLslurm_cluster/simulate_11deg_R3_predictives_at_27deg_notau_078/data
 
 
 def my_simulator(params_with_seeds):
@@ -62,14 +62,14 @@ num_repeats = 50
 
 for _ in range(num_repeats):
 
-    num_sims = 10000
-    num_cores = 32
+    num_sims = 500
+    num_cores = 24
 
     generic_prior = create_prior()
     generic_sample = generic_prior.sample((1,))
     column_names = generic_sample.columns
 
-    global_seed = int((time.time() % 1) * 1e7)
+    global_seed = 1
     np.random.seed(global_seed)  # Seeding the seeds for the simulator.
     torch.manual_seed(global_seed)  # Seeding the prior.
     seeds = np.random.randint(0, 10000, (num_sims, 1))
@@ -102,13 +102,8 @@ for _ in range(num_repeats):
     params_with_q10s[:, :31] = posterior_data_np
     params_with_seeds = np.concatenate((params_with_q10s, seeds), axis=1)
 
-    posterior_parameter_sets_pd = pd.DataFrame(posterior_data_np, columns=column_names)
-    prior_parameter_sets_pd["AB/PD"] = posterior_parameter_sets_pd["AB/PD"]
-    prior_parameter_sets_pd["LP"] = posterior_parameter_sets_pd["LP"]
-    prior_parameter_sets_pd["PY"] = posterior_parameter_sets_pd["PY"]
-    prior_parameter_sets_pd["Synapses"] = posterior_parameter_sets_pd["Synapses"]
-
-    print("prior_parameter_sets_pd", prior_parameter_sets_pd["Q10 gbar"]["H"])
+    c_names_full = prior_parameter_sets_pd.columns
+    posterior_parameter_sets_pd = pd.DataFrame(params_with_q10s, columns=c_names_full)
 
     with Pool(num_cores) as pool:
         start_time = time.time()
@@ -120,8 +115,8 @@ for _ in range(num_repeats):
     not_nan = np.invert(np.any(np.isnan(sim_outs_np), axis=1))
     print("number of good sims:  ", np.sum(not_nan))
 
-    general_path = "/home/macke/mdeistler57/Documents/STG_energy/results/"
-    path_to_data = "simulation_data_Tube_MLslurm_cluster/simulate_11deg_R3_predictives_at_27deg_notau_078/data/"
+    general_path = "/home/michael/Documents/STG_energy/results/"
+    path_to_data = "simulation_data_Tube_MLslurm_cluster/simulate_11deg_R3_predictives_at_27deg_notau_078tryouts/data/"
     filename = f"sim_{global_seed}"
     sim_outs.to_pickle(
         general_path + path_to_data + "simulation_outputs/" + filename + ".pkl"

@@ -13,11 +13,11 @@ import dill as pickle
 
 # Transmit data:
 # scp -i ~/.ssh/mlcloud_key -r results/trained_neural_nets/inference/posterior_11deg.pickle mdeistler57@134.2.168.52:~/Documents/STG_energy/results/trained_neural_nets/inference/
-# scp -r stg_energy/generate_data/* mdeistler57@134.2.168.242:~/Documents/STG_energy/stg_energy/generate_data
+# scp -r stg_energy/generate_data/* mdeistler57@134.2.168.52:~/Documents/STG_energy/stg_energy/generate_data
 # scp -i ~/.ssh/mlcloud_key -r results/experimental_data/xo_11deg_078.npy mdeistler57@134.2.168.52:~/Documents/STG_energy/results/experimental_data/
 
 # Get data back:
-# scp -i ~/.ssh/mlcloud_key -r mdeistler57@134.2.168.242:~/Documents/STG_energy/results/simulation_data_Tube_MLslurm_cluster/simulate_11deg_R3_predictives_at_27deg_notau_078/data/* results/simulation_data_Tube_MLslurm_cluster/simulate_11deg_R3_predictives_at_27deg_notau_078/data
+# scp -r mdeistler57@134.2.168.242:~/Documents/STG_energy/results/simulation_data_Tube_MLslurm_cluster/simulate_11deg_R3_predictives_at_27deg_078/data/* results/simulation_data_Tube_MLslurm_cluster/simulate_11deg_R3_predictives_at_27deg_078/data
 
 
 def my_simulator(params_with_seeds):
@@ -25,10 +25,10 @@ def my_simulator(params_with_seeds):
         customization={
             "Q10_gbar_mem": [True, True, True, True, True, True, True, True],
             "Q10_gbar_syn": [True, True],
-            "Q10_tau_m": [False],
-            "Q10_tau_h": [False],
-            "Q10_tau_CaBuff": [False],
-            "Q10_tau_syn": [False, False],
+            "Q10_tau_m": [True],
+            "Q10_tau_h": [True],
+            "Q10_tau_CaBuff": [True],
+            "Q10_tau_syn": [True, True],
         }
     )
     pars = p1.sample((1,))
@@ -78,10 +78,10 @@ for _ in range(num_repeats):
         customization={
             "Q10_gbar_mem": [True, True, True, True, True, True, True, True],
             "Q10_gbar_syn": [True, True],
-            "Q10_tau_m": [False],
-            "Q10_tau_h": [False],
-            "Q10_tau_CaBuff": [False],
-            "Q10_tau_syn": [False, False],
+            "Q10_tau_m": [True],
+            "Q10_tau_h": [True],
+            "Q10_tau_CaBuff": [True],
+            "Q10_tau_syn": [True, True],
         }
     )
     prior_parameter_sets_pd = q10_prior.sample((num_sims,))
@@ -108,8 +108,6 @@ for _ in range(num_repeats):
     prior_parameter_sets_pd["PY"] = posterior_parameter_sets_pd["PY"]
     prior_parameter_sets_pd["Synapses"] = posterior_parameter_sets_pd["Synapses"]
 
-    print("prior_parameter_sets_pd", prior_parameter_sets_pd["Q10 gbar"]["H"])
-
     with Pool(num_cores) as pool:
         start_time = time.time()
         data = pool.map(my_simulator, params_with_seeds)
@@ -121,7 +119,7 @@ for _ in range(num_repeats):
     print("number of good sims:  ", np.sum(not_nan))
 
     general_path = "/home/macke/mdeistler57/Documents/STG_energy/results/"
-    path_to_data = "simulation_data_Tube_MLslurm_cluster/simulate_11deg_R3_predictives_at_27deg_notau_078/data/"
+    path_to_data = "simulation_data_Tube_MLslurm_cluster/simulate_11deg_R3_predictives_at_27deg_078/data/"
     filename = f"sim_{global_seed}"
     sim_outs.to_pickle(
         general_path + path_to_data + "simulation_outputs/" + filename + ".pkl"

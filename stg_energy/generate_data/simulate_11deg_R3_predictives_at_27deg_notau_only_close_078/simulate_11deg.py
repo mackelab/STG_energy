@@ -80,16 +80,7 @@ q10_prior = create_prior(
     }
 )
 prior_parameter_sets_pd = q10_prior.sample((num_sims,))
-prior_parameter_sets_pd = (prior_parameter_sets_pd - 1.0) * 1.5 + 1.0
-prior_parameter_sets_pd.iloc[:, -8] = (
-    prior_parameter_sets_pd.iloc[:, -8] - 1.0
-) * 2.0 + 1.0
-prior_parameter_sets_pd.iloc[:, -6] = (
-    prior_parameter_sets_pd.iloc[:, -6] - 1.0
-) * 2.0 + 1.0
-prior_parameter_sets_pd.iloc[:, -4] = (
-    prior_parameter_sets_pd.iloc[:, -4] - 1.0
-) * 2.0 + 1.0
+
 path = "../../../results/trained_neural_nets/inference/"
 
 sims_p = "../../../results/simulation_data_Tube_MLslurm_cluster/"
@@ -107,11 +98,6 @@ prior_parameter_sets_pd["AB/PD"] = posterior_parameter_sets_pd["AB/PD"]
 prior_parameter_sets_pd["LP"] = posterior_parameter_sets_pd["LP"]
 prior_parameter_sets_pd["PY"] = posterior_parameter_sets_pd["PY"]
 prior_parameter_sets_pd["Synapses"] = posterior_parameter_sets_pd["Synapses"]
-
-# print("params_with_seeds", params_with_seeds)
-# print("params_with_seeds[0]", params_with_seeds[0])
-# print("parameter_sets_pd", prior_parameter_sets_pd)
-# print("parameter_sets_pd.loc[0]", prior_parameter_sets_pd.loc[0])
 
 with Pool(num_cores) as pool:
     start_time = time.time()
