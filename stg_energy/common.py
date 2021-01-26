@@ -27,15 +27,18 @@ except:
 def check_if_close_to_obs(
     x: Union[np.ndarray, DataFrame],
     xo: Optional[np.ndarray] = None,
-    sloppiness: float = 1.0,
+    sloppiness_durations: float = 1.0,
+    sloppiness_phases: float = 1.0,
     check_burst_num: bool = True,
+    min_num_bursts: float = 7.5
 ) -> np.ndarray:
     """
     Returns array of bools which indicates whether `x` was acceptable or not.
 
     Args:
         x: Batch of summary stats or single summary stat.
-        sloppiness: Factor with which the allowed margin is multiplied.
+        sloppiness_durations: Factor with which the allowed margin is of cycle and burst durations are multiplied.
+        sloppiness_phases: Factor with which the allowed margin is of phases are multiplied.
         check_burst_num: Whether to enforce for the minimum burst number to be 8.
     """
 
@@ -47,28 +50,27 @@ def check_if_close_to_obs(
             "/home/michael/Documents/STG_energy/results/experimental_data/xo_11deg.npy"
         )[:15]
 
+    val_durs = 0.02 * sloppiness_durations
+    val_phase = 0.2 * sloppiness_phases
     num_std = np.std(x_prior.to_numpy(), axis=0)
-    factors = (
-        np.asarray(
-            [
-                0.02,
-                0.02,
-                0.02,
-                0.02,
-                0.2,
-                0.2,
-                0.2,
-                0.2,
-                0.2,
-                0.2,
-                0.2,
-                0.2,
-                0.2,
-                0.2,
-                0.2,
-            ]
-        )
-        * sloppiness
+    factors = np.asarray(
+        [
+            val_durs,
+            val_durs,
+            val_durs,
+            val_durs,
+            val_phase,
+            val_phase,
+            val_phase,
+            val_phase,
+            val_phase,
+            val_phase,
+            val_phase,
+            val_phase,
+            val_phase,
+            val_phase,
+            val_phase,
+        ]
     )
     allowed_deviation = factors * num_std[:15]
 
@@ -78,7 +80,7 @@ def check_if_close_to_obs(
     cond3 = np.all(x[:, 15:18] == 2.5, axis=1)
     cond4 = np.invert(np.any(np.isnan(x), axis=1))
     if check_burst_num:
-        cond2 = np.all(x[:, 18:21] > 7.5, axis=1)
+        cond2 = np.all(x[:, 18:21] > min_num_bursts, axis=1)
         c = [
             c1 and c2 and c3 and c4
             for c1, c2, c3, c4 in zip(cond1, cond2, cond3, cond4)

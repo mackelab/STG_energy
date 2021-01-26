@@ -13,11 +13,11 @@ import sys
 # 46a527673dae6a25cf6d4d6bdbf14f6f0282796e "stats is now called summary_stats"
 
 # Transmit data:
-# scp -r results/trained_neural_nets/inference/posterior_27deg.pickle mdeistler57@134.2.168.52:~/Documents/STG_energy/results/trained_neural_nets/inference/
-# scp -r stg_energy/generate_data/* mdeistler57@134.2.168.52:~/Documents/STG_energy/stg_energy/generate_data
+# scp -i ~/.ssh/mlcloud_key -r results/trained_neural_nets/inference/posterior_27deg_notau_082.pickle mdeistler57@134.2.168.52:~/Documents/STG_energy/results/trained_neural_nets/inference/
+# scp -i ~/.ssh/mlcloud_key -r stg_energy/generate_data/* mdeistler57@134.2.168.52:~/Documents/STG_energy/stg_energy/generate_data
 
 # Get data back:
-# scp -r mdeistler57@134.2.168.52:~/Documents/STG_energy/results/simulation_data_Tube_MLslurm_cluster/simulate_27deg_R4_predictives_at_27deg/data/* results/simulation_data_Tube_MLslurm_cluster/simulate_27deg_R4_predictives_at_27deg/data
+# scp -r mdeistler57@134.2.168.52:~/Documents/STG_energy/results/simulation_data_Tube_MLslurm_cluster/simulate_27deg_R4_predictives_at_27deg_notau/data/* results/simulation_data_Tube_MLslurm_cluster/simulate_27deg_R4_predictives_at_27deg_notau/data
 
 
 def my_simulator(params_with_seeds):
@@ -60,14 +60,14 @@ def my_simulator(params_with_seeds):
 
 def run_simulations(job_number):
 
-    num_repeats = 100
+    num_repeats = 20
 
     for kkkk in range(num_repeats):
 
         num_sims = 10000
         num_cores = 32
 
-        global_seed = kkkk + int(job_number * 100)
+        global_seed = kkkk + int(job_number) * 100
         np.random.seed(global_seed)  # Seeding the seeds for the simulator.
         _ = torch.manual_seed(global_seed)  # Seeding the prior.
         seeds = np.random.randint(0, 10000, (num_sims, 1))
@@ -83,7 +83,7 @@ def run_simulations(job_number):
             }
         )
         path = "../../../results/trained_neural_nets/inference/"
-        with open(path + "posterior_27deg_notau.pickle", "rb") as handle:
+        with open(path + "posterior_27deg_notau_082.pickle", "rb") as handle:
             posterior = pickle.load(handle)
         x_o = np.load(
             "../../../results/experimental_data/xo_27deg.npy",
@@ -109,7 +109,7 @@ def run_simulations(job_number):
 
         sim_outs = pd.concat(data)
 
-        general_path = "/home/michael/Documents/STG_energy/results/"
+        general_path = "/home/macke/mdeistler57/Documents/STG_energy/results/"
         path_to_data = "simulation_data_Tube_MLslurm_cluster/simulate_27deg_R4_predictives_at_27deg_notau/data/"
         filename = f"sim_{global_seed}"
         sim_outs.to_pickle(

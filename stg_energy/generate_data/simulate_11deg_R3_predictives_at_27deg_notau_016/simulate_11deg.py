@@ -17,7 +17,7 @@ import dill as pickle
 # scp -r results/experimental_data/xo_11deg_016.npy mdeistler57@134.2.168.52:~/Documents/STG_energy/results/experimental_data/
 
 # Get data back:
-# scp -r mdeistler57@134.2.168.52:~/Documents/STG_energy/results/simulation_data_Tube_MLslurm_cluster/simulate_11deg_R3_predictives_at_27deg_notau_016/data/* results/simulation_data_Tube_MLslurm_cluster/simulate_11deg_R3_predictives_at_27deg_notau_016/data
+# scp -i ~/.ssh/mlcloud_key -r mdeistler57@134.2.168.52:~/Documents/STG_energy/results/simulation_data_Tube_MLslurm_cluster/simulate_11deg_R3_predictives_at_27deg_notau_016/data/* results/simulation_data_Tube_MLslurm_cluster/simulate_11deg_R3_predictives_at_27deg_notau_016/data
 
 
 def my_simulator(params_with_seeds):

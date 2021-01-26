@@ -14,11 +14,11 @@ import dill as pickle
 
 # Transmit data:
 # scp -r results/trained_neural_nets/inference/posterior_27deg_notau_016.pickle mdeistler57@134.2.168.52:~/Documents/STG_energy/results/trained_neural_nets/inference/
-# scp -i ~/.ssh/mlcloud_key -r stg_energy/generate_data/* mdeistler57@134.2.168.52:~/Documents/STG_energy/stg_energy/generate_data
+# scp -r stg_energy/generate_data/* mdeistler57@134.2.168.52:~/Documents/STG_energy/stg_energy/generate_data
 # scp -r results/experimental_data/xo_27deg_016.npy mdeistler57@134.2.168.52:~/Documents/STG_energy/results/experimental_data/
 
 # Get data back:
-# scp -i ~/.ssh/mlcloud_key -r mdeistler57@134.2.168.52:~/Documents/STG_energy/results/simulation_data_Tube_MLslurm_cluster/simulate_27deg_R4_predictives_at_11deg_notau_016/data/* results/simulation_data_Tube_MLslurm_cluster/simulate_27deg_R4_predictives_at_11deg_notau_016/data
+# scp -r mdeistler57@134.2.168.52:~/Documents/STG_energy/results/simulation_data_Tube_MLslurm_cluster/simulate_27deg_R4_predictives_at_11deg_notau_016/data/* results/simulation_data_Tube_MLslurm_cluster/simulate_27deg_R4_predictives_at_11deg_notau_016/data
 
 
 def my_simulator(params_with_seeds):
