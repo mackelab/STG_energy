@@ -266,7 +266,7 @@ def scatter_sensitivity_consumption(all_fractions, eigenvector, arrows: bool = T
     ax.set_ylim([0.0, 0.78])
 
     ax.set_xlabel("Consumed Energy")
-    ax.set_ylabel("|Active dim.|")
+    ax.set_ylabel("|Active dir.|")
 
 
 def curvelinear_test1(
