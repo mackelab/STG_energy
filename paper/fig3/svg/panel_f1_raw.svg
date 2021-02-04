@@ -15,11 +15,8 @@
    viewBox="0 0 215.337977 150.312724"
    width="215.337977pt"
    id="svg16161"
-   sodipodi:docname="panel_f1.svg"
-   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
-   inkscape:export-filename="/home/michael/Documents/STG_energy/paper/fig3/svg/panel_f1_raw.svg.png"
-   inkscape:export-xdpi="503"
-   inkscape:export-ydpi="503">
+   sodipodi:docname="panel_f1_raw.svg"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)">
   <sodipodi:namedview
      pagecolor="#ffffff"
      bordercolor="#666666"
@@ -53,7 +50,6 @@
             <dc:title>Matplotlib v3.3.2, https://matplotlib.org/</dc:title>
           </cc:Agent>
         </dc:creator>
-        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>

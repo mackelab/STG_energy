@@ -12,7 +12,7 @@
    viewBox="0 0 20.3cm 9.1cm"
    height="0.56999999cm"
    id="svg18457"
-   sodipodi:docname="panel_c_angle_illustration.svg"
+   sodipodi:docname="panel_f2.svg"
    inkscape:version="0.92.4 (5da689c313, 2019-01-14)">
   <metadata
      id="metadata18463" />
@@ -84,15 +84,15 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="2560"
-     inkscape:window-height="1403"
+     inkscape:window-width="2490"
+     inkscape:window-height="1376"
      id="namedview18459"
      showgrid="false"
-     inkscape:zoom="2.0019705"
-     inkscape:cx="272.58734"
-     inkscape:cy="-17.88219"
-     inkscape:window-x="0"
-     inkscape:window-y="556"
+     inkscape:zoom="32.031528"
+     inkscape:cx="16.231045"
+     inkscape:cy="11.342397"
+     inkscape:window-x="70"
+     inkscape:window-y="583"
      inkscape:window-maximized="1"
      inkscape:current-layer="g17291" />
   <g
@@ -119,7 +119,7 @@
                   <dc:title>Matplotlib v3.3.2, https://matplotlib.org/</dc:title>
                 </cc:Agent>
               </dc:creator>
-              <dc:title></dc:title>
+              <dc:title />
             </cc:Work>
           </rdf:RDF>
         </metadata>
@@ -184,7 +184,7 @@
                style="font-style:normal;font-weight:normal;font-stretch:normal;font-size:8px;font-family:'DejaVu Sans';text-anchor:middle;stroke-linecap:butt;stroke-linejoin:round">
               <tspan
                  style="font-size:6.4000001px;stroke-linecap:butt;stroke-linejoin:round"
-                 id="tspan19612">109°</tspan>
+                 id="tspan19612">110°</tspan>
             </text>
           </g>
         </g>
