@@ -10,7 +10,6 @@ import seaborn as sns
 import six
 import time
 import sys
-from stg_energy.fig5_cc.conditional_density import eval_conditional_density
 from copy import deepcopy
 from scipy.stats import gaussian_kde
 from seaborn.utils import despine
@@ -30,7 +29,7 @@ def check_if_close_to_obs(
     sloppiness_durations: float = 1.0,
     sloppiness_phases: float = 1.0,
     check_burst_num: bool = True,
-    min_num_bursts: float = 7.5
+    min_num_bursts: float = 7.5,
 ) -> np.ndarray:
     """
     Returns array of bools which indicates whether `x` was acceptable or not.
