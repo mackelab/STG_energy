@@ -1,6 +1,8 @@
 # Project
-.idea/
-*.svg
+**/svg/*.svg
+**/*.pdf
+**/*.png
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
