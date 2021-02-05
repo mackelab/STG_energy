@@ -671,6 +671,35 @@ def plot_eigenvalues(
         ax.set_title(title)
 
 
+def py_sensitivity_bars(
+    cum_grad, ylim, figsize, ylabel=None, plot_labels=True, color="#2ca25f"
+):
+    fig, ax = plt.subplots(1, figsize=figsize)
+
+    _ = ax.bar(
+        np.arange(1, 1 + len(cum_grad[0])),
+        cum_grad[0],
+        width=0.9 / figsize[0],
+        color=color,
+    )
+
+    ax.set_ylim(ylim)
+    ax.spines["right"].set_visible(False)
+    ax.spines["top"].set_visible(False)
+    ax.get_xaxis().set_ticks([])
+
+    ax.set_xticks(range(1, 9))
+    ax.set_xticklabels(["Na", "CaT", "CaS", "A", "KCa", "Kd", "H", "leak"], rotation=45)
+    ax.set_xlim(0.5, 8.5)
+    if not plot_labels:
+        ax.spines["left"].set_visible(False)
+        ax.set_yticks([])
+        ax.set_xlim(0.7, 8.3)
+
+    if ylabel is not None:
+        ax.set_ylabel(ylabel)
+
+
 def sensitivity_hist(shift_in_mean_normalized, figsize):
     fig, ax = plt.subplots(1, 4, figsize=figsize)
     ax[0].bar(np.arange(8), shift_in_mean_normalized[:8])

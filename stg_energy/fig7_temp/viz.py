@@ -158,11 +158,17 @@ def py_sensitivity_bars_q10(
     if ylabel is not None:
         ax.set_ylabel(ylabel)
 
+
+neutypes = ["PM", "LP", "PY"]
+
+
 def vis_sample_plain(
     voltage_trace,
     t,
     axV,
-    col="k",
+    t_on=None,
+    t_off=None,
+    col=["k", "k", "k"],
     print_label=False,
     time_len=None,
     offset=0,
@@ -179,20 +185,33 @@ def vis_sample_plain(
     :return: figure object
     """
 
+    font_size = 15.0
     current_counter = 0
+
+    dt = t[1] - t[0]
+    scale_bar_breadth = 500
+    scale_bar_voltage_breadth = 50
+
+    offscale = 100
+    offvolt = -50
+
+    if scale_bar:
+        scale_col = "k"
+    else:
+        scale_col = "w"
 
     data = voltage_trace
 
-    Vx = data["data"]
+    Vx = data["voltage"]
 
     current_col = 0
     for j in range(len(neutypes)):
         if time_len is not None:
             axV.plot(
-                t[:time_len:5] / 1000,
-                Vx[j, 10000 + offset : 10000 + offset + time_len : 5] + 130.0 * (2 - j),
-                label="",
-                lw=0.6,
+                t[10000 + offset : 10000 + offset + time_len : 5],
+                Vx[j, 10000 + offset : 10000 + offset + time_len : 5] + 140.0 * (2 - j),
+                label=neutypes[j],
+                lw=0.3,
                 c=col,
             )
         else:
@@ -204,13 +223,53 @@ def vis_sample_plain(
                 c=col[current_col],
             )
         current_col += 1
-    #
-    # if print_label:
-    #     axV.plot([1100.0 + (offset - 26500) * (t[1] - t[0])], [300], color=col, marker='o',
-    #              markeredgecolor='w', ms=8,
-    #              markeredgewidth=1.0, path_effects=[pe.Stroke(linewidth=1.3, foreground='k'), pe.Normal()])
+
+    if print_label:
+        axV.plot(
+            [1100.0 + (offset - 26500) * (t[1] - t[0])],
+            [300],
+            color=col,
+            marker="o",
+            markeredgecolor="w",
+            ms=8,
+            markeredgewidth=1.0,
+            path_effects=[pe.Stroke(linewidth=1.3, foreground="k"), pe.Normal()],
+        )
+
+    if scale_bar:
+
+        # time bar
+        axV.plot(
+            (offset + 5500) * dt
+            + offscale
+            + np.arange(scale_bar_breadth)[:: scale_bar_breadth - 1],
+            (-40 + offvolt)
+            * np.ones_like(np.arange(scale_bar_breadth))[:: scale_bar_breadth - 1],
+            lw=1.0,
+            color="w",
+        )
+
+        # voltage bar
+        axV.plot(
+            (2850 + offset * dt + offscale)
+            * np.ones_like(np.arange(scale_bar_voltage_breadth))[
+                :: scale_bar_voltage_breadth - 1
+            ],
+            275
+            + np.arange(scale_bar_voltage_breadth)[:: scale_bar_voltage_breadth - 1],
+            lw=1.0,
+            color=scale_col,
+            zorder=10,
+        )
 
     box = axV.get_position()
+
+    if t_on is not None:
+        axV.axvline(t_on, c="r", ls="--")
+
+    if t_on is not None:
+        axV.axvline(t_off, c="r", ls="--")
+
     axV.set_position([box.x0, box.y0, box.width, box.height])
     axV.axes.get_yaxis().set_ticks([])
     axV.axes.get_xaxis().set_ticks([])
@@ -219,3 +278,7 @@ def vis_sample_plain(
     axV.spines["top"].set_visible(False)
     axV.spines["bottom"].set_visible(False)
     axV.spines["left"].set_visible(False)
+
+    axV.set_ylim([-85, 340])
+
+    current_counter += 1
