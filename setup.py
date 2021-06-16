@@ -27,6 +27,7 @@ REQUIRED = [
     "sbi",
     "scipy",
     "svgutils",
+    "seaborn",
 ]
 
 here = os.path.abspath(os.path.dirname(__file__))
