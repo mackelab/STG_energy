@@ -26,8 +26,9 @@ REQUIRED = [
     "pandas",
     "sbi",
     "scipy",
-    "svgutils",
+    "svgutils==0.2.0",
     "seaborn",
+    "invoke",
 ]
 
 here = os.path.abspath(os.path.dirname(__file__))
