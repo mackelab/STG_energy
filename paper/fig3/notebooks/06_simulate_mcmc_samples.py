@@ -76,7 +76,7 @@ def run():
                     stats.to_pickle(
                         f"simulated_samples_{pair_ab}_{pair_lp}_{pair_py}_{k}.pkl"
                     )
-                    np.save("seeds_for_simulating_mcmc_{k}.npy", seeds_sim)
+                    np.save(f"seeds_for_simulating_mcmc_{k}.npy", seeds_sim)
 
                     close_sim = check_if_close_to_obs(stats.to_numpy())
                     print("Number of close sims:  ", np.sum(close_sim))
