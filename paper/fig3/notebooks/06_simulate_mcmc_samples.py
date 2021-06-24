@@ -37,7 +37,7 @@ def run():
             for pair_lp in range(5):
                 for pair_py in range(5):
                     samples = np.load(
-                        f"mcmc_samples_{pair_ab}_{pair_lp}_{pair_py}.npy"
+                        f"../../../results/mcmc_7d/mcmc_samples_{pair_ab}_{pair_lp}_{pair_py}.npy"
                     )[num_sims * k : num_sims * (k + 1)]
                     print("samples", samples.shape)
                     num_cores = 8
@@ -74,9 +74,12 @@ def run():
                     stats = pd.concat(stats)
 
                     stats.to_pickle(
-                        f"simulated_samples_{pair_ab}_{pair_lp}_{pair_py}_{k}.pkl"
+                        f"../../../results/mcmc_7d/simulated_samples2_{pair_ab}_{pair_lp}_{pair_py}_{k}.pkl"
                     )
-                    np.save(f"seeds_for_simulating_mcmc_{k}.npy", seeds_sim)
+                    np.save(
+                        f"../../../results/mcmc_7d/seeds_for_simulating_mcmc2_{k}.npy",
+                        seeds_sim,
+                    )
 
                     close_sim = check_if_close_to_obs(stats.to_numpy())
                     print("Number of close sims:  ", np.sum(close_sim))

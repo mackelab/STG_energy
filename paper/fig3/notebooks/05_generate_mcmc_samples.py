@@ -119,5 +119,6 @@ for pair_ab in range(5):
             repeated_condition = optimal_1.unsqueeze(0).repeat(num_sims, 1)
             repeated_condition[:, dims_to_sample] = samples
             np.save(
-                f"mcmc_samples_{pair_ab}_{pair_lp}_{pair_py}.npy", repeated_condition
+                f"../../../results/mcmc_7d/mcmc_samples_{pair_ab}_{pair_lp}_{pair_py}.npy",
+                repeated_condition,
             )

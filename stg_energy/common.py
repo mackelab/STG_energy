@@ -16,6 +16,7 @@ from seaborn.utils import despine
 from svgutils.compose import Unit
 from pandas import DataFrame
 from typing import Union, List, Optional
+from decimal import Decimal
 
 try:
     collectionsAbc = collections.abc
@@ -88,6 +89,47 @@ def check_if_close_to_obs(
         c = [c1 and c3 and c4 for c1, c3, c4 in zip(cond1, cond3, cond4)]
 
     return np.asarray(c)
+
+
+def generate_labels_for_pairplot(lims):
+
+    all_labels = []
+    for dim_i in range(31):
+        if dim_i > 31 - 7.5:  # synapses
+            if dim_i == 24:
+                all_labels.append(
+                    [
+                        r"$\mathdefault{0.01}\;\;\;\;\;\;\;$         ",
+                        r"$\mathdefault{10000}\;\;\;\;\;\;$    ",
+                    ]
+                )
+            else:
+                all_labels.append(
+                    [
+                        r"$\;\;\mathdefault{0.01}\;\;\;\;\;$       ",
+                        r"$\mathdefault{1000}\;\;\;\;\;$  ",
+                    ]
+                )
+        else:  # membrane conductances
+            num_after_digits = -int(np.log10(lims[dim_i, 1]))
+            if num_after_digits > 2:
+                num_after_digits = 2
+            labels = [
+                round((lims[dim_i, num_tmp]), num_after_digits)
+                if lims[dim_i, num_tmp] < 1.0
+                else int(lims[dim_i, num_tmp])
+                for num_tmp in range(2)
+            ]
+            new_labels = []
+            counter = 0
+            for l in labels:
+                if counter == 0:
+                    new_labels.append(r"$\mathdefault{" + str(l) + "}\;\;\;$      ")
+                else:
+                    new_labels.append(r"$\mathdefault{" + str(l) + "}\;\;\;$   ")
+                counter += 1
+            all_labels.append(new_labels)
+    return all_labels
 
 
 def reorder_stats(x, new_to_old: bool = True):
