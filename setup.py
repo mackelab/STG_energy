@@ -30,6 +30,7 @@ REQUIRED = [
     "seaborn",
     "invoke",
     "dill",
+    "pyabf",
 ]
 
 here = os.path.abspath(os.path.dirname(__file__))
@@ -54,7 +55,7 @@ setup(
     url=URL,
     packages=find_packages(),
     install_requires=REQUIRED,
-    dependency_links=['https://github.com/mackelab/pyloric.git'],
+    dependency_links=["https://github.com/mackelab/pyloric.git"],
     include_package_data=True,
     license="AGPLv3",
     classifiers=[
