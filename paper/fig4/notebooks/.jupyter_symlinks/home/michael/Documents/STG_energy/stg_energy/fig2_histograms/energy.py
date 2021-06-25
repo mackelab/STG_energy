@@ -1,1 +1,0 @@
-/home/michael/Documents/STG_energy/stg_energy/fig2_histograms/energy.py
