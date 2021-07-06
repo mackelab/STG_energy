@@ -9,8 +9,9 @@ fig_names = {
     "1": "paper/fig1",
     "2": "paper/fig2",
     "3": "paper/fig3",
-    "4": "paper/fig4",
     "5": "paper/fig5",
+    "6": "paper/fig6",
+    "7": "paper/figSupp",
     "8": "cosyne/fig1",
     "9": "cosyne/fig2",
 }

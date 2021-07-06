@@ -26,7 +26,7 @@ REQUIRED = [
     "pandas",
     "sbi",
     "scipy",
-    "svgutils==0.2.0",
+    "svgutils==0.3.1",
     "seaborn",
     "invoke",
     "dill",

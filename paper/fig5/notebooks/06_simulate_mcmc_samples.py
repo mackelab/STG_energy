@@ -4,6 +4,7 @@ import pandas as pd
 from pyloric import create_prior, simulate, summary_stats
 from stg_energy import check_if_close_to_obs
 from pyloric import create_prior
+import argparse
 
 
 def simulator(p_with_s):
@@ -18,26 +19,31 @@ def simulator(p_with_s):
     return out_target
 
 
-def run():
-
-    # selected_inds_ab = [0, 1, 3, 7, 8, 16]
-    # selected_inds_lp = [0, 3, 4, 7, 13]
-    # selected_inds_py = [0, 1, 5, 12]
-
-    # selected_inds_ab = [0, 1]
-    # selected_inds_lp = [0, 3]
-    # selected_inds_py = [0, 12]
+def run(preparation):
 
     num_sims = 50
     np.random.seed(0)
 
-    for k in range(4):
+    if preparation == "016":
+        xo = np.load("../../../results/experimental_data/xo_11deg_016.npy")
+        min_num_bursts = 6.5
+    elif preparation == "078":
+        xo = np.load("../../../results/experimental_data/xo_11deg_078.npy")
+        min_num_bursts = 6.5
+    elif preparation == "082":
+        xo = np.load("../../../results/experimental_data/xo_11deg.npy")
+        min_num_bursts = 7.5
+    else:
+        raise NameError
+
+    for k in range(20):
 
         for pair_ab in range(5):
             for pair_lp in range(5):
                 for pair_py in range(5):
+                    print("pair", pair_ab, pair_lp, pair_py)
                     samples = np.load(
-                        f"../../../results/mcmc_7d/mcmc_samples_{pair_ab}_{pair_lp}_{pair_py}.npy"
+                        f"../../../results/mcmc_7d/mcmc_samples_{preparation}_{pair_ab}_{pair_lp}_{pair_py}.npy"
                     )[num_sims * k : num_sims * (k + 1)]
                     print("samples", samples.shape)
                     num_cores = 8
@@ -74,18 +80,22 @@ def run():
                     stats = pd.concat(stats)
 
                     stats.to_pickle(
-                        f"../../../results/mcmc_7d/simulated_samples2_{pair_ab}_{pair_lp}_{pair_py}_{k}.pkl"
+                        f"../../../results/mcmc_7d/simulated_samples_{preparation}_{pair_ab}_{pair_lp}_{pair_py}_{k}.pkl"
                     )
                     np.save(
-                        f"../../../results/mcmc_7d/seeds_for_simulating_mcmc2_{k}.npy",
+                        f"../../../results/mcmc_7d/seeds_for_simulating_mcmc_{preparation}_{k}.npy",
                         seeds_sim,
                     )
 
-                    close_sim = check_if_close_to_obs(stats.to_numpy())
+                    close_sim = check_if_close_to_obs(
+                        stats.to_numpy(), xo=xo[:15], min_num_bursts=min_num_bursts
+                    )
                     print("Number of close sims:  ", np.sum(close_sim))
 
                     close_sim = check_if_close_to_obs(
                         stats.to_numpy(),
+                        xo=xo[:15],
+                        min_num_bursts=min_num_bursts,
                         sloppiness_durations=2.0,
                         sloppiness_phases=2.0,
                     )
@@ -93,6 +103,8 @@ def run():
 
                     close_sim = check_if_close_to_obs(
                         stats.to_numpy(),
+                        xo=xo[:15],
+                        min_num_bursts=min_num_bursts,
                         sloppiness_durations=3.0,
                         sloppiness_phases=3.0,
                     )
@@ -100,6 +112,8 @@ def run():
 
                     close_sim = check_if_close_to_obs(
                         stats.to_numpy(),
+                        xo=xo[:15],
+                        min_num_bursts=min_num_bursts,
                         sloppiness_durations=10.0,
                         sloppiness_phases=10.0,
                     )
@@ -107,4 +121,10 @@ def run():
 
 
 if __name__ == "__main__":
-    run()
+    parser = argparse.ArgumentParser(description="Take in the preparation")
+    parser.add_argument("preparation", type=str)
+    args = parser.parse_args()
+    preparation = args.preparation
+    print("mcmc name", preparation)
+
+    run(preparation)

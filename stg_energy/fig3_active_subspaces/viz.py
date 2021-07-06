@@ -403,7 +403,7 @@ def bars_for_energy(
     ax.spines["right"].set_visible(False)
     ax.set_xticks([0, 1, 2])
     ax.set_yticks([0, 1])
-    ax.set_xticklabels(["#spikes", "E/spike", "Energy"], rotation=45)
+    ax.set_xticklabels(["#spikes", "E/spike", "Energy"], rotation=90)
     ax.set_yticklabels(["min", "max"])
 
 
@@ -565,7 +565,7 @@ def synapse_sensitivity_bars(
     ax.set_xticks(range(1, 8))
     if plot_labels:
         ax.set_xticklabels(
-            ["AB-LP", "PD-LP", "AB-PY", "PD-PY", "LP-PD", "LP-PY", "PY-LP"], rotation=45
+            ["AB-LP", "PD-LP", "AB-PY", "PD-PY", "LP-PD", "LP-PY", "PY-LP"], rotation=90
         )
         ax.set_xlim(0.7, 7.3)
     else:
@@ -689,7 +689,7 @@ def py_sensitivity_bars(
     ax.get_xaxis().set_ticks([])
 
     ax.set_xticks(range(1, 9))
-    ax.set_xticklabels(["Na", "CaT", "CaS", "A", "KCa", "Kd", "H", "leak"], rotation=45)
+    ax.set_xticklabels(["Na", "CaT", "CaS", "A", "KCa", "Kd", "H", "leak"], rotation=90)
     ax.set_xlim(0.5, 8.5)
     if not plot_labels:
         ax.spines["left"].set_visible(False)

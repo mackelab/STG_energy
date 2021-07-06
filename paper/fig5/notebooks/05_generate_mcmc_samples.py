@@ -19,7 +19,7 @@ def find_optimal_theta_and_seed(summed_energies, theta_np):
     print("sorted_energies first", sorted_energies[:5])
     print("sorted_energies last ", sorted_energies[-5:])
     sorted_theta = theta_np[inds]
-    
+
     return sorted_theta
 
 
@@ -31,70 +31,31 @@ def load_theta_x_xo(preparation):
         x = pd.read_pickle(
             "../../../results/simulation_data_Tube_MLslurm_cluster/close_to_xo_simulation_outputs.pkl"
         )
-        seeds = np.load(
-            "../../../results/simulation_data_Tube_MLslurm_cluster/close_to_xo_seeds.npy"
-        )
         xo = np.load("../../../results/experimental_data/xo_11deg.npy")
     elif preparation == "016":
-        prior_ = create_prior()
-        sim_out = simulate(prior_.sample((1,)).loc[0])
-        ss = summary_stats(sim_out, stats_customization={
-                "plateau_durations": True,
-                "num_bursts": True,
-                "num_spikes": True,
-                "energies": True,
-                "energies_per_burst": True,
-                "energies_per_spike": True,
-                "pyloric_like": True,
-            })
-        stat_names = ss.columns
+        theta = pd.read_pickle(
+            "../../../results/simulation_data_Tube_MLslurm_cluster/close_to_xo_circuit_parameters_min_burst_condition_016.pkl"
+        )
+        x = pd.read_pickle(
+            "../../../results/simulation_data_Tube_MLslurm_cluster/close_to_xo_simulation_outputs_min_burst_condition_016.pkl"
+        )
         xo = np.load("../../../results/experimental_data/xo_11deg_016.npy")
-        path = "../../../results/simulation_data_Tube_MLslurm_cluster/simulate_11deg_R3_predictives_at_11deg_016/data"
-        theta = pd.read_pickle(path + '/valid_circuit_parameters.pkl')
-        x = pd.read_pickle(path + '/valid_simulation_outputs.pkl')
-        theta_original = theta.to_numpy()
-        x_original = x.to_numpy()
-        close_enough = check_if_close_to_obs(x_original, xo=xo[:15], check_burst_num=True, min_num_bursts=6.5)
-        theta_np = theta_original[close_enough]
-        x_np = x_original[close_enough]
-        print("x_np", x_np.shape)
-        theta = pd.DataFrame(theta_np, columns=prior_.sample((1,)).columns)
-        x = pd.DataFrame(x_np, columns=stat_names)
     elif preparation == "078":
-        prior_ = create_prior()
-        sim_out = simulate(prior_.sample((1,)).loc[0])
-        ss = summary_stats(sim_out, stats_customization={
-                "plateau_durations": True,
-                "num_bursts": True,
-                "num_spikes": True,
-                "energies": True,
-                "energies_per_burst": True,
-                "energies_per_spike": True,
-                "pyloric_like": True,
-            })
-        stat_names = ss.columns
+        theta = pd.read_pickle(
+            "../../../results/simulation_data_Tube_MLslurm_cluster/close_to_xo_circuit_parameters_min_burst_condition_078.pkl"
+        )
+        x = pd.read_pickle(
+            "../../../results/simulation_data_Tube_MLslurm_cluster/close_to_xo_simulation_outputs_min_burst_condition_078.pkl"
+        )
         xo = np.load("../../../results/experimental_data/xo_11deg_078.npy")
-        path = "../../../results/simulation_data_Tube_MLslurm_cluster/simulate_11deg_R3_predictives_at_11deg_078/data"
-        theta = pd.read_pickle(path + '/valid_circuit_parameters.pkl')
-        x = pd.read_pickle(path + '/valid_simulation_outputs.pkl')
-        theta_original = theta.to_numpy()
-        x_original = x.to_numpy()
-        close_enough = check_if_close_to_obs(x_original, xo=xo[:15], check_burst_num=True, min_num_bursts=6.5)
-        theta_np = theta_original[close_enough]
-        x_np = x_original[close_enough]
-        print("x_np", x_np.shape)
-        theta = pd.DataFrame(theta_np, columns=prior_.sample((1,)).columns)
-        x = pd.DataFrame(x_np, columns=stat_names)
     else:
         raise NameError
-    
+
     return theta, x, xo
 
 
 def sample_mcmc(theta, x, xo, preparation=""):
-    prior_11 = create_prior()
     theta_np = theta.to_numpy()
-    x_np = x.to_numpy()
 
     sys.path.append("home/michael/Documents/sbi/sbi/utils/user_input_checks_utils")
     sys.modules["sbi.user_input.user_input_checks_utils"] = user_input_checks_utils
@@ -110,39 +71,20 @@ def sample_mcmc(theta, x, xo, preparation=""):
         posterior._prior.support.base_constraint.upper_bound,
     )
 
-    prior = create_prior(as_torch_dist=True)
-    lower_b = prior.support.base_constraint.lower_bound.unsqueeze(0)
-    upper_b = prior.support.base_constraint.upper_bound.unsqueeze(0)
-    limits = torch.cat((lower_b, upper_b), dim=0).T
-
-    energies = x["energies"]
-    energies_tt = torch.as_tensor(energies.to_numpy())
-    x_tt = torch.as_tensor(x_np, dtype=torch.float32)
-    summed_energies = np.sum(x["energies"].to_numpy(), axis=1) / 10 / 1000
-
-    energies_tt = torch.as_tensor(energies.to_numpy())
-    x_tt = torch.as_tensor(x_np, dtype=torch.float32)
-
     abpd_energies = x["energies"].to_numpy()[:, 0] / 10 / 1000
     lp_energies = x["energies"].to_numpy()[:, 1] / 10 / 1000
     py_energies = x["energies"].to_numpy()[:, 2] / 10 / 1000
 
-    min_energy_theta_abpd = find_optimal_theta_and_seed(
-        abpd_energies, theta_np
-    )
-    min_energy_theta_lp = find_optimal_theta_and_seed(
-        lp_energies, theta_np
-    )
-    min_energy_theta_py = find_optimal_theta_and_seed(
-        py_energies, theta_np
-    )
+    min_energy_theta_abpd = find_optimal_theta_and_seed(abpd_energies, theta_np)
+    min_energy_theta_lp = find_optimal_theta_and_seed(lp_energies, theta_np)
+    min_energy_theta_py = find_optimal_theta_and_seed(py_energies, theta_np)
 
     print("min_energy_theta_abpd", min_energy_theta_abpd.shape)
     print("min_energy_theta_lp", min_energy_theta_lp.shape)
     print("min_energy_theta_py", min_energy_theta_py.shape)
 
     dims_to_sample = [24, 25, 26, 27, 28, 29, 30]
-    num_sims = 200
+    num_sims = 1_000
     for pair_ab in range(5):
         for pair_lp in range(5):
             for pair_py in range(5):
@@ -159,7 +101,7 @@ def sample_mcmc(theta, x, xo, preparation=""):
                     dims_to_sample=dims_to_sample,
                     x=xo,
                     mcmc_method="slice_np_vectorized",
-                    mcmc_parameters={"init_strategy": "sir", "num_chains": 4},
+                    mcmc_parameters={"init_strategy": "sir", "num_chains": 20},
                 )
 
                 repeated_condition = optimal_1.unsqueeze(0).repeat(num_sims, 1)
@@ -169,9 +111,10 @@ def sample_mcmc(theta, x, xo, preparation=""):
                     repeated_condition,
                 )
 
+
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Take in the preparation')
-    parser.add_argument('preparation', type=str)
+    parser = argparse.ArgumentParser(description="Take in the preparation")
+    parser.add_argument("preparation", type=str)
     args = parser.parse_args()
     preparation = args.preparation
 
