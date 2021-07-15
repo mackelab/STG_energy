@@ -250,7 +250,7 @@ def scatter_sensitivity_consumption(all_fractions, eigenvector, arrows: bool = T
     if arrows:
         # right
         ax.arrow(
-            0.59, 0.19, 0.08, -0.065, head_width=0.04, head_length=0.04, facecolor="k"
+            0.59, 0.21, 0.08, -0.065, head_width=0.04, head_length=0.04, facecolor="k"
         )
         # middle
         ax.arrow(
@@ -258,7 +258,7 @@ def scatter_sensitivity_consumption(all_fractions, eigenvector, arrows: bool = T
         )
         # left
         ax.arrow(
-            0.0695, 0.49, 0.0, -0.1, head_width=0.04, head_length=0.04, facecolor="k"
+            0.07, 0.46, 0.0, -0.1, head_width=0.04, head_length=0.04, facecolor="k"
         )
 
     ax.plot([0.0, 0.7], [0.0, 0.7], color="grey", alpha=0.5)
@@ -596,7 +596,7 @@ def py_sensitivity_bars_cosyne(
     title: Optional[str] = None,
     title_x_offset: float = 0.0,
     title_y_offset: float = 0.0,
-    yticks=None
+    yticks=None,
 ):
     # Very small bars are not visible, which is ugly.
     min_height = 0.03
