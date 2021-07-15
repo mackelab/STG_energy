@@ -2,24 +2,24 @@
 <!-- Created with matplotlib (https://matplotlib.org/) -->
 
 <svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    height="150.312724pt"
    version="1.1"
    viewBox="0 0 215.337977 150.312724"
    width="215.337977pt"
    id="svg16161"
    sodipodi:docname="panel_f1.svg"
-   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
+   inkscape:version="1.1 (1:1.1+202105261517+ce6663b3b7)"
    inkscape:export-filename="/home/michael/Documents/STG_energy/paper/fig3/svg/panel_f1_raw.svg.png"
    inkscape:export-xdpi="503"
-   inkscape:export-ydpi="503">
+   inkscape:export-ydpi="503"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
   <sodipodi:namedview
      pagecolor="#ffffff"
      bordercolor="#666666"
@@ -29,17 +29,19 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="2490"
-     inkscape:window-height="1369"
+     inkscape:window-width="2488"
+     inkscape:window-height="1376"
      id="namedview16163"
      showgrid="false"
      inkscape:zoom="4.7101799"
-     inkscape:cx="168.02542"
-     inkscape:cy="123.54182"
-     inkscape:window-x="70"
-     inkscape:window-y="583"
-     inkscape:window-maximized="0"
-     inkscape:current-layer="GridlinesCollection_1" />
+     inkscape:cx="168.04029"
+     inkscape:cy="123.45601"
+     inkscape:window-x="72"
+     inkscape:window-y="393"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="text_3"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="pt" />
   <metadata
      id="metadata2">
     <rdf:RDF>
@@ -53,7 +55,7 @@
             <dc:title>Matplotlib v3.3.2, https://matplotlib.org/</dc:title>
           </cc:Agent>
         </dc:creator>
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -40236,13 +40238,11 @@
              transform="translate(47.603746 104.198678)rotate(-288.122933)"
              id="g16065">
             <text
-               id="text16063">
-              <tspan
-                 style="font-family:DejaVu Sans;font-size:8px;font-style:book;font-weight:book;"
+               id="text16063"><tspan
+                 style="font-size:8px;font-family:'DejaVu Sans'"
                  x="0 6.703125 11.792969 14.335938"
                  y="-0.0625"
-                 id="tspan16061">−2.1</tspan>
-            </text>
+                 id="tspan16061">−2.1</tspan></text>
           </g>
         </g>
         <g
@@ -40252,13 +40252,11 @@
              transform="translate(34.575638 64.393092)rotate(-288.122933)"
              id="g16072">
             <text
-               id="text16070">
-              <tspan
-                 style="font-family:DejaVu Sans;font-size:8px;font-style:book;font-weight:book;"
-                 x="0 5.089844 7.632812"
+               id="text16070"><tspan
+                 style="font-size:8px;font-family:'DejaVu Sans'"
+                 x="0 5.0898442 7.632812"
                  y="-0.0625"
-                 id="tspan16068">0.0</tspan>
-            </text>
+                 id="tspan16068">0.0</tspan></text>
           </g>
         </g>
         <g
@@ -40272,11 +40270,11 @@
         <g
            id="text_3">
           <text
-             style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:middle;"
-             transform="rotate(-288.122933, 25.282585, 72.130305)"
-             x="25.282585"
-             y="72.130305"
-             id="text16078">Proj. to 1st E-vec: E / spike</text>
+             style="font-style:normal;font-weight:normal;font-stretch:normal;font-size:8px;font-family:'DejaVu Sans';text-anchor:middle"
+             transform="rotate(71.877067)"
+             x="74.743095"
+             y="-1.3016586"
+             id="text16078">Proj. to active dir.: E / spike</text>
         </g>
       </g>
       <g
@@ -40313,13 +40311,11 @@
              transform="translate(70.414636 130.210224)"
              id="g16097">
             <text
-               id="text16095">
-              <tspan
-                 style="font-family:DejaVu Sans;font-size:8px;font-style:book;font-weight:book;"
+               id="text16095"><tspan
+                 style="font-size:8px;font-family:'DejaVu Sans'"
                  x="0 6.703125 11.792969 14.085938"
                  y="-0.0625"
-                 id="tspan16093">−1.8</tspan>
-            </text>
+                 id="tspan16093">−1.8</tspan></text>
           </g>
         </g>
         <g
@@ -40329,13 +40325,11 @@
              transform="translate(124.807293 130.210224)"
              id="g16104">
             <text
-               id="text16102">
-              <tspan
-                 style="font-family:DejaVu Sans;font-size:8px;font-style:book;font-weight:book;"
-                 x="0 5.089844 7.632812"
+               id="text16102"><tspan
+                 style="font-size:8px;font-family:'DejaVu Sans'"
+                 x="0 5.0898442 7.632812"
                  y="-0.0625"
-                 id="tspan16100">0.0</tspan>
-            </text>
+                 id="tspan16100">0.0</tspan></text>
           </g>
         </g>
         <g
@@ -40353,9 +40347,9 @@
            id="text_6">
           <text
              style="font-style:normal;font-weight:normal;font-stretch:normal;font-size:8px;font-family:'DejaVu Sans';text-anchor:middle;stroke-linecap:butt;stroke-linejoin:round"
-             x="125.01173"
+             x="122.01173"
              y="141.44897"
-             id="text16110">Proj. to 1st E-vec: #spikes</text>
+             id="text16110">Proj. to active dir.: #spikes</text>
         </g>
       </g>
       <g
@@ -40412,9 +40406,8 @@
           <g
              id="text_7">
             <text
-               style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:start;"
-               transform="rotate(-0, 194.672977, 124.15875)"
-               x="194.672977"
+               style="font-style:normal;font-weight:normal;font-stretch:normal;font-size:8px;font-family:'DejaVu Sans';text-anchor:start"
+               x="194.67297"
                y="124.15875"
                id="text16131">0.4</text>
           </g>
@@ -40436,9 +40429,8 @@
           <g
              id="text_8">
             <text
-               style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:start;"
-               transform="rotate(-0, 194.672977, 13.27875)"
-               x="194.672977"
+               style="font-style:normal;font-weight:normal;font-stretch:normal;font-size:8px;font-family:'DejaVu Sans';text-anchor:start"
+               x="194.67297"
                y="13.27875"
                id="text16140">10</text>
           </g>
@@ -40446,9 +40438,9 @@
         <g
            id="text_9">
           <text
-             style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:middle;"
-             transform="rotate(-90, 206.474227, 65.679375)"
-             x="206.474227"
+             style="font-style:normal;font-weight:normal;font-stretch:normal;font-size:8px;font-family:'DejaVu Sans';text-anchor:middle"
+             transform="rotate(-90,206.47423,65.679375)"
+             x="206.47423"
              y="65.679375"
              id="text16144">Energy (AB/PD)</text>
         </g>

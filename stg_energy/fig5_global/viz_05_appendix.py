@@ -32,8 +32,40 @@ def simulator(p_with_s):
     return out_target
 
 
+def plot_energy_of_theta(
+    index,
+    min_energy_theta,
+    min_energy_seed,
+    time_vec,
+    time_len,
+    offset=60000,
+    figsize=(2.2, 1.2),
+):
+    successful_samples = min_energy_theta[index]
+    trace = simulator(
+        np.concatenate((successful_samples, np.asarray([min_energy_seed[index]])))
+    )
+    stats = summary_stats(trace, stats_customization=custom_stats, t_burn_in=1000)
+    energy = np.sum(stats["energies"].to_numpy() / 1000 / 10)
+    fig, ax = plt.subplots(1, 1, figsize=figsize)
+    ax.bar([0], energy, color="k", width=0.2)
+    ax.set_xlim([-0.2, 0.2])
+    ax.set_ylabel(r"Energy ($\mu$J/s)", labelpad=0)
+    ax.set_ylim([0.0, 30.0])
+    ax.set_yticks([0, 30])
+    ax.set_xticks([])
+    ax.set_xticklabels([])
+    print(energy)
+
+
 def plot_overall_efficient(
-    index, min_energy_theta, min_energy_seed, time_vec, time_len, offset=60000
+    index,
+    min_energy_theta,
+    min_energy_seed,
+    time_vec,
+    time_len,
+    offset=60000,
+    figsize=(2.2, 1.2),
 ):
 
     successful_samples = min_energy_theta[index]
@@ -41,7 +73,7 @@ def plot_overall_efficient(
         np.concatenate((successful_samples, np.asarray([min_energy_seed[index]])))
     )
 
-    fig, ax = plt.subplots(1, 1, figsize=(2.2, 1.2))
+    fig, ax = plt.subplots(1, 1, figsize=figsize)
     viz.vis_sample_plain(
         voltage_trace=trace,
         t=time_vec,
@@ -185,7 +217,13 @@ def plot_stuff(
     )
 
     successful_samples = samples[close_sim]
-    trace = simulator(np.concatenate((successful_samples[index], np.asarray([0]))))
+    successful_seeds = all_seeds_loaded[close_sim]
+    print("successful_seeds", successful_seeds.shape)
+    trace = simulator(
+        np.concatenate(
+            (successful_samples[index], np.asarray([successful_seeds[index]]))
+        )
+    )
     stats = summary_stats(trace, stats_customization=custom_stats, t_burn_in=1000)
 
     fig, ax = plt.subplots(1, 1, figsize=(width, height))

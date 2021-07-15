@@ -595,6 +595,8 @@ def py_sensitivity_bars_cosyne(
     legend_y_offset: float = 0.0,
     title: Optional[str] = None,
     title_x_offset: float = 0.0,
+    title_y_offset: float = 0.0,
+    yticks=None
 ):
     # Very small bars are not visible, which is ugly.
     min_height = 0.03
@@ -640,7 +642,10 @@ def py_sensitivity_bars_cosyne(
             handletextpad=0.35,
         )
 
-    ax.text(3.3 + title_x_offset, 0.8, title)
+    ax.text(3.3 + title_x_offset, 0.8 + title_y_offset, title)
+
+    if yticks is not None:
+        ax.set_yticks(yticks)
 
     if ylabel is not None:
         ax.set_ylabel(ylabel)
