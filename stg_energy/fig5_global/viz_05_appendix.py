@@ -40,6 +40,7 @@ def plot_energy_of_theta(
     time_len,
     offset=60000,
     figsize=(2.2, 1.2),
+    labelpad=0
 ):
     successful_samples = min_energy_theta[index]
     trace = simulator(
@@ -50,7 +51,7 @@ def plot_energy_of_theta(
     fig, ax = plt.subplots(1, 1, figsize=figsize)
     ax.bar([0], energy, color="k", width=0.2)
     ax.set_xlim([-0.2, 0.2])
-    ax.set_ylabel(r"Energy ($\mu$J/s)", labelpad=0)
+    ax.set_ylabel(r"Energy ($\mu$J/s)", labelpad=labelpad)
     ax.set_ylim([0.0, 30.0])
     ax.set_yticks([0, 30])
     ax.set_xticks([])
@@ -180,6 +181,26 @@ def load_theta_x_seeds(pair_ab, pair_lp, pair_py, preparation):
 
     return samples, all_stats_loaded, all_seeds_loaded
 
+def load_theta_x_seeds_correction(pair_ab, pair_lp, pair_py, preparation):
+    all_stats_loaded = []
+    all_seeds_loaded = []
+    for k in range(200):
+        stats_loaded = pd.read_pickle(
+            f"../../../results/mcmc_7d/simulated_samples_correction_{preparation}_{pair_ab}_{pair_lp}_{pair_py}_{k}.pkl"
+        )
+        seeds_loaded = np.load(
+            f"../../../results/mcmc_7d/seeds_for_simulating_mcmc_correction_{preparation}_{k}.npy"
+        )
+        all_stats_loaded.append(stats_loaded)
+        all_seeds_loaded.append(seeds_loaded)
+    all_stats_loaded = np.concatenate(all_stats_loaded)
+    all_seeds_loaded = np.concatenate(all_seeds_loaded)
+    samples = np.load(
+        f"../../../results/mcmc_7d/mcmc_samples_correction_{preparation}_{pair_ab}_{pair_lp}_{pair_py}.npy"
+    )
+
+    return samples, all_stats_loaded, all_seeds_loaded
+
 
 def load_x_pd(pair_ab, pair_lp, pair_py, preparation):
     all_stats_loaded = []
@@ -192,6 +213,17 @@ def load_x_pd(pair_ab, pair_lp, pair_py, preparation):
 
     return all_stats_loaded
 
+
+def load_x_pd_correction(pair_ab, pair_lp, pair_py, preparation):
+    all_stats_loaded = []
+    for k in range(200):
+        stats_loaded = pd.read_pickle(
+            f"../../../results/mcmc_7d/simulated_samples_correction_{preparation}_{pair_ab}_{pair_lp}_{pair_py}_{k}.pkl"
+        )
+        all_stats_loaded.append(stats_loaded)
+    all_stats_loaded = pd.concat(all_stats_loaded)
+
+    return all_stats_loaded
 
 def plot_stuff(
     preparation,

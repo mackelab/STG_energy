@@ -1029,7 +1029,7 @@ def _pairplot_scaffold(diag_func, upper_func, dim, limits, points, opts):
 
 
 def _get_default_opts():
-    """ Return default values for plotting specs."""
+    """Return default values for plotting specs."""
 
     return {
         # 'lower': None,     # hist/scatter/None  # TODO: implement

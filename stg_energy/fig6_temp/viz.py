@@ -238,15 +238,15 @@ def vis_sample_plain(
 
     if scale_bar:
 
-        # time bar
         axV.plot(
             (offset + 5500) * dt
             + offscale
+            + 2200
             + np.arange(scale_bar_breadth)[:: scale_bar_breadth - 1],
-            (-40 + offvolt)
+            (-40 + offvolt + 445)
             * np.ones_like(np.arange(scale_bar_breadth))[:: scale_bar_breadth - 1],
             lw=1.0,
-            color="w",
+            color=col,
         )
 
         # voltage bar
@@ -255,10 +255,10 @@ def vis_sample_plain(
             * np.ones_like(np.arange(scale_bar_voltage_breadth))[
                 :: scale_bar_voltage_breadth - 1
             ],
-            275
+            305
             + np.arange(scale_bar_voltage_breadth)[:: scale_bar_voltage_breadth - 1],
             lw=1.0,
-            color=scale_col,
+            color=col,
             zorder=10,
         )
 
@@ -279,6 +279,5 @@ def vis_sample_plain(
     axV.spines["bottom"].set_visible(False)
     axV.spines["left"].set_visible(False)
 
-    axV.set_ylim([-85, 340])
-
+    axV.set_ylim([-96, 370])
     current_counter += 1

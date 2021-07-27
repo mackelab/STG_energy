@@ -266,7 +266,7 @@ def scatter_sensitivity_consumption(all_fractions, eigenvector, arrows: bool = T
     ax.set_ylim([0.0, 0.78])
 
     ax.set_xlabel("Consumed Energy")
-    ax.set_ylabel("|Active dir.|")
+    ax.set_ylabel("|Weights w|")
 
 
 def curvelinear_test1(
@@ -542,7 +542,14 @@ def all_sensitivity_bars(cum_grad, ylim, figsize, ylabel=None):
 
 
 def synapse_sensitivity_bars(
-    cum_grad, ylim, figsize, ylabel=None, plot_labels=True, color="#2ca25f", title=None
+    cum_grad,
+    ylim,
+    figsize,
+    ylabel=None,
+    plot_labels=True,
+    color="#2ca25f",
+    title=None,
+    width_multiplier=1.0,
 ):
     fig, ax = plt.subplots(1, figsize=figsize)
 
@@ -553,7 +560,7 @@ def synapse_sensitivity_bars(
     _ = ax.bar(
         np.arange(1, 1 + len(cum_grad[0])),
         cum_grad[0],
-        width=0.9 / figsize[0],
+        width=0.9 / figsize[0] * width_multiplier,
         color=color,
     )
 
@@ -570,7 +577,7 @@ def synapse_sensitivity_bars(
         ax.set_xlim(0.7, 7.3)
     else:
         ax.set_xlim(0.7, 7.3)
-        ax.set_xticks([])
+        ax.set_xticklabels([])
 
     if ylabel is not None:
         ax.set_ylabel(ylabel)
@@ -597,6 +604,7 @@ def py_sensitivity_bars_cosyne(
     title_x_offset: float = 0.0,
     title_y_offset: float = 0.0,
     yticks=None,
+    ylabelpad=None
 ):
     # Very small bars are not visible, which is ugly.
     min_height = 0.03
@@ -632,7 +640,7 @@ def py_sensitivity_bars_cosyne(
     ax.set_xticklabels(["Na", "CaT", "CaS", "A", "KCa", "Kd", "H", "leak"])
     ax.set_xlim(0.5, 8.5)
     if not plot_labels:
-        ax.set_xticks([])
+        ax.set_xticklabels([])
 
     if legend:
         ax.legend(
@@ -649,6 +657,9 @@ def py_sensitivity_bars_cosyne(
 
     if ylabel is not None:
         ax.set_ylabel(ylabel)
+
+    if ylabel is not None and ylabelpad is not None:
+        ax.set_ylabel(ylabel, labelpad=ylabelpad)
 
 
 def plot_eigenvalues(
