@@ -12,12 +12,26 @@ from matplotlib.colors import Normalize
 from typing import Optional
 import torch
 
-from stg_energy.common import col, _update, _format_axis
+# from stg_energy.fig2_inference.viz import vis_sample_plain
+
+
+from stg_energy.common import (
+    col,
+    _update,
+    _format_axis,
+    check_if_close_to_obs,
+    get_labels_8pt,
+)
 from scipy.stats import gaussian_kde
 import os
 import matplotlib as mpl
 import seaborn as sns
+import pandas as pd
+from pyloric import simulate, create_prior, summary_stats
 from pyloric.utils import energy_of_membrane
+
+
+neutypes = ["PM", "LP", "PY"]
 
 
 def vis_sample_plain(
@@ -31,6 +45,7 @@ def vis_sample_plain(
     time_len=None,
     offset=0,
     scale_bar=True,
+    scale_bar_voltage=False,
 ):
     """
     Function of Kaan, modified by Michael. Used for plotting fig 5b Prinz.
@@ -60,14 +75,15 @@ def vis_sample_plain(
 
     data = voltage_trace
 
-    Vx = data["data"]
+    Vx = data["voltage"]
 
     current_col = 0
-    for j in range(3):
+    for j in range(len(neutypes)):
         if time_len is not None:
             axV.plot(
                 t[10000 + offset : 10000 + offset + time_len : 5],
                 Vx[j, 10000 + offset : 10000 + offset + time_len : 5] + 140.0 * (2 - j),
+                label=neutypes[j],
                 lw=0.3,
                 c=col,
             )
@@ -75,6 +91,7 @@ def vis_sample_plain(
             axV.plot(
                 t,
                 Vx[j] + 120.0 * (2 - j),
+                label=neutypes[j],
                 lw=0.3,
                 c=col[current_col],
             )
@@ -92,31 +109,41 @@ def vis_sample_plain(
             path_effects=[pe.Stroke(linewidth=1.3, foreground="k"), pe.Normal()],
         )
 
-    if scale_bar:
+    col = "k" if scale_bar else "w"
 
-        # time bar
-        axV.plot(
-            (offset + 5500) * dt
-            + offscale
-            + np.arange(scale_bar_breadth)[:: scale_bar_breadth - 1],
-            (-40 + offvolt)
-            * np.ones_like(np.arange(scale_bar_breadth))[:: scale_bar_breadth - 1],
-            lw=1.0,
-            color="w",
-        )
+    # # time bar bottom left
+    # axV.plot(
+    #     (offset + 5500) * dt
+    #     + offscale
+    #     + np.arange(scale_bar_breadth)[:: scale_bar_breadth - 1],
+    #     (-40 + offvolt)
+    #     * np.ones_like(np.arange(scale_bar_breadth))[:: scale_bar_breadth - 1],
+    #     lw=1.0,
+    #     color="r",
+    # )
+    # time bar
+    axV.plot(
+        (offset + 5500) * dt
+        + offscale
+        + 2200
+        + np.arange(scale_bar_breadth)[:: scale_bar_breadth - 1],
+        (-40 + offvolt + 415)
+        * np.ones_like(np.arange(scale_bar_breadth))[:: scale_bar_breadth - 1],
+        lw=1.0,
+        color=col,
+    )
 
-        # voltage bar
-        axV.plot(
-            (2850 + offset * dt + offscale)
-            * np.ones_like(np.arange(scale_bar_voltage_breadth))[
-                :: scale_bar_voltage_breadth - 1
-            ],
-            275
-            + np.arange(scale_bar_voltage_breadth)[:: scale_bar_voltage_breadth - 1],
-            lw=1.0,
-            color=scale_col,
-            zorder=10,
-        )
+    # voltage bar
+    axV.plot(
+        (2850 + offset * dt + offscale)
+        * np.ones_like(np.arange(scale_bar_voltage_breadth))[
+            :: scale_bar_voltage_breadth - 1
+        ],
+        275 + np.arange(scale_bar_voltage_breadth)[:: scale_bar_voltage_breadth - 1],
+        lw=1.0,
+        color=col,
+        zorder=10,
+    )
 
     box = axV.get_position()
 
@@ -604,7 +631,7 @@ def py_sensitivity_bars_cosyne(
     title_x_offset: float = 0.0,
     title_y_offset: float = 0.0,
     yticks=None,
-    ylabelpad=None
+    ylabelpad=None,
 ):
     # Very small bars are not visible, which is ugly.
     min_height = 0.03
@@ -731,6 +758,158 @@ def sensitivity_hist(shift_in_mean_normalized, figsize):
         a.spines["top"].set_visible(False)
         a.spines["right"].set_visible(False)
     ax[0].set_ylabel("Influence on energy")
+
+
+custom_stats = {
+    "plateau_durations": True,
+    "num_bursts": True,
+    "num_spikes": True,
+    "energies": True,
+    "energies_per_burst": True,
+    "energies_per_spike": True,
+    "pyloric_like": True,
+}
+
+
+def simulator(p_with_s):
+    p1 = create_prior()
+    pars = p1.sample((1,))
+    column_names = pars.columns
+    circuit_params = np.asarray([p_with_s[:-1]])
+    theta_pd = pd.DataFrame(circuit_params, columns=column_names)
+    out_target = simulate(
+        theta_pd.loc[0], seed=int(p_with_s[-1]), track_energy=True, track_currents=True
+    )
+    return out_target
+
+
+def plot_energy_of_theta(
+    index,
+    min_energy_theta,
+    min_energy_seed,
+    time_vec,
+    time_len,
+    offset=60000,
+    figsize=(2.2, 1.2),
+    labelpad=0,
+):
+    successful_samples = min_energy_theta[index]
+    trace = simulator(
+        np.concatenate((successful_samples, np.asarray([min_energy_seed[index]])))
+    )
+    stats = summary_stats(trace, stats_customization=custom_stats, t_burn_in=1000)
+    energy = np.sum(stats["energies"].to_numpy() / 1000 / 10)
+    fig, ax = plt.subplots(1, 1, figsize=figsize)
+    ax.bar([0], energy, color="k", width=0.2)
+    ax.set_xlim([-0.2, 0.2])
+    ax.set_ylabel(r"Energy ($\mu$J/s)", labelpad=labelpad)
+    ax.set_ylim([0.0, 30.0])
+    ax.set_yticks([0, 30])
+    ax.set_xticks([])
+    ax.set_xticklabels([])
+    print(energy)
+
+
+def plot_overall_efficient(
+    index,
+    min_energy_theta,
+    min_energy_seed,
+    time_vec,
+    time_len,
+    offset=60000,
+    figsize=(2.2, 1.2),
+):
+
+    successful_samples = min_energy_theta[index]
+    trace = simulator(
+        np.concatenate((successful_samples, np.asarray([min_energy_seed[index]])))
+    )
+
+    fig, ax = plt.subplots(1, 1, figsize=figsize)
+    vis_sample_plain(
+        voltage_trace=trace,
+        t=time_vec,
+        axV=ax,
+        time_len=int(time_len),
+        offset=offset,
+        col="k",
+        scale_bar=True,
+        print_label=False,
+    )
+
+
+multipliers = [1.0, 100.0, 10.00, 10.0, 100.0, 1.0, 10000.0, 10000.0]
+all_mult = multipliers * 3
+all_mult += [1_000_000] * 7
+
+labels_ = get_labels_8pt()
+
+
+def plot_params(
+    successful_samples,
+    params_to_plot,
+    labels=True,
+    width=1.3,
+    height=1.0,
+    labelpad=-3,
+    ylim=[0, 150],
+):
+    params_to_plot = np.asarray(params_to_plot)
+    fig, ax0 = plt.subplots(1, 1, figsize=(width, height))
+
+    successful_samples[-7:] = np.exp(successful_samples[-7:])
+    plotted_params = successful_samples[params_to_plot]
+    plotted_params = plotted_params * np.asarray(all_mult)[params_to_plot]
+    cond = params_to_plot < 24
+    ax0.bar(np.arange(len(params_to_plot[cond])), plotted_params[cond], color="k")
+    if labels:
+        ax0.set_xticks(range(len(params_to_plot[cond])))
+        ax0.set_xticklabels(
+            (np.asarray(labels_)[np.asarray(params_to_plot[cond])]).tolist(),
+            rotation=90,
+        )
+    else:
+        ax0.set_xticks(range(len(params_to_plot[cond])))
+        ax0.set_xticklabels([])
+    ax0.set_ylabel(
+        r"$\overline{g} \;\; \mathrm{(mS / }\mathrm{cm}^2)$", labelpad=labelpad
+    )
+    ax0.set_ylim(ylim)
+    ax0.set_yticks(ylim)
+
+
+def plot_synapses(
+    successful_samples,
+    params_to_plot,
+    labels=True,
+    width=0.5,
+    ylim=[0, 150],
+    height=1.0,
+    labelpad=-10,
+):
+    params_to_plot = np.asarray(params_to_plot)
+
+    fig, ax1 = plt.subplots(1, 1, figsize=(width, height))
+
+    successful_samples[-7:] = np.exp(successful_samples[-7:])
+    plotted_params = successful_samples[params_to_plot]
+    plotted_params = plotted_params * np.asarray(all_mult)[params_to_plot]
+
+    cond = params_to_plot >= 24
+    ax1.bar(np.arange(len(params_to_plot[cond])), plotted_params[cond], color="k")
+    if labels:
+        ax1.set_xticks(range(len(params_to_plot[cond])))
+        ax1.set_xticklabels(
+            (np.asarray(labels_)[np.asarray(params_to_plot[cond])]).tolist(),
+            rotation=90,
+        )
+    else:
+        ax1.set_xticks(range(len(params_to_plot[cond])))
+        ax1.set_xticklabels([])
+    ax1.set_ylabel(r"$\overline{g} \;\; \mathrm{(nS)}$", labelpad=labelpad)
+    ax1.set_yticks(ylim)
+    ax1.set_ylim(ylim)
+    ax1.set_xlim(-0.6, 1.6)
 
 
 def oneDmarginal(samples, points=[], **kwargs):
@@ -957,7 +1136,7 @@ def oneDmarginal(samples, points=[], **kwargs):
                         h = plt.hist(
                             v[:, col],
                             color=opts["samples_colors"][n],
-                            **opts["hist_diag"]
+                            **opts["hist_diag"],
                         )
                     elif opts["diag"][n] == "kde":
                         density = gaussian_kde(
@@ -980,7 +1159,7 @@ def oneDmarginal(samples, points=[], **kwargs):
                         [v[:, col], v[:, col]],
                         extent,
                         color=opts["points_colors"][n],
-                        **opts["points_diag"]
+                        **opts["points_diag"],
                     )
 
         if len(subset) < dim:
