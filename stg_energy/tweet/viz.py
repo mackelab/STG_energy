@@ -155,9 +155,9 @@ def energy_scape_both(
     newax.axis("off")
 
     newax.text(
-        220,
+        0,
         760,
-        "Marder & Bucher, 2007",
+        "Drawing: Marder & Bucher, 2007",
         fontdict={"fontsize": 5, "c": "grey"},
     )
 

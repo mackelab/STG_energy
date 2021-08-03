@@ -9,6 +9,7 @@ fig_names = {
     "1": "paper/fig1",
     "2": "paper/fig2",
     "3": "paper/fig3",
+    "4": "paper/fig4",
     "5": "paper/fig5",
     "6": "paper/fig6",
     "7": "paper/figSupp",
@@ -32,6 +33,22 @@ def syncOverleaf(c, fig):
             bp=basepath, fn=fig_names[fig], ol=overleaf
         )
     )
+
+
+@task
+def reduceFilesize(c):
+    indizes = [2, 6]
+
+    for ind in indizes:
+
+        path = f"{basepath}/paper/fig{ind}/fig/fig{ind}_supp1.svg"
+        c.run(f"inkscape {path} --export-pdf={path[:-4]}.pdf")
+        c.run(f"cp {basepath}/paper/fig{ind}/fig/fig{ind}_supp1.pdf {overleaf}/figs/")
+
+        c.run(
+            f'inkscape {path} --export-png={path[:-4]}.png -b "white" --export-dpi=150'
+        )
+        c.run(f"cp {basepath}/paper/fig{ind}/fig/fig{ind}_supp1.png {overleaf}/figs/")
 
 
 ########################################################################################
@@ -63,7 +80,7 @@ def _convertpdf2png(c, fig):
     )
     for path in pathlist:
         c.run(
-            'inkscape {} --export-png={}.png -b "white" --export-dpi=300'.format(
+            'inkscape {} --export-png={}.png -b "white" --export-dpi=250'.format(
                 str(path), str(path)[:-4]
             )
         )
