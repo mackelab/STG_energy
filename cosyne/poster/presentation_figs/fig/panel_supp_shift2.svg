@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with matplotlib (https://matplotlib.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   height="96.325pt"
+   version="1.1"
+   viewBox="0 0 129.0775 96.325"
+   width="129.0775pt"
+   id="svg92"
+   sodipodi:docname="panel_supp_shift2.svg"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)">
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1598"
+     inkscape:window-height="948"
+     id="namedview94"
+     showgrid="false"
+     inkscape:zoom="3.6750585"
+     inkscape:cx="69.573064"
+     inkscape:cy="83.21649"
+     inkscape:window-x="70"
+     inkscape:window-y="583"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="matplotlib.axis_1" />
+  <metadata
+     id="metadata2">
+    <rdf:RDF>
+      <cc:Work>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:date>2021-02-05T17:14:37.884539</dc:date>
+        <dc:format>image/svg+xml</dc:format>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Matplotlib v3.3.2, https://matplotlib.org/</dc:title>
+          </cc:Agent>
+        </dc:creator>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs6">
+    <style
+       type="text/css"
+       id="style4">*{stroke-linecap:butt;stroke-linejoin:round;}</style>
+  </defs>
+  <g
+     id="figure_1">
+    <g
+       id="patch_1">
+      <path
+         d="M 0 96.325  L 129.0775 96.325  L 129.0775 0  L 0 0  z "
+         style="fill:none;"
+         id="path8" />
+    </g>
+    <g
+       id="axes_1">
+      <g
+         id="patch_2">
+        <path
+           d="M 36.1225 62.64  L 114.2425 62.64  L 114.2425 7.2  L 36.1225 7.2  z "
+           style="fill:#ffffff;"
+           id="path11" />
+      </g>
+      <g
+         id="matplotlib.axis_1">
+        <g
+           id="xtick_1">
+          <g
+             id="line2d_1">
+            <defs
+               id="defs15">
+              <path
+                 d="M 0 0  L 0 3.5  "
+                 id="mb2372b33d4"
+                 style="stroke:#000000;stroke-width:1.5;" />
+            </defs>
+            <g
+               id="g19">
+              <use
+                 style="stroke:#000000;stroke-width:1.5;"
+                 x="36.1225"
+                 xlink:href="#mb2372b33d4"
+                 y="62.64"
+                 id="use17" />
+            </g>
+          </g>
+          <g
+             id="text_1">
+            <text
+               style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:middle;"
+               transform="rotate(-0, 36.1225, 75.71875)"
+               x="36.1225"
+               y="75.71875"
+               id="text22">0</text>
+          </g>
+        </g>
+        <g
+           id="xtick_2">
+          <g
+             id="line2d_2">
+            <g
+               id="g28">
+              <use
+                 style="stroke:#000000;stroke-width:1.5;"
+                 x="114.2425"
+                 xlink:href="#mb2372b33d4"
+                 y="62.64"
+                 id="use26" />
+            </g>
+          </g>
+          <g
+             id="text_2">
+            <text
+               style="font-family:DejaVu Sans;font-size:8px;font-stretch:normal;font-style:normal;font-weight:normal;text-anchor:middle;"
+               transform="rotate(-0, 114.2425, 75.71875)"
+               x="114.2425"
+               y="75.71875"
+               id="text31">500</text>
+          </g>
+        </g>
+        <g
+           id="text_3"
+           transform="translate(0,-7.5)"
+           style="stroke-linecap:butt;stroke-linejoin:round">
+          <text
+             style="font-style:normal;font-weight:normal;font-stretch:normal;font-size:8px;font-family:'DejaVu Sans';text-anchor:middle;stroke-linecap:butt;stroke-linejoin:round"
+             x="75.182503"
+             y="87.46125"
+             id="text35">AB-Na</text>
+        </g>
+      </g>
+      <g
+         id="matplotlib.axis_2" />
+      <g
+         id="line2d_6">
+        <path
+           clip-path="url(#p0741b6947e)"
+           d="M 41.225721 59.997903  L 43.657267 28.29274  L 46.088812 20.36645  L 48.520357 15.082256  L 50.951904 11.55946  L 53.38345 11.55946  L 55.814996 13.320858  L 58.24654 16.843654  L 60.678087 9.798062  L 63.109632 29.173439  L 65.541179 29.173439  L 67.972723 39.741827  L 70.40427 37.980429  L 72.835817 42.383924  L 75.267364 52.071612  L 77.698909 43.264623  L 80.130456 47.668118  L 82.562003 45.90672  L 84.99355 52.071612  L 87.425092 54.713709  L 89.856639 56.475107  L 92.288186 57.355806  L 94.719733 57.355806  L 97.151275 56.475107  L 99.582822 59.997903  L 102.014369 57.355806  L 104.445916 59.117204  L 106.877459 59.997903  L 109.309006 59.997903  L 111.740553 61.759301  "
+           style="fill:none;stroke:#fd8d3c;stroke-linecap:square;stroke-width:1.5;"
+           id="path73" />
+      </g>
+      <g
+         id="line2d_7">
+        <path
+           clip-path="url(#p0741b6947e)"
+           d="M 49.552738 61.759301  L 51.780349 61.759301  L 54.007961 59.117204  L 56.235573 59.997903  L 58.463185 56.475107  L 60.690797 55.594408  L 62.918406 59.997903  L 65.146018 59.117204  L 67.37363 51.190913  L 69.601242 52.952311  L 71.828854 52.952311  L 74.056466 47.668118  L 76.284076 47.668118  L 78.511688 47.668118  L 80.7393 45.026021  L 82.966912 37.09973  L 85.194524 36.219031  L 87.422136 37.980429  L 89.649748 32.696235  L 91.87736 26.531342  L 94.104972 32.696235  L 96.332584 25.650643  L 98.560196 31.815536  L 100.787803 29.173439  L 103.015415 23.008546  L 105.243027 21.247149  L 107.470639 26.531342  L 109.698251 17.724353  L 111.925863 30.054138  L 114.153475 19.485751  "
+           style="fill:none;stroke:#bd0026;stroke-linecap:square;stroke-width:1.5;"
+           id="path76" />
+      </g>
+      <g
+         id="patch_3">
+        <path
+           d="M 36.1225 62.64  L 36.1225 7.2  "
+           style="fill:none;stroke:#000000;stroke-linecap:square;stroke-linejoin:miter;stroke-width:1.5;"
+           id="path79" />
+      </g>
+      <g
+         id="patch_4">
+        <path
+           d="M 36.1225 62.64  L 114.2425 62.64  "
+           style="fill:none;stroke:#000000;stroke-linecap:square;stroke-linejoin:miter;stroke-width:1.5;"
+           id="path82" />
+      </g>
+    </g>
+  </g>
+  <defs
+     id="defs90">
+    <clipPath
+       id="p0741b6947e">
+      <rect
+         height="55.44"
+         width="78.12"
+         x="36.1225"
+         y="7.2"
+         id="rect87" />
+    </clipPath>
+  </defs>
+</svg>
