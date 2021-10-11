@@ -50,7 +50,7 @@ def extract_min_prob(
     return min_prob
 
 
-# from pyloric.sbi_wrapper import simulate, stats
+from pyloric import simulate, summary_stats
 
 
 def check_if_close_to_obs(stats, observation, num_std, stats_std=None):
@@ -120,10 +120,6 @@ def energy_of_conditional(
     neuron_to_observe,
     patience=1,
     regression_net=None,
-    neural_net_zscore_mean=None,
-    neural_net_zscore_std=None,
-    neural_net_zscore_mean_energy=None,
-    neural_net_zscore_std_energy=None,
 ):
     """
     Return image that contains the energy of each parameter value in conditional plane.
@@ -197,7 +193,7 @@ def energy_of_conditional(
                                 deepcopy(parameter_set[0]),
                                 seed=seeds + iter,
                             )
-                            ss = stats(out_target)
+                            ss = summary_stats(out_target)
                             if np.invert(np.any(np.isnan(ss))):
                                 num_std = np.asarray(
                                     [
@@ -262,13 +258,11 @@ def energy_of_conditional(
                     parameter_set[0, dim2] = v2
                     all_parameter_sets.append(parameter_set)
             sets_tt = torch.cat(all_parameter_sets)
-            probs = np.exp(posterior_MAF_11.log_prob(sets_tt).detach() - 100)
+            probs = np.exp(posterior_MAF_11.log_prob(sets_tt).detach())
             valid_sets = sets_tt[probs > lowest_allowed]
-            norm_sets = (valid_sets - neural_net_zscore_mean) / neural_net_zscore_std
-            net_preds = regression_net.predict(norm_sets).detach()
-            net_E = (
-                net_preds * neural_net_zscore_std_energy + neural_net_zscore_mean_energy
-            )[:, 0]
+            norm_sets = valid_sets
+            net_preds = regression_net(norm_sets).detach()
+            net_E = net_preds[:, 0]
             all_preds = -torch.ones(vec_dim1.shape[0] ** 2)
             all_preds[probs > lowest_allowed] = net_E
             counter = 0
@@ -276,6 +270,8 @@ def energy_of_conditional(
                 for i2, v2 in enumerate(vec_dim2):
                     energy_image_specific_neuron[i1, i2] = all_preds[counter]
                     counter += 1
+            import matplotlib.pyplot as plt
+
     # diagonals
     else:
         vec_dim1 = np.linspace(lims[dim1, 0], lims[dim1, 1], grid_bins)
@@ -290,15 +286,12 @@ def energy_of_conditional(
                 parameter_set = deepcopy(condition1_norm)
 
                 parameter_set[0, dim1] = v1
-                prob = np.exp(
-                    posterior_MAF_11.log_prob(parameter_set).detach().item() - 100
-                )
+                prob = np.exp(posterior_MAF_11.log_prob(parameter_set).detach().item())
                 if prob > lowest_allowed:
                     energy_image[i1] = 0.0
                     energy_image_specific_neuron[i1] = 0.0
-                    print("Simulating")
                     out_target = simulate(deepcopy(parameter_set[0]), seed=8607175)
-                    ss = stats(out_target)
+                    ss = summary_stats(out_target)
                     if np.invert(np.any(np.isnan(ss))):
                         num_std = np.asarray(
                             [
@@ -350,13 +343,11 @@ def energy_of_conditional(
                 parameter_set[0, dim1] = v1
                 all_parameter_sets.append(parameter_set)
             sets_tt = torch.cat(all_parameter_sets)
-            probs = np.exp(posterior_MAF_11.log_prob(sets_tt).detach() - 100)
+            probs = np.exp(posterior_MAF_11.log_prob(sets_tt).detach())
             valid_sets = sets_tt[probs > lowest_allowed]
-            norm_sets = (valid_sets - neural_net_zscore_mean) / neural_net_zscore_std
-            net_preds = regression_net.predict(norm_sets).detach()
-            net_E = (
-                net_preds * neural_net_zscore_std_energy + neural_net_zscore_mean_energy
-            )[:, 0]
+            norm_sets = valid_sets
+            net_preds = regression_net(norm_sets).detach()
+            net_E = net_preds[:, 0]
             all_preds = -torch.ones(vec_dim1.shape[0])
             all_preds[probs > lowest_allowed] = net_E
             counter = 0

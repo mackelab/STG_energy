@@ -70,7 +70,7 @@ def oneDmarginal(samples, points=[], **kwargs):
             "markersize": 20,
         },
         # matplotlib style
-        "style": "../../.matplotlibrc",
+        "style": "../../../.matplotlibrc",
         # other options
         "fig_size": (10, 10),
         "fig_bg_colors": {"upper": None, "diag": None, "lower": None},
@@ -350,7 +350,7 @@ def singleOneDmarginal(samples, points=[], **kwargs):
             "markersize": 20,
         },
         # matplotlib style
-        "style": "../../.matplotlibrc",
+        "style": "../../../.matplotlibrc",
         # other options
         "fig_size": (10, 10),
         "fig_bg_colors": {"upper": None, "diag": None, "lower": None},
@@ -641,7 +641,7 @@ def single2Dmarginal(samples, points=[], **kwargs):
             "markersize": 20,
         },
         # matplotlib style
-        "style": "../../.matplotlibrc",
+        "style": "../../../.matplotlibrc",
         # other options
         "fig_size": (10, 10),
         "fig_bg_colors": {"upper": None, "diag": None, "lower": None},

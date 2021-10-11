@@ -169,28 +169,15 @@ def active_subspace_sketch():
     figureratio = 1.5
     figuresize = 1.3
 
-    vec1 = np.linspace(-3, 3, int(figureratio * 100))
-    vec2 = np.linspace(-3, 3, 100)
+    vec1 = np.linspace(-6, 0, int(figureratio * 100))
+    vec2 = np.linspace(-6, 0, 100)
 
     X, Y = np.meshgrid(vec1, vec2)
     dist = np.abs(X + 1.5 * Y)
 
-    m_e = [0.0, -0.1]
-    s_e = [6.0, 0.7]
-    m_e_2 = [1.1, 1.7]
-    s_e_2 = [1.5, 6.0]
-    dists_e_1 = s_e[0] * (X - m_e[0]) ** 2 + s_e[1] * (Y - m_e[1]) ** 2
-    dists_e_2 = s_e_2[0] * (X - m_e_2[0]) ** 2 + s_e_2[1] * (Y - m_e_2[1]) ** 2
-    dists_e = np.minimum(dists_e_1, dists_e_2)
-    allowed_dist = 5.0
-    thr_dists_e = dists_e < allowed_dist
-    inds = np.where(np.abs(dists_e - allowed_dist) < 0.5)
-    inds = np.asarray(inds).T
-
     fig, ax = plt.subplots(1, 1, figsize=(figureratio * figuresize, figuresize))
-    image_to_plot = -np.sqrt(dist)
 
-    im = ax.imshow(image_to_plot, cmap="autumn_r")
+    im = ax.imshow(dist, cmap="autumn_r")
     ax.set_xticks([])
     ax.set_yticks([])
     ax.set_xlabel("Parameter 1")
@@ -199,7 +186,6 @@ def active_subspace_sketch():
     cbar = plt.colorbar(im, aspect=15, fraction=0.04, pad=0.04)
     cbar.set_ticks([])
     cbar.set_label("Energy", labelpad=5)
-    ax.arrow(75, 50, 10, -5, head_width=7, head_length=9, facecolor="k")
     ax.arrow(75, 50, 10, 20, head_width=7, head_length=9, facecolor="k")
 
 
@@ -632,6 +618,8 @@ def py_sensitivity_bars_cosyne(
     title_y_offset: float = 0.0,
     yticks=None,
     ylabelpad=None,
+    rotation=0.0,
+    spacing=0.2,
 ):
     # Very small bars are not visible, which is ugly.
     min_height = 0.03
@@ -640,7 +628,7 @@ def py_sensitivity_bars_cosyne(
 
     fig, ax = plt.subplots(1, figsize=figsize)
     _ = ax.bar(
-        np.arange(1, 9) - 0.2,
+        np.arange(1, 9) - spacing,
         vec[:8],
         width=0.4 / figsize[0],
         color="#3182bd",
@@ -652,7 +640,7 @@ def py_sensitivity_bars_cosyne(
         color="#fc8d59",
     )
     _ = ax.bar(
-        np.arange(1, 9) + 0.2,
+        np.arange(1, 9) + spacing,
         vec[16:24],
         width=0.4 / figsize[0],
         color="#2ca25f",
@@ -664,7 +652,9 @@ def py_sensitivity_bars_cosyne(
     ax.get_xaxis().set_ticks([])
 
     ax.set_xticks(range(1, 9))
-    ax.set_xticklabels(["Na", "CaT", "CaS", "A", "KCa", "Kd", "H", "leak"])
+    ax.set_xticklabels(
+        ["Na", "CaT", "CaS", "A", "KCa", "Kd", "H", "leak"], rotation=rotation
+    )
     ax.set_xlim(0.5, 8.5)
     if not plot_labels:
         ax.set_xticklabels([])
