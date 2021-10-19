@@ -22,6 +22,10 @@ def extract_the_data(
     all_energy_per_spike,
     all_num_spikes_per_burst,
     regression_net=None,
+    theta_mean=None,
+    theta_std=None,
+    x_mean=None,
+    x_std=None,
     min_prob=None,
 ):
     if dim1 >= dim2:
@@ -68,6 +72,10 @@ def extract_the_data(
             stats_std=stats_std,
             neuron_to_observe=neuron_to_observe,
             regression_net=regression_net,
+            theta_mean=theta_mean,
+            theta_std=theta_std,
+            x_mean=x_mean,
+            x_std=x_std,
         )
 
         all_conditional_correlations.append(p_vector)
@@ -96,10 +104,15 @@ def generate_and_store_data(
     pairs=None,
     store_as=None,
     regression_net=None,
+    theta_mean=None,
+    theta_std=None,
+    x_mean=None,
+    x_std=None,
     min_prob=None,
     net1=None,
     net2=None,
     net3=None,
+    
 ):
     all_conditional_correlations = []
     all_energy_images = []
@@ -134,6 +147,10 @@ def generate_and_store_data(
                     all_energy_per_spike,
                     all_num_spikes_per_burst,
                     regression_net=regression_net,
+                    theta_mean=theta_mean,
+                    theta_std=theta_std,
+                    x_mean=x_mean,
+                    x_std=x_std,
                     min_prob=min_prob,
                 )
     else:
@@ -162,7 +179,11 @@ def generate_and_store_data(
                 all_energy_specific,
                 all_energy_per_spike,
                 all_num_spikes_per_burst,
-                regression_net=net_,
+                regression_net=regression_net, # net_
+                theta_mean=theta_mean,
+                theta_std=theta_std,
+                x_mean=x_mean,
+                x_std=x_std,
                 min_prob=min_prob,
             )
 

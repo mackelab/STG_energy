@@ -120,6 +120,10 @@ def energy_of_conditional(
     neuron_to_observe,
     patience=1,
     regression_net=None,
+    theta_mean=None,
+    theta_std=None,
+    x_mean=None,
+    x_std=None,
 ):
     """
     Return image that contains the energy of each parameter value in conditional plane.
@@ -260,17 +264,18 @@ def energy_of_conditional(
             sets_tt = torch.cat(all_parameter_sets)
             probs = np.exp(posterior_MAF_11.log_prob(sets_tt).detach())
             valid_sets = sets_tt[probs > lowest_allowed]
-            norm_sets = valid_sets
-            net_preds = regression_net(norm_sets).detach()
-            net_E = net_preds[:, 0]
+            norm_sets = (valid_sets - theta_mean) / theta_std
+            net_preds = regression_net.predict(norm_sets)  # .detach()
+            # print("net_preds", net_preds)
+            net_E = net_preds[:, 0] * x_std + x_mean
+            # print(net_E)
             all_preds = -torch.ones(vec_dim1.shape[0] ** 2)
-            all_preds[probs > lowest_allowed] = net_E
+            all_preds[probs > lowest_allowed] = torch.as_tensor(net_E)
             counter = 0
             for i1, v1 in enumerate(vec_dim1):
                 for i2, v2 in enumerate(vec_dim2):
                     energy_image_specific_neuron[i1, i2] = all_preds[counter]
                     counter += 1
-            import matplotlib.pyplot as plt
 
     # diagonals
     else:
@@ -345,11 +350,11 @@ def energy_of_conditional(
             sets_tt = torch.cat(all_parameter_sets)
             probs = np.exp(posterior_MAF_11.log_prob(sets_tt).detach())
             valid_sets = sets_tt[probs > lowest_allowed]
-            norm_sets = valid_sets
-            net_preds = regression_net(norm_sets).detach()
-            net_E = net_preds[:, 0]
+            norm_sets = (valid_sets - theta_mean) / theta_std
+            net_preds = regression_net.predict(norm_sets)  # .detach()
+            net_E = net_preds[:, 0] * x_std + x_mean
             all_preds = -torch.ones(vec_dim1.shape[0])
-            all_preds[probs > lowest_allowed] = net_E
+            all_preds[probs > lowest_allowed] = torch.as_tensor(net_E)
             counter = 0
             for i1, v1 in enumerate(vec_dim1):
                 energy_image_specific_neuron[i1] = all_preds[counter]

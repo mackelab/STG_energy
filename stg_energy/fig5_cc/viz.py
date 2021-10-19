@@ -362,6 +362,8 @@ def singleOneDmarginal(samples, points=[], **kwargs):
             "offset": 5,
         },
         "title_format": {"fontsize": 16},
+        "log": False,
+        "thr_at": None,
     }
 
     oneDmarginal.defaults = opts.copy()
@@ -517,7 +519,10 @@ def singleOneDmarginal(samples, points=[], **kwargs):
                 if opts["tick_labelpad"] is not None:
                     ax.tick_params(axis="x", which="major", pad=opts["tick_labelpad"])
 
-            ax.set_ylabel(r"p($\theta$|x)", labelpad=-6)
+            ax.set_ylabel(
+                r"$p(\overline{g}_{\mathrm{Na}} | x_o, \theta_{\backslash \overline{g}_{\mathrm{Na}}})$",
+                labelpad=-6,
+            )
             ax.spines["left"].set_visible(True)
 
             # Diagonals
@@ -548,9 +553,17 @@ def singleOneDmarginal(samples, points=[], **kwargs):
                             col,
                             col,
                             resolution=opts["hist_diag"]["bins"],
-                            log=False,
+                            log=opts["log"],
                         )
-                        p_vector = p_vector / np.max(p_vector)  # just to scale it to 1
+                        if opts["thr_at"] is not None:
+                            thr = opts["thr_at"]
+                            p_vector[p_vector > thr] = 1.0
+                            p_vector[p_vector < thr] = 0.0
+                        # print("p_vector")
+                        if opts["log"] == False:
+                            p_vector = p_vector / np.max(
+                                p_vector
+                            )  # just to scale it to 1
                         h = plt.plot(
                             np.linspace(
                                 opts["limits"][col, 0],
@@ -653,6 +666,8 @@ def single2Dmarginal(samples, points=[], **kwargs):
             "offset": 5,
         },
         "title_format": {"fontsize": 16},
+        "log": False,
+        "thr_at": None,
     }
     # TODO: add color map support
     # TODO: automatically determine good bin sizes for histograms
@@ -918,8 +933,16 @@ def single2Dmarginal(samples, points=[], **kwargs):
                                     row,
                                     col,
                                     resolution=opts["hist_offdiag"]["bins"],
-                                    log=False,
+                                    log=opts["log"],
                                 )
+                                # print("min", np.min(p_image))
+                                # print("max", np.max(p_image))
+                                # mythr = 1e-21
+                                # p_image[p_image > mythr] = mythr
+                                if opts["thr_at"] is not None:
+                                    thr = opts["thr_at"]
+                                    p_image[p_image > thr] = 1.0
+                                    p_image[p_image < thr] = 0.0
                                 h = plt.imshow(
                                     p_image,
                                     origin="lower",
@@ -931,6 +954,7 @@ def single2Dmarginal(samples, points=[], **kwargs):
                                     ],
                                     aspect="auto",
                                 )
+                                # plt.colorbar(h)
                             else:
                                 pass
 
@@ -1186,36 +1210,46 @@ def fill_matrix(m):
     return new_m
 
 
-def energy_gain_matrix(list_of_all_energy_images, figsize, title="", lims=[0.0, 80]):
-    # K = N(N+1)/2 --> N = ...
-    number_of_dimensions = int(
-        (-1 + np.sqrt(1 + 8 * len(list_of_all_energy_images))) / 2
-    )
+def energy_gain_matrix(
+    list_of_all_energy_images, figsize, title="", lims=[0.0, 80], ylabel=True
+):
 
-    counter = 0
-    matrix_with_energy_gains = -0.1 * np.ones(
-        (number_of_dimensions, number_of_dimensions)
-    )
+    av_matrix_with_energy_gains = []
+    for l in list_of_all_energy_images:
+        # K = N(N+1)/2 --> N = ...
+        number_of_dimensions = int((-1 + np.sqrt(1 + 8 * len(l))) / 2)
 
-    for col in range(number_of_dimensions):
-        for row in range(number_of_dimensions):
-            if col >= row:
-                current_matrix = list_of_all_energy_images[counter]
-                matrix_with_energy_gains[row, col] = compute_energy_difference(
-                    current_matrix
-                )
-                counter += 1
+        counter = 0
+        matrix_with_energy_gains = -0.1 * np.ones(
+            (number_of_dimensions, number_of_dimensions)
+        )
 
+        for col in range(number_of_dimensions):
+            for row in range(number_of_dimensions):
+                if col >= row:
+                    current_matrix = l[counter]
+                    matrix_with_energy_gains[row, col] = compute_energy_difference(
+                        current_matrix
+                    )
+                    counter += 1
+
+        matrix_with_energy_gains = fill_matrix(matrix_with_energy_gains) * 100
+        av_matrix_with_energy_gains.append(matrix_with_energy_gains)
+    av_matrix_with_energy_gains = np.mean(av_matrix_with_energy_gains, axis=0)
+    print("max", np.max(av_matrix_with_energy_gains))
+    # print("max gain", np.max(matrix_with_energy_gains))
     fig, ax = plt.subplots(1, 1, figsize=figsize)
-    matrix_with_energy_gains = fill_matrix(matrix_with_energy_gains) * 100
-    im = ax.imshow(matrix_with_energy_gains, clim=lims, cmap="Blues")
+    im = ax.imshow(av_matrix_with_energy_gains, clim=lims, cmap="Blues")
     ax.axes.get_xaxis().set_ticks([])
     ax.axes.get_yaxis().set_ticks([])
     ax.set_title(title, pad=10)
     ax.set_xticks([0, 1, 2, 3, 4, 5, 6, 7])
     ax.set_xticklabels(["Na", "CaT", "CaS", "A", "KCa", "Kd", "H", "Leak"])
     ax.set_yticks([0, 1, 2, 3, 4, 5, 6, 7])
-    ax.set_yticklabels(["Na", "CaT", "CaS", "A", "KCa", "Kd", "H", "Leak"])
+    if ylabel:
+        ax.set_yticklabels(["Na", "CaT", "CaS", "A", "KCa", "Kd", "H", "Leak"])
+    else:
+        ax.set_yticklabels([])
     for tick in ax.get_xticklabels():
         tick.set_rotation(90)
     ax.set_ylim([7.5, -0.5])
@@ -1223,32 +1257,68 @@ def energy_gain_matrix(list_of_all_energy_images, figsize, title="", lims=[0.0, 
 
 
 def energy_gain_matrix_syn(
-    list_of_all_energy_images, figsize, title="", lims=[0.0, 30]
+    list_of_all_energy_images, figsize, title="", lims=[0.0, 30], ylabel=True
 ):
+    all_mat = []
+    for l in list_of_all_energy_images:
+        num_x = 8  # 8 parameters per post-synaptic neuron
+        num_y = 7  # 7 synapses
 
-    num_x = 8  # 8 parameters per post-synaptic neuron
-    num_y = 7  # 7 synapses
+        matrix_with_energy_gains = -0.1 * np.ones((num_x * num_y))
 
-    counter = 0
-    matrix_with_energy_gains = -0.1 * np.ones((num_y, num_x))
+        for counter in range(num_x * num_y):
+            matrix_with_energy_gains[counter] = compute_energy_difference(l[counter])
 
-    for col in range(num_x):
-        for row in range(num_y):
-            if col >= row:
-                current_matrix = list_of_all_energy_images[counter]
-                matrix_with_energy_gains[row, col] = compute_energy_difference(
-                    current_matrix
-                )
-                counter += 1
+        matrix_with_energy_gains = np.reshape(matrix_with_energy_gains, (num_y, num_x))
 
+        matrix_with_energy_gains *= 100
+        all_mat.append(matrix_with_energy_gains)
+
+    all_mat = np.mean(all_mat, axis=0)
+    print("max", np.max(all_mat))
     fig, ax = plt.subplots(1, 1, figsize=figsize)
-    matrix_with_energy_gains = fill_matrix(matrix_with_energy_gains) * 100
-    im = ax.imshow(matrix_with_energy_gains, clim=lims, cmap="Blues")
+    im = ax.imshow(all_mat, clim=lims, cmap="Blues")
     ax.axes.get_xaxis().set_ticks([])
     ax.axes.get_yaxis().set_ticks([])
     ax.set_title(title, pad=10)
     ax.set_xticks([0, 1, 2, 3, 4, 5, 6, 7])
     ax.set_xticklabels(["Na", "CaT", "CaS", "A", "KCa", "Kd", "H", "Leak"])
+    ax.set_yticks([0, 1, 2, 3, 4, 5, 6])
+    if ylabel:
+        ax.set_yticklabels(
+            ["AB-LP", "PD-LP", "AB-PY", "PD-PY", "LP-PD", "LP-PY", "PY-LP"]
+        )
+    else:
+        ax.set_yticklabels([])
+    for tick in ax.get_xticklabels():
+        tick.set_rotation(90)
+    ax.set_ylim([6.5, -0.5])
+    return im
+
+
+def energy_gain_matrix_syn_vec(
+    list_of_all_energy_images, figsize, title="", lims=[0.0, 30]
+):
+    all_mat = []
+    for l in list_of_all_energy_images:
+
+        matrix_with_energy_gains = -0.1 * np.ones((7))
+
+        for counter in range(7):
+            matrix_with_energy_gains[counter] = compute_energy_difference(l[counter])
+
+        matrix_with_energy_gains *= 100
+        all_mat.append(matrix_with_energy_gains)
+
+    all_mat = np.mean(all_mat, axis=0)
+    all_mat = np.asarray([all_mat]).T
+    print("max", np.max(all_mat))
+    fig, ax = plt.subplots(1, 1, figsize=figsize)
+    im = ax.imshow(all_mat, clim=lims, cmap="Blues")
+    ax.axes.get_xaxis().set_ticks([])
+    ax.axes.get_yaxis().set_ticks([])
+    ax.set_title(title, pad=10)
+    ax.set_xticklabels([])
     ax.set_yticks([0, 1, 2, 3, 4, 5, 6])
     ax.set_yticklabels(["AB-LP", "PD-LP", "AB-PY", "PD-PY", "LP-PD", "LP-PY", "PY-LP"])
     for tick in ax.get_xticklabels():
