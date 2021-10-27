@@ -519,10 +519,10 @@ def singleOneDmarginal(samples, points=[], **kwargs):
                 if opts["tick_labelpad"] is not None:
                     ax.tick_params(axis="x", which="major", pad=opts["tick_labelpad"])
 
-            ax.set_ylabel(
-                r"$p(\overline{g}_{\mathrm{Na}} | x_o, \theta_{\backslash \overline{g}_{\mathrm{Na}}})$",
-                labelpad=-6,
-            )
+            # ax.set_ylabel(
+            #     r"$p(\overline{g}_{\mathrm{Na}} | x_o, \theta_{\backslash \overline{g}_{\mathrm{Na}}})$",
+            #     labelpad=-6,
+            # )
             ax.spines["left"].set_visible(True)
 
             # Diagonals
@@ -576,10 +576,12 @@ def singleOneDmarginal(samples, points=[], **kwargs):
                     else:
                         pass
 
-            ax.set_yticks([np.min(p_vector) - 0.01])
+            ax.set_yticks([np.min(p_vector), np.max(p_vector)])
+            # ax.set_yticks([0, 1])
             ax.set_ylim([np.min(p_vector) - 0.01, np.max(p_vector) + 0.03])
-            ax.set_yticklabels([0.0])
+            ax.set_yticklabels([])
             ax.set_xlabel("AB-Na", labelpad=-3)
+            ax.spines["left"].set_visible(False)
 
             if len(points) > 0:
                 extent = ax.get_ylim()
@@ -1167,6 +1169,31 @@ def compute_energy_difference(energy_image):
     return percentage_diff
 
 
+def compute_arrow_direction(energy_image):
+    tmp_energy_image = deepcopy(energy_image)
+    tmp_energy_image[tmp_energy_image <= 0.0] = 1e10
+    min_energy_pixel = np.unravel_index(
+        tmp_energy_image.argmin(), tmp_energy_image.shape
+    )
+    tmp_energy_image = deepcopy(energy_image)
+    max_energy_pixel = np.unravel_index(
+        tmp_energy_image.argmax(), tmp_energy_image.shape
+    )
+    if energy_image.ndim == 1:
+        direction_kd = float(min_energy_pixel < max_energy_pixel)
+        if direction_kd == 0:
+            direction_kd = -1.0
+        return 0.0, -direction_kd
+    else:
+        direction_kd = float(min_energy_pixel[0] < max_energy_pixel[0])
+        direction_na = float(min_energy_pixel[1] < max_energy_pixel[1])
+        if direction_kd == 0:
+            direction_kd = -1.0
+        if direction_na == 0:
+            direction_na = -1.0
+        return -direction_kd, -direction_na
+
+
 def plot_a_single_energy_matrix(m, ax):
     m = np.fliplr(m)
     ax.imshow(m.T)
@@ -1215,12 +1242,20 @@ def energy_gain_matrix(
 ):
 
     av_matrix_with_energy_gains = []
+    av_mat_arrow_x = []
+    av_mat_arrow_y = []
     for l in list_of_all_energy_images:
         # K = N(N+1)/2 --> N = ...
         number_of_dimensions = int((-1 + np.sqrt(1 + 8 * len(l))) / 2)
 
         counter = 0
         matrix_with_energy_gains = -0.1 * np.ones(
+            (number_of_dimensions, number_of_dimensions)
+        )
+        matrix_with_arrow_dirs_x = 0.0 * np.ones(
+            (number_of_dimensions, number_of_dimensions)
+        )
+        matrix_with_arrow_dirs_y = 0.0 * np.ones(
             (number_of_dimensions, number_of_dimensions)
         )
 
@@ -1231,15 +1266,40 @@ def energy_gain_matrix(
                     matrix_with_energy_gains[row, col] = compute_energy_difference(
                         current_matrix
                     )
+                    arrow_dir = compute_arrow_direction(current_matrix)
+                    matrix_with_arrow_dirs_x[row, col] = arrow_dir[0]
+                    matrix_with_arrow_dirs_y[row, col] = arrow_dir[1]
                     counter += 1
 
         matrix_with_energy_gains = fill_matrix(matrix_with_energy_gains) * 100
         av_matrix_with_energy_gains.append(matrix_with_energy_gains)
+        av_mat_arrow_x.append(matrix_with_arrow_dirs_x)
+        av_mat_arrow_y.append(matrix_with_arrow_dirs_y)
     av_matrix_with_energy_gains = np.mean(av_matrix_with_energy_gains, axis=0)
+    av_mat_arrows_x = np.median(av_mat_arrow_x, axis=0)
+    av_mat_arrows_y = np.median(av_mat_arrow_y, axis=0)
+    print("max diag", np.max(np.diag(av_matrix_with_energy_gains)))
     print("max", np.max(av_matrix_with_energy_gains))
-    # print("max gain", np.max(matrix_with_energy_gains))
     fig, ax = plt.subplots(1, 1, figsize=figsize)
     im = ax.imshow(av_matrix_with_energy_gains, clim=lims, cmap="Blues")
+    # Minor ticks
+    ax.set_xticks(np.arange(-0.5, 8, 1), minor=True)
+    ax.set_yticks(np.arange(-0.5, 8, 1), minor=True)
+    ax.grid(which="minor", color="k", linestyle="-", linewidth=0.2)
+    ax.tick_params(which="minor", length=0)
+
+    x = np.arange(0, 8.0)
+    y = np.arange(0, 8)
+    X, Y = np.meshgrid(x, y)
+
+    mask = np.logical_or(av_mat_arrows_x != 0, av_mat_arrows_y != 0)
+    X = X[mask]
+    Y = Y[mask]
+    U = av_mat_arrows_x[mask]
+    V = av_mat_arrows_y[mask]
+
+    ax.quiver(X, Y, U, V, pivot="mid", scale=15.0)
+
     ax.axes.get_xaxis().set_ticks([])
     ax.axes.get_yaxis().set_ticks([])
     ax.set_title(title, pad=10)
@@ -1260,26 +1320,53 @@ def energy_gain_matrix_syn(
     list_of_all_energy_images, figsize, title="", lims=[0.0, 30], ylabel=True
 ):
     all_mat = []
+    av_mat_arrow_x = []
+    av_mat_arrow_y = []
     for l in list_of_all_energy_images:
         num_x = 8  # 8 parameters per post-synaptic neuron
         num_y = 7  # 7 synapses
 
         matrix_with_energy_gains = -0.1 * np.ones((num_x * num_y))
+        matrix_with_arrow_dirs_x = 0.0 * np.ones((num_x * num_y))
+        matrix_with_arrow_dirs_y = 0.0 * np.ones((num_x * num_y))
 
         for counter in range(num_x * num_y):
             matrix_with_energy_gains[counter] = compute_energy_difference(l[counter])
+            arrow_dir = compute_arrow_direction(l[counter])
+            matrix_with_arrow_dirs_x[counter] = arrow_dir[0]
+            matrix_with_arrow_dirs_y[counter] = arrow_dir[1]
 
         matrix_with_energy_gains = np.reshape(matrix_with_energy_gains, (num_y, num_x))
+        matrix_with_arrow_dirs_x = np.reshape(matrix_with_arrow_dirs_x, (num_y, num_x))
+        matrix_with_arrow_dirs_y = np.reshape(matrix_with_arrow_dirs_y, (num_y, num_x))
 
         matrix_with_energy_gains *= 100
         all_mat.append(matrix_with_energy_gains)
+        av_mat_arrow_x.append(matrix_with_arrow_dirs_x)
+        av_mat_arrow_y.append(matrix_with_arrow_dirs_y)
 
     all_mat = np.mean(all_mat, axis=0)
+    av_mat_arrows_x = np.median(av_mat_arrow_x, axis=0)
+    av_mat_arrows_y = np.median(av_mat_arrow_y, axis=0)
     print("max", np.max(all_mat))
     fig, ax = plt.subplots(1, 1, figsize=figsize)
     im = ax.imshow(all_mat, clim=lims, cmap="Blues")
+
+    x = np.arange(0, 8.0)
+    y = np.arange(0, 7)
+    X, Y = np.meshgrid(x, y)
+    U = av_mat_arrows_x
+    V = av_mat_arrows_y
+
+    ax.quiver(X, Y, V, U, pivot="mid", scale=15.0)
+    ax.set_xticks(np.arange(-0.5, 8, 1), minor=True)
+    ax.set_yticks(np.arange(-0.5, 8, 1), minor=True)
+    ax.grid(which="minor", color="k", linestyle="-", linewidth=0.2)
+    ax.tick_params(which="minor", length=0)
+
     ax.axes.get_xaxis().set_ticks([])
     ax.axes.get_yaxis().set_ticks([])
+
     ax.set_title(title, pad=10)
     ax.set_xticks([0, 1, 2, 3, 4, 5, 6, 7])
     ax.set_xticklabels(["Na", "CaT", "CaS", "A", "KCa", "Kd", "H", "Leak"])
@@ -1300,21 +1387,39 @@ def energy_gain_matrix_syn_vec(
     list_of_all_energy_images, figsize, title="", lims=[0.0, 30]
 ):
     all_mat = []
+    av_mat_arrow_x = []
     for l in list_of_all_energy_images:
 
         matrix_with_energy_gains = -0.1 * np.ones((7))
+        matrix_with_arrow_dirs_x = 0.0 * np.ones((7))
 
         for counter in range(7):
             matrix_with_energy_gains[counter] = compute_energy_difference(l[counter])
+            arrow_dir = compute_arrow_direction(l[counter])
+            matrix_with_arrow_dirs_x[counter] = arrow_dir[1]
 
         matrix_with_energy_gains *= 100
         all_mat.append(matrix_with_energy_gains)
+        av_mat_arrow_x.append(matrix_with_arrow_dirs_x)
 
     all_mat = np.mean(all_mat, axis=0)
+    av_mat_arrows_x = np.median(av_mat_arrow_x, axis=0)
     all_mat = np.asarray([all_mat]).T
     print("max", np.max(all_mat))
     fig, ax = plt.subplots(1, 1, figsize=figsize)
     im = ax.imshow(all_mat, clim=lims, cmap="Blues")
+
+    x = np.arange(0, 1)
+    y = np.arange(0, 7)
+    X, Y = np.meshgrid(x, y)
+    U = av_mat_arrows_x
+    V = np.zeros(7)
+    ax.quiver(X, Y, V, U, pivot="mid", scale=1.8, width=0.06)
+    ax.set_xticks(np.arange(-0.5, 1, 1), minor=True)
+    ax.set_yticks(np.arange(-0.5, 7, 1), minor=True)
+    ax.grid(which="minor", color="k", linestyle="-", linewidth=0.2)
+    ax.tick_params(which="minor", length=0)
+
     ax.axes.get_xaxis().set_ticks([])
     ax.axes.get_yaxis().set_ticks([])
     ax.set_title(title, pad=10)

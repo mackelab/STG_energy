@@ -112,7 +112,6 @@ def generate_and_store_data(
     net1=None,
     net2=None,
     net3=None,
-    
 ):
     all_conditional_correlations = []
     all_energy_images = []
@@ -159,6 +158,10 @@ def generate_and_store_data(
             dim2 = p[1]
             nets = {"PM": net1, "LP": net2, "PY": net3}
             net_ = nets[n]
+            if regression_net is None:
+                used_net = net_
+            else:
+                used_net = regression_net
             (
                 all_conditional_correlations,
                 all_energy_images,
@@ -179,7 +182,7 @@ def generate_and_store_data(
                 all_energy_specific,
                 all_energy_per_spike,
                 all_num_spikes_per_burst,
-                regression_net=regression_net, # net_
+                regression_net=used_net,  # net_
                 theta_mean=theta_mean,
                 theta_std=theta_std,
                 x_mean=x_mean,
