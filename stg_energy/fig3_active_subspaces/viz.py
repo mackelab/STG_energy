@@ -263,15 +263,15 @@ def scatter_sensitivity_consumption(all_fractions, eigenvector, arrows: bool = T
     if arrows:
         # right
         ax.arrow(
-            0.59, 0.21, 0.08, -0.065, head_width=0.04, head_length=0.04, facecolor="k"
+            0.59, 0.19, 0.08, -0.065, head_width=0.04, head_length=0.04, facecolor="k"
         )
         # middle
-        ax.arrow(
-            0.185, 0.649, 0.08, -0.065, head_width=0.04, head_length=0.04, facecolor="k"
-        )
+        # ax.arrow(
+        #     0.185, 0.649, 0.08, -0.065, head_width=0.04, head_length=0.04, facecolor="k"
+        # )
         # left
         ax.arrow(
-            0.07, 0.46, 0.0, -0.1, head_width=0.04, head_length=0.04, facecolor="k"
+            0.075, 0.73, 0.0, -0.1, head_width=0.04, head_length=0.04, facecolor="k"
         )
 
     ax.plot([0.0, 0.7], [0.0, 0.7], color="grey", alpha=0.5)
@@ -873,7 +873,7 @@ def plot_synapses(
     params_to_plot,
     labels=True,
     width=0.5,
-    ylim=[0, 150],
+    ylim=[1, 100],
     height=1.0,
     labelpad=-10,
 ):
@@ -882,6 +882,7 @@ def plot_synapses(
     fig, ax1 = plt.subplots(1, 1, figsize=(width, height))
 
     successful_samples[-7:] = np.exp(successful_samples[-7:])
+    # successful_samples[-7:] = np.log10(successful_samples[-7:])
     plotted_params = successful_samples[params_to_plot]
     plotted_params = plotted_params * np.asarray(all_mult)[params_to_plot]
 
@@ -896,6 +897,7 @@ def plot_synapses(
     else:
         ax1.set_xticks(range(len(params_to_plot[cond])))
         ax1.set_xticklabels([])
+    ax1.set_yscale("log")
     ax1.set_ylabel(r"$\overline{g} \;\; \mathrm{(nS)}$", labelpad=labelpad)
     ax1.set_yticks(ylim)
     ax1.set_ylim(ylim)

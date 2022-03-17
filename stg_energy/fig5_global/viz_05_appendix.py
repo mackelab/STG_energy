@@ -132,7 +132,7 @@ def plot_synapses(
     params_to_plot,
     labels=True,
     width=0.5,
-    ylim=[0, 150],
+    ylim=[1.0, 150],
     height=1.0,
     labelpad=-10,
 ):
@@ -155,7 +155,8 @@ def plot_synapses(
     else:
         ax1.set_xticks(range(len(params_to_plot[cond])))
         ax1.set_xticklabels([])
-    ax1.set_ylabel(r"$\overline{g} \;\; \mathrm{(nS)}$", labelpad=labelpad)
+    ax1.set_ylabel(r"$\overline{g}$" + "\n" + "$\mathrm{(nS)}$", labelpad=labelpad)
+    ax1.set_yscale("log")
     ax1.set_yticks(ylim)
     ax1.set_ylim(ylim)
     ax1.set_xlim(-0.6, 1.6)
