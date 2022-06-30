@@ -47,3 +47,15 @@ def _index_of_nth_min_or_max(all_projected, num_to_ignore: int, min_or_max: str)
     num_correction_indices = np.sum(num_lower)
 
     return index_of_minimal + num_correction_indices
+
+
+def obtain_max_in_dimension(params):
+    mean_params = torch.as_tensor(params)
+    means1 = mean_params[:8]
+    means2 = mean_params[8:16]
+    means3 = mean_params[16:24]
+    means = torch.stack([means1, means2, means3])
+    largest_means, _ = torch.max(means, dim=0)
+    repeated_means = largest_means.repeat(3)
+    mean_params = torch.cat([repeated_means, mean_params[24:]]).numpy()
+    return mean_params

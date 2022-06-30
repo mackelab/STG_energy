@@ -157,6 +157,7 @@ def energy_scape_voltage(all_out_targets, t, figsize, cols, offset=None):
         axV.set_ylabel("Voltage PY (mV)")
         axV.tick_params(axis="both", which="major")
         axV.set_ylim([-65, 50])
+        axV.set_xlim([0, 40])
         axV.set_xticks([])
 
         axV.spines["right"].set_visible(False)
@@ -171,7 +172,7 @@ def energy_scape_voltage(all_out_targets, t, figsize, cols, offset=None):
 
         iii += 1
 
-    plt.subplots_adjust(wspace=0.3, hspace=0.3)
+    plt.subplots_adjust(wspace=0.2, hspace=0.3)
 
 
 def energy_scape_energy(
