@@ -781,7 +781,7 @@ def plot_energy_of_theta(
     time_len,
     offset=60000,
     figsize=(2.2, 1.2),
-    labelpad=0,
+    labelpad=2,
 ):
     successful_samples = min_energy_theta[index]
     trace = simulator(
