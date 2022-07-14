@@ -13,7 +13,7 @@ def generate_figure_small(
     end=38000,
     ind1=0,
     ind2=1,
-    ymax=80000,
+    ymax=300,
     name="1",
 ):
     time_vector = time_vec[: end - start]
@@ -21,11 +21,16 @@ def generate_figure_small(
     voltage0, power_power0, current_power0 = energy_of_current(
         data1, ind1, cond_ind, reversal_potential, start, end
     )
+    power_power0 = power_power0 / 1000  # / 1000 / 0.03 * 0.025
+    current_power0 = current_power0 / 1.6 / 3  # / 1000 / 0.03 * 0.025
     ratio0 = np.sum(power_power0) / np.sum(current_power0)
 
     voltage1, power_power1, current_power1 = energy_of_current(
         data1, ind2, cond_ind, reversal_potential, start, end
     )
+    power_power1 = power_power1 / 1000
+    current_power1 = current_power1 / 1.6 / 3
+
     ratio1 = np.sum(power_power1) / np.sum(current_power1)
 
     with mpl.rc_context(fname="../../../.matplotlibrc"):
@@ -33,7 +38,7 @@ def generate_figure_small(
         col_current = "g"
         col_power = "#fc8d59"
 
-        fig, ax = plt.subplots(2, 2, figsize=(6, 4.5))
+        fig, ax = plt.subplots(2, 2, figsize=(6, 3.5))
 
         ax[0, 0].plot(time_vector, voltage0, c="k")
         ax[0, 0].scatter([7], [43], c="#d7301f")
@@ -49,11 +54,11 @@ def generate_figure_small(
             ax[0, ind_].set_xticks([0, 30])
             ax[0, ind_].set_xticklabels([])
 
-        ax[1, 0].plot(time_vector, power_power0, c=col_current)
-        ax[1, 0].plot(time_vector, current_power0 * 50, c=col_power)
+        ax[1, 0].plot(time_vector, current_power0, c=col_current)
+        ax[1, 0].plot(time_vector, power_power0, c=col_power)
 
-        ax[1, 1].plot(time_vector, power_power1, c=col_current)
-        ax[1, 1].plot(time_vector, current_power1 * 50, c=col_power)
+        ax[1, 1].plot(time_vector, current_power1, c=col_current)
+        ax[1, 1].plot(time_vector, power_power1, c=col_power)
 
         for ind_ in range(2):
             ax[1, ind_].set_xlabel("Time (ms)")
