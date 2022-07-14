@@ -70,10 +70,12 @@ def generate_figure_small(
         return ratio0, ratio1
 
 
-def energy_of_current(data, index, conductance_ind, reversal_potential, start, end):
+def energy_of_current(
+    data, index, conductance_ind, reversal_potential, start, end, neuron_ind=0
+):
 
-    voltage = data[index]["voltage"][0, start:end]
-    conductance = data[index]["membrane_conds"][0, conductance_ind, start:end]
+    voltage = data[index]["voltage"][neuron_ind, start:end]
+    conductance = data[index]["membrane_conds"][neuron_ind, conductance_ind, start:end]
 
     current_square = (voltage - reversal_potential) ** 2
     current = np.abs(voltage - reversal_potential)
