@@ -47,7 +47,7 @@ def my_simulator(params_with_seeds):
     return summary_stats(out_target, stats_customization=custom_stats, t_burn_in=1000)
 
 
-num_repeats = 40
+num_repeats = 32
 
 for _ in range(num_repeats):
 
@@ -71,7 +71,7 @@ for _ in range(num_repeats):
 
     sim_outs = pd.concat(data)
 
-    general_path = "/home/macke/mdeistler57/Documents/STG_energy/results/"
+    general_path = "/mnt/qb/work/macke/mdeistler57/Documents/stg_energy_collection/STG_energy/results/"
     path_to_data = "simulation_data_Tube_MLslurm_cluster/01_simulate_11deg/data/"
     filename = f"sim_{global_seed}"
     sim_outs.to_pickle(

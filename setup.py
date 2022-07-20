@@ -23,7 +23,7 @@ REQUIRED = [
     "tqdm",
     "cython",
     "numpy",
-    "pandas",
+    "pandas==1.2.4",
     "sbi",
     "scipy",
     "svgutils==0.3.1",
