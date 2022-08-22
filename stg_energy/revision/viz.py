@@ -6,7 +6,7 @@ from pyloric.utils import energy_of_membrane
 
 def vis_trace(out_target, t, figsize, offset=None, ylabel=True):
     fig, ax = plt.subplots(1, 1, figsize=figsize)
-    time_len = int(3 * 1000 / 0.025)  # 3 seconds
+    time_len = int(10 * 1000 / 0.025)  # 3 seconds
     if offset is None:
         offset = 164000
     print("Showing :  ", time_len / 40000, "seconds")
@@ -39,7 +39,7 @@ def vis_trace(out_target, t, figsize, offset=None, ylabel=True):
     ax.set_xlabel("Time (seconds)")
     ax.set_ylim([-90, 320])
     ax.set_xlim([-0.1, (t[:time_len:5] / 1000)[-1] + 0.2])
-    ax.set_xlim([0, 3])
+    ax.set_xlim([0, 10])
 
     # scale bar
     end_val_x = (t[:time_len:5] / 1000)[-1] + 0.15
