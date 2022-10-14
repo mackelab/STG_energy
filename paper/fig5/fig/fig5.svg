@@ -624,7 +624,7 @@
 </g>
     </g>
     <g transform="translate(156.75, 12.375) scale(1) ">
-      <g transform="translate(0.0, 0.0) scale(1) translate(0, 0) scale(1.25) "><sodipodi:namedview xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" pagecolor="#ffffff" bordercolor="#666666" borderopacity="1" objecttolerance="10" gridtolerance="10" guidetolerance="10" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-width="2488" inkscape:window-height="1376" id="namedview60" showgrid="false" inkscape:zoom="0.90570104" inkscape:cx="103.23495" inkscape:cy="443.30301" inkscape:window-x="72" inkscape:window-y="393" inkscape:window-maximized="1" inkscape:current-layer="g471" inkscape:pagecheckerboard="0" inkscape:document-units="mm" width="168.89999mm" height="150.5mm" inkscape:object-paths="true" inkscape:snap-intersection-paths="true" inkscape:object-nodes="false" inkscape:snap-nodes="false"/>
+      <g transform="translate(0.0, 0.0) scale(1) translate(0, 0) scale(1.25) "><sodipodi:namedview xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" pagecolor="#ffffff" bordercolor="#666666" borderopacity="1" objecttolerance="10" gridtolerance="10" guidetolerance="10" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-width="2488" inkscape:window-height="1376" id="namedview60" showgrid="false" inkscape:zoom="0.90570104" inkscape:cx="366.56688" inkscape:cy="380.36834" inkscape:window-x="72" inkscape:window-y="393" inkscape:window-maximized="1" inkscape:current-layer="axes_1" inkscape:pagecheckerboard="0" inkscape:document-units="mm" width="168.89999mm" height="150.5mm" inkscape:object-paths="true" inkscape:snap-intersection-paths="true" inkscape:object-nodes="false" inkscape:snap-nodes="false"/>
   <defs xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" id="defs4220">
     <inkscape:path-effect effect="bspline" id="path-effect6647" is_visible="true" lpeversion="1" weight="33.3333" steps="2" helper_size="0" apply_no_weight="true" apply_with_weight="true" only_selected="false"/>
     <inkscape:path-effect effect="attach_path" id="path-effect6296" lpeversion="1" is_visible="true" startpath="" startposition="0" startcurvestart="0,0 , 20,0" startcurveend="0,0 , 20,0" endpath="" endposition="0" endcurvestart="0,0 , 20,0" endcurveend="0,0 , 20,0"/>
@@ -1692,24 +1692,12 @@
                 <path d="m 152.17923,74.71875 v 3.5" id="use994" style="stroke:#000000;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:round"/>
               </g>
             </g>
-            <g id="text_10">
-              <text style="font-style:normal;font-weight:normal;font-stretch:normal;font-size:8px;font-family:'DejaVu Sans';text-anchor:middle" x="152.17923" y="87.797501" id="text999">0</text>
-            </g>
           </g>
           <g id="xtick_6">
             <g id="line2d_6">
               <g id="g1005">
                 <path d="m 203.42413,74.71875 v 3.5" id="use1003" style="stroke:#000000;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:round"/>
               </g>
-            </g>
-            <g id="text_11">
-              <text style="font-style:normal;font-weight:normal;font-stretch:normal;font-size:8px;font-family:'DejaVu Sans';text-anchor:middle" x="203.42413" y="87.797501" id="text1008">30</text>
-            </g>
-          </g>
-          <g id="text_12">
-            <!-- Energy ($\mu$J/s) -->
-            <g transform="translate(152.16168,99.54125)" id="g1016">
-              <text id="text1014"><tspan style="font-size:8px;font-family:'DejaVu Sans'" x="0 5.054688 10.125 15.046875 18.335938 23.414062 28.148438 30.691406 33.8125 38.902344 41.261719 43.957031 48.125" y="-0.921875" id="tspan1012">Energy&#160;(&#956;J/s)</tspan></text>
             </g>
           </g>
         </g>
@@ -1794,24 +1782,12 @@
               <path d="m 85.560867,74.71875 v 3.5" id="use657" style="stroke:#000000;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:round"/>
             </g>
           </g>
-          <g id="text_6">
-            <text style="font-style:normal;font-weight:normal;font-stretch:normal;font-size:8px;font-family:'DejaVu Sans';text-anchor:middle" x="85.560867" y="87.797501" id="text662">0</text>
-          </g>
         </g>
         <g id="xtick_4">
           <g id="line2d_4">
             <g id="g668">
               <path d="m 136.80577,74.71875 v 3.5" id="use666" style="stroke:#000000;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:round"/>
             </g>
-          </g>
-          <g id="text_7">
-            <text style="font-style:normal;font-weight:normal;font-stretch:normal;font-size:8px;font-family:'DejaVu Sans';text-anchor:middle" x="136.80577" y="87.797501" id="text671">30</text>
-          </g>
-        </g>
-        <g id="text_8">
-          <!-- Energy ($\mu$J/s) -->
-          <g transform="translate(85.543316,99.54125)" id="g679">
-            <text id="text677"><tspan style="font-size:8px;font-family:'DejaVu Sans'" x="0 5.054688 10.125 15.046875 18.335938 23.414062 28.148438 30.691406 33.8125 38.902344 41.261719 43.957031 48.125" y="-0.921875" id="tspan675">Energy&#160;(&#956;J/s)</tspan></text>
           </g>
         </g>
       </g>
@@ -2132,9 +2108,6 @@
                 <use style="stroke:#000000;stroke-width:1.5" x="18.942499" xlink:href="#m35ad740efb" y="74.71875" id="use317" width="100%" height="100%"/>
               </g>
             </g>
-            <g id="text_1">
-              <text style="font-style:normal;font-weight:normal;font-stretch:normal;font-size:8px;font-family:'DejaVu Sans';text-anchor:middle" x="18.942499" y="87.797501" id="text322">0</text>
-            </g>
           </g>
           <g id="xtick_2">
             <g id="line2d_2">
@@ -2142,22 +2115,22 @@
                 <use style="stroke:#000000;stroke-width:1.5" x="70.187401" xlink:href="#m35ad740efb" y="74.71875" id="use326" width="100%" height="100%"/>
               </g>
             </g>
-            <g id="text_2">
-              <text style="font-style:normal;font-weight:normal;font-stretch:normal;font-size:8px;font-family:'DejaVu Sans';text-anchor:middle" x="70.187401" y="87.797501" id="text331">30</text>
-            </g>
-          </g>
-          <g id="text_3">
-            <!-- Energy ($\mu$J/s) -->
-            <g transform="translate(18.924949,99.54125)" id="g339">
-              <text id="text337"><tspan style="font-size:8px;font-family:'DejaVu Sans'" x="0 5.054688 10.125 15.046875 18.335938 23.414062 28.148438 30.691406 33.8125 38.902344 41.261719 43.957031 48.125" y="-0.921875" id="tspan335">Energy&#160;(&#956;J/s)</tspan></text>
-            </g>
           </g>
         </g>
         <g id="patch_103" transform="matrix(1.1061704,0,0,1.1061704,-26.557881,-35.95833)">
           <path d="M 18.9425,74.71875 H 70.187398" style="fill:none;stroke:#000000;stroke-width:1.5;stroke-linecap:square;stroke-linejoin:miter" id="path347"/>
         </g>
         <path style="fill:#a42d00;fill-opacity:0.0997632;stroke:#0e1515;stroke-width:0.691487;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow2Lend)" d="m -80.715554,66.682152 21.143295,16.847569" id="path9467"/>
-        <text xml:space="preserve" style="font-style:normal;font-weight:normal;font-size:8.80389px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.275122" x="-102.38373" y="53.128044" id="text12408"><tspan sodipodi:role="line" id="tspan12406" style="font-size:8.80389px;stroke-width:0.275122" x="-102.38373" y="53.128044">Sample </tspan><tspan sodipodi:role="line" style="font-size:8.80389px;stroke-width:0.275122" x="-102.38373" y="64.132904" id="tspan13538">with MCMC</tspan></text>
+        <text xml:space="preserve" style="font-style:normal;font-weight:normal;font-size:8.80389px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.275122" x="-101.28325" y="53.128044" id="text12408"><tspan sodipodi:role="line" id="tspan12406" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.80389px;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0.275122" x="-101.28325" y="53.128044">Sample </tspan><tspan sodipodi:role="line" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.80389px;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0.275122" x="-101.28325" y="64.273674" id="tspan13538">with MCMC</tspan></text>
+        <text xml:space="preserve" style="font-style:normal;font-weight:normal;font-size:8.80389px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.275122" x="-3.8901787" y="69.085144" id="text31334"><tspan sodipodi:role="line" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.80389px;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0.275122" x="-3.8901787" y="69.085144" id="tspan31332">Energy (&#956;J/s)</tspan></text>
+        <text xml:space="preserve" style="font-style:normal;font-weight:normal;font-size:8.80389px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.275122" x="46.181969" y="59.180756" id="text49206"><tspan sodipodi:role="line" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.80389px;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0.275122" x="46.181969" y="59.180756" id="tspan49204">30</tspan></text>
+        <text xml:space="preserve" style="font-style:normal;font-weight:normal;font-size:8.80389px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.275122" x="-7.7418823" y="59.180756" id="text50626"><tspan sodipodi:role="line" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.80389px;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0.275122" x="-7.7418823" y="59.180756" id="tspan50624">0</tspan></text>
+        <text xml:space="preserve" style="font-style:normal;font-weight:normal;font-size:8.80389px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.275122" x="12.617119" y="174.7318" id="text52598"><tspan sodipodi:role="line" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.80389px;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0.275122" x="12.617119" y="174.7318" id="tspan52596">Energy (&#956;J/s)</tspan></text>
+        <text xml:space="preserve" style="font-style:normal;font-weight:normal;font-size:8.80389px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.275122" x="61.038517" y="164.82744" id="text52602"><tspan sodipodi:role="line" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.80389px;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0.275122" x="61.038517" y="164.82744" id="tspan52600">30</tspan></text>
+        <text xml:space="preserve" style="font-style:normal;font-weight:normal;font-size:8.80389px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.275122" x="9.8659058" y="164.82744" id="text52606"><tspan sodipodi:role="line" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.80389px;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0.275122" x="9.8659058" y="164.82744" id="tspan52604">0</tspan></text>
+        <text xml:space="preserve" style="font-style:normal;font-weight:normal;font-size:8.80389px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.275122" x="-94.130074" y="174.7318" id="text52930"><tspan sodipodi:role="line" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.80389px;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0.275122" x="-94.130074" y="174.7318" id="tspan52928">Energy (&#956;J/s)</tspan></text>
+        <text xml:space="preserve" style="font-style:normal;font-weight:normal;font-size:8.80389px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.275122" x="-45.158455" y="164.82744" id="text52934"><tspan sodipodi:role="line" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.80389px;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0.275122" x="-45.158455" y="164.82744" id="tspan52932">30</tspan></text>
+        <text xml:space="preserve" style="font-style:normal;font-weight:normal;font-size:8.80389px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.275122" x="-96.881294" y="164.82744" id="text52938"><tspan sodipodi:role="line" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.80389px;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0.275122" x="-96.881294" y="164.82744" id="tspan52936">0</tspan></text>
       </g>
       <path style="fill:none;stroke:#000000;stroke-width:2.89134;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:3.6;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow2Lend)" d="m -826.72112,260.01241 c -7.71027,-13.00132 -15.42126,-26.00386 -26.55715,-31.93536 -11.13589,-5.93149 -25.69696,-4.79072 -34.71108,0.006 -9.01411,4.79693 -12.4802,13.24948 -15.30155,21.76834 -2.82136,8.51886 -4.99802,17.10391 -7.1745,25.68823" id="path26634" inkscape:path-effect="#path-effect26716" inkscape:original-d="m -826.72112,260.01241 c -7.70997,-13.0015 -15.42096,-26.00404 -23.13293,-39.00755 -14.56003,1.14177 -29.1211,2.28254 -43.68313,3.42231 -3.46508,8.45351 -6.93117,16.90606 -10.39824,25.35757 -2.17566,8.58602 -4.35232,17.17107 -6.52998,25.75509" sodipodi:nodetypes="ccccc"/>
       <path style="fill:none;stroke:#000000;stroke-width:2.51339;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow2Lend)" d="m -755.83471,646.88736 c -2.67489,-7.90299 -5.3502,-15.80723 -8.16125,-24.2176 -2.81104,-8.41037 -5.75783,-17.32693 -8.705,-26.24466" id="path27048" inkscape:path-effect="#path-effect27050" inkscape:original-d="m -755.83471,646.88736 c -2.67429,-7.90319 -5.34961,-15.80743 -8.02591,-23.71264 -2.94578,-8.91553 -5.89256,-17.83209 -8.84034,-26.74962" sodipodi:nodetypes="ccc"/>

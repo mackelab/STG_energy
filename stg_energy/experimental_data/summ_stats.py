@@ -374,13 +374,14 @@ def analyse_neuron(t, spike_times):
             neuron_type = "non-bursting"
 
         cycle_lengths = np.diff(burst_times.T[0])
-        print("cycle_lengths", cycle_lengths)
-        print("len", len(cycle_lengths))
-        print(np.std(cycle_lengths[:10]))
-        print(np.mean(cycle_lengths[:10]))
-        print("cycle_lengths[:10]", cycle_lengths[:10])
+        num_vals = 200
+        # print(f"first {num_vals} cycle_lengths", cycle_lengths[:num_vals])
+        # print("len", len(cycle_lengths))
+        print("std of first ten: ", np.std(cycle_lengths[:num_vals]))
+        # print("mean of first ten: ", np.mean(cycle_lengths[:num_vals]))
+        # print("cycle_lengths[:10]", cycle_lengths[:num_vals])
         avg_cycle_length = np.average(cycle_lengths)
-        print("avg_cycle_length", avg_cycle_length)
+        # print("avg_cycle_length", avg_cycle_length)
 
     # A neuron is classified as silent if it doesn't spike enough and as tonic if it spikes too much
     # Recall that tmax is given in ms
