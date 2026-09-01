@@ -46,9 +46,18 @@ python 01_merge_simulated_data.py
 
 python train_flow_R3.py
 ```
-### Git LFS
+### Data
 
-To store the data files, we use Git LFS.
+The contents of `results/` (simulation outputs, trained neural density estimators, and analysis artifacts) are hosted on the Hugging Face Hub as a dataset, rather than in this repository's Git LFS, at:
+
+**https://huggingface.co/datasets/mackelab/STG_energy**
+
+To fetch this data into a local checkout of this repository:
+```
+pip install -U "huggingface_hub[cli]"
+hf download mackelab/STG_energy --repo-type dataset --local-dir results --exclude ".gitattributes" --exclude "README.md"
+```
+This downloads the dataset's files directly into `results/`, matching the original layout (the `--exclude` flags skip the dataset repo's own `.gitattributes` and dataset card, which aren't part of the actual data). No Hugging Face account or token is required since the dataset is public.
 
 ### Citation
 ```

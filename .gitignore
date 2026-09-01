@@ -133,3 +133,8 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# results/ data now hosted on https://huggingface.co/datasets/mackelab/STG_energy
+# (see README.md "Data" section for how to restore it locally)
+/results/*
+!/results/__init__.py
